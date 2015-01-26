@@ -1,3 +1,7 @@
+#####
+*.gcode
+*.stl
+
 ##### Fichiers en vrac
 Thumbs.db
 *~
