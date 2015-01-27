@@ -85,13 +85,13 @@ module zone_libre()
 
 module plaque_elec()
 {
-	translate([0,sqrt(pow(140/sin(45/2)/2,2)-pow(140/2,2))+15-39-70+3/2,(hauteur_colonne+50)/2])
+	translate([0,sqrt(pow(140/sin(45/2)/2,2)-pow(140/2,2))+15-39-70+3/2-3,(hauteur_colonne+50)/2])
 		cube([140+2*sqrt(pow(140,2)/2),3,hauteur_colonne+50],center=true);
 }
 
 module zone_plaque_elec()
 {
-	translate([0,sqrt(pow(140/sin(45/2)/2,2)-pow(140/2,2))+15-39-70+140,(hauteur_colonne+50)/2-0.1])
+	translate([0,sqrt(pow(140/sin(45/2)/2,2)-pow(140/2,2))+15-39-70+140-3,(hauteur_colonne+50)/2-0.1])
 		cube([140+2*sqrt(pow(140,2)/2)+0.2,280,hauteur_colonne+50+0.2],center=true);
 }
 
@@ -133,14 +133,15 @@ intersection()
 					trou();
 			translate([sqrt(pow(dia_int/2,2)-pow(cote_carre/2,2))+cote_carre/2,-cote_carre/2-epaisseur-1,0])
 					trou();
-			for (i=[-55,0,65])
+			for (i=[-68,0,80])
 			{
 				rotate([0,0,i])
-						trou_plaque();
+						translate([0,abs(i)/65*13-3,0])
+							trou_plaque();
 			}
 		}
 		//renforts
-		for (i=[-30,30,90])
+		for (i=[-35,35,90])
 		{
 			rotate([0,0,i])
 				triangle();
@@ -154,12 +155,16 @@ intersection()
 	}
 }
 
-//zone accecible pour mettre le support
+//zone accessible pour mettre le support
 #difference()
 {
-	//zone_robot();
-	//zone_libre();
-	//zone_plaque_elec();
+	zone_robot();
+	zone_libre();
+	zone_plaque_elec();
+	translate([-103/2,sqrt(pow(140/sin(45/2)/2,2)-pow(140/2,2))+15-39-70-3-39,-5])
+		cylinder(d=8,h=2*hauteur_colonne+10);
+	translate([103/2,sqrt(pow(140/sin(45/2)/2,2)-pow(140/2,2))+15-39-70-3-39,-5])
+		cylinder(d=8,h=2*hauteur_colonne+10);
 }
 
 //zone_plaque_elec();
