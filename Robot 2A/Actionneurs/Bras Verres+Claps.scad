@@ -1,7 +1,7 @@
 $fn=50;
 
 translate([-9,6,10])rotate([90,0,0])difference() {
-	cube([18,40,6]);
+	translate([0,-2,0])cube([18,42,6]);
 	union() {
 		translate([9,10,0]) cylinder(20, d=2.5);
 		translate([9,20,0]) cylinder(20, d=8);
@@ -9,7 +9,7 @@ translate([-9,6,10])rotate([90,0,0])difference() {
 	}
 }
 translate([0,0,0]) {
-	translate([-9,-36,0])cube([13.5,42,10]);
+	translate([-9,-36,0])cube([14,42,10]);
 	translate([-9,0,5]) cube([18,6,5]);
 	translate([4,-42,5]) rotate([-90,0,0]) cylinder(48, d=10);	
 }
