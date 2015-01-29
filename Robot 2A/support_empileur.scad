@@ -1,4 +1,4 @@
-$fn=50;
+$fn=100;
 dia_ext=140+30;
 dia_int=80.5;
 cote_carre=30.5;
@@ -156,7 +156,7 @@ intersection()
 }
 
 //zone accessible pour mettre le support
-#difference()
+/*#difference()
 {
 	zone_robot();
 	zone_libre();
@@ -165,7 +165,7 @@ intersection()
 		cylinder(d=8,h=2*hauteur_colonne+10);
 	translate([103/2,sqrt(pow(140/sin(45/2)/2,2)-pow(140/2,2))+15-39-70-3-39,-5])
 		cylinder(d=8,h=2*hauteur_colonne+10);
-}
+}*/
 
 //zone_plaque_elec();
 //zone_ouverture();
