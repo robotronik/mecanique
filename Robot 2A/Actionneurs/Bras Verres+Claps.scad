@@ -1,15 +1,25 @@
 $fn=50;
 
-translate([-8,0,5]) cube([18,6,40]);
-translate([-135,0,0]) {
-	cube([140,10,10]);
-	translate([0,10,5]) rotate([0,90,0]) cylinder(140, d=10);
-
-	translate([140,10,5]) rotate([90,0,0]) cylinder(10, d=10);	
-	translate([140,10,5]) sphere(5);
+translate([-9,6,10])rotate([90,0,0])difference() {
+	cube([18,40,6]);
+	union() {
+		translate([9,10,0]) cylinder(20, d=2.5);
+		translate([9,20,0]) cylinder(20, d=8);
+		translate([9,30,0]) cylinder(20, d=2.5);
+	}
+}
+translate([0,0,0]) {
+	translate([-9,-36,0])cube([13.5,42,10]);
+	translate([-9,0,5]) cube([18,6,5]);
+	translate([4,-42,5]) rotate([-90,0,0]) cylinder(48, d=10);	
 }
 
-translate([-140,0,0]) {
+translate([-135,-42,0]) {
+	cube([140,10,10]);
+	translate([0,10,5]) rotate([0,90,0]) cylinder(140, d=10);
+}
+
+translate([-140,-42,0]) {
 	translate([0,5,0]) cube([10, 85, 5]);
  	translate([5,5,5]) rotate([-90,0,0]) cylinder(85, d=10);
 
