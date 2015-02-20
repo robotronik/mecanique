@@ -16,19 +16,24 @@ module commutateur_couleur() {
 	translate([-x_interr/2-12,0])circle(d=5.05);
 	translate([ x_interr/2+12,0])circle(d=5.05);
 }
+
 module vis_pour_profiles() {
     translate([cote_octogone/2-cote_profile/2,
                rayon_inscrit  -cote_profile/2]) trou_vis();
 	
 }
 
-module tous_les_trous() {
-	translate([0,70]) commutateur_couleur();
-	vis_pour_profiles();
-
+module alimentation() {
+  translate([ 8, 0]) circle(d=4);
+  translate([-8, 0]) circle(d=4);
+  translate([ 0,32]) circle(d=4);
 }
 
-
+module tous_les_trous() {
+	translate([0,70]) commutateur_couleur();
+	translate([70-10.5,rayon_inscrit-10.5]) trou_vis();
+	translate([0,-130])alimentation();
+}
 
 
 module plateau() {
