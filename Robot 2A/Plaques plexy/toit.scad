@@ -23,11 +23,10 @@ module vis_pour_profiles() {
     translate([-cote_octogone/2+cote_profile/2,-rayon_inscrit+cote_profile/2]) trou_vis();
 }
 module support_tourelle() {
-	translate([+21,21]) trou_vis(); 
-	translate([+21,21]) trou_vis(); 
-	translate([+21,21]) trou_vis(); 
-	translate([+21,21]) trou_vis(); 
-
+	translate([+21,+21]) trou_vis(); 
+	translate([+21,-21]) trou_vis(); 
+	translate([-21,+21]) trou_vis(); 
+	translate([-21,-21]) trou_vis(); 
 }
 
 module alimentation() {
@@ -40,6 +39,7 @@ module tous_les_trous() {
 	translate([0,70]) commutateur_couleur();
 	vis_pour_profiles();
 	translate([0,-130])alimentation();
+	support_tourelle();
 }
 
 
@@ -47,7 +47,8 @@ module plateau() {
   difference() {
      rotate([0,0,22.5])circle(rayon_circons, $fn=8);
      union () {  translate([rayon_inscrit, 0]) circle(d=cote_octogone);
-                  translate([-rayon_inscrit, 0]) square([140, 70], center=true);
+                  translate([-rayon_inscrit, 0]) square([150, 100], center=true);
+	}
   }
 }
 
