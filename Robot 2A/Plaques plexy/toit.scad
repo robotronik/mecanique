@@ -42,8 +42,13 @@ module tous_les_trous() {
 
 
 module plateau() {
-	rotate([0,0,22.5])circle(rayon_circons, $fn=8);
+  difference() {
+     rotate([0,0,22.5])circle(rayon_circons, $fn=8);
+     union () {  translate([rayon_inscrit, 0]) circle(d=cote_octogone);
+                  translate([-rayon_inscrit, 0]) square([140, 70], center=true);
+  }
 }
+
 difference() {
 	plateau();
 	tous_les_trous();
