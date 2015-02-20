@@ -1,6 +1,6 @@
 cote=140;
 rayon=cote/(sqrt(2-sqrt(2)));
-rayon_inscrit=a*cotan(3.1415/8)/2;
+rayon_inscrit=cote*1.2071;
 
 module trou_vis() { circle(d=4); }
 
@@ -15,7 +15,7 @@ module commutateur_couleur() {
 }
 module tous_les_trous() {
 	translate([0,70]) commutateur_couleur();
-	translate([70-2,70-10.5])trou_vis();
+	translate([70-2,rayon_inscrit-10.5]) trou_vis();
 
 }
 
@@ -24,7 +24,6 @@ module tous_les_trous() {
 
 module plateau() {
 	rotate([0,0,22.5])circle(rayon, $fn=8);
-
 }
 
 difference() {
