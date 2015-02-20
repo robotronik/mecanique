@@ -6,7 +6,7 @@ rayon_inscrit=cote_octogone*1.2071;
 cote_profile=21;
 
 module trou_vis()    { circle(d=4 ); }
-module arretUrgence(){ circle(d=45); }
+module arretUrgence(){ circle(d=22.5); }
 
 module commutateur_couleur() {
 	x_interr=30;
@@ -36,10 +36,11 @@ module alimentation() {
 }
 
 module tous_les_trous() {
-	translate([0,70]) commutateur_couleur();
 	vis_pour_profiles();
-	translate([0,-130])alimentation();
 	support_tourelle();
+	translate([0,-130]) alimentation();
+	translate([0,  75]) commutateur_couleur();
+	translate([0, 120]) arretUrgence();
 }
 
 
