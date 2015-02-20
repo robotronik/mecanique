@@ -5,7 +5,7 @@ rayon_inscrit=cote_octogone*1.2071;
 
 cote_profile=21;
 
-module trou_vis()    { circle(d=4); }
+module trou_vis()    { circle(d=4 ); }
 
 module arretUrgence(){ circle(d=45); }
 
@@ -18,9 +18,14 @@ module commutateur_couleur() {
 }
 
 module vis_pour_profiles() {
-    translate([cote_octogone/2-cote_profile/2,
-               rayon_inscrit  -cote_profile/2]) trou_vis();
-	
+    translate([ cote_octogone/2-cote_profile/2,
+                rayon_inscrit  -cote_profile/2]) trou_vis();
+    translate([-cote_octogone/2+cote_profile/2,
+                rayon_inscrit  -cote_profile/2]) trou_vis();
+    translate([ cote_octogone/2-cote_profile/2,
+               -rayon_inscrit  +cote_profile/2]) trou_vis();
+    translate([-cote_octogone/2+cote_profile/2,
+               -rayon_inscrit  +cote_profile/2]) trou_vis();
 }
 
 module alimentation() {
@@ -31,7 +36,7 @@ module alimentation() {
 
 module tous_les_trous() {
 	translate([0,70]) commutateur_couleur();
-	translate([70-10.5,rayon_inscrit-10.5]) trou_vis();
+	vis_pour_profiles();
 	translate([0,-130])alimentation();
 }
 
