@@ -1,13 +1,16 @@
 module plateau() {
-  square([100+2*140+20, 315], center=true);
+  translate([0,0]) square([140, 315]);
+  translate([140*1,0]) #square([140, 315]);
+  translate([140*2,0]) square([140, 315]);
+  translate([140*3,0]) #square([20, 315]);
 }
 
 module trou_bras() {
-  square([80, 50], center=true);
+    translate([12,170]) square([78, 90]);    
 }
 
 module trou_avant() {
-  square([300, 320], center=true);
+  square([300, 160]);
 }
 
 module toutes_vis() {
@@ -18,8 +21,8 @@ module toutes_vis() {
 }
 
 module tous_les_trous() {
-  translate([5O,20])trou_bras();
-  translate([200,-160])trou_avant();
+  translate([140,0])trou_bras();
+  translate([140+140,0])trou_avant();
   toutes_vis();
 }
 
@@ -27,4 +30,5 @@ difference() {
   plateau();
   tous_les_trous();
 }
+
   
