@@ -3,14 +3,14 @@ cote_octogone=140;
 rayon_circons=cote_octogone/(sqrt(2-sqrt(2)));
 rayon_inscrit=cote_octogone*1.2071;
 
-cote_profile=21;
+cote_profile=11;
 
 module trou_vis()    { circle(d=4 ); }
-module arretUrgence(){ circle(d=22.5); }
+module arretUrgence(){ circle(d=23); }
 
 module commutateur_couleur() {
-	x_interr=30;
-	y_interr=25;
+	x_interr=31;
+	y_interr=22;
 	square([x_interr,y_interr], center=true);
 	translate([-x_interr/2-12,0])circle(d=5.05);
 	translate([ x_interr/2+12,0])circle(d=5.05);
@@ -30,9 +30,9 @@ module support_tourelle() {
 }
 
 module alimentation() {
-  translate([ 8, 0]) circle(d=4);
-  translate([-8, 0]) circle(d=4);
-  translate([ 0,32]) circle(d=4);
+  translate([ 12, 0]) circle(d=11);
+  translate([-12, 0]) circle(d=11);
+  translate([ 0,32]) circle(d=6);
 }
 
 module tous_les_trous() {
