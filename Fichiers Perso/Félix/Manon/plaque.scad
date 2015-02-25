@@ -1,5 +1,6 @@
-largeur=80;
-longueur=120;
+
+largeur=60;
+longueur=60;
 
 diam_trou=4;
 espacement_x=8;
@@ -39,7 +40,7 @@ module trous() {
 	trou(5,3);
 }
 
-linear_extrude(2) difference() {
+linear_extrude(height=2) difference() {
 plaque();
 trous();
 }

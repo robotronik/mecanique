@@ -12,3 +12,4 @@ module mesAimants() {
 }
 
 difference() {monDome(); mesAimants();};
+//mesAimants();
