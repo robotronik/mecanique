@@ -1,50 +1,47 @@
 $fn=100;
 
+
 module barre() {
     translate([0,0,-3.5])cylinder(d=21,h=3.5);
-    translate([0,0,0])   cylinder(d=5.90,h=8);
-    translate([0,0,7])   cylinder(d=15,h=50);
-
-    difference() {
+    #difference() {
         cylinder(d=21,h=4);
-        translate([-20,-8.6,0])cube([40,20,4]);
+        translate([-20,-8.6,-0.1]) cube([40,20,4.2]);
+    }
+    translate([0,0,-0.1])    cylinder(d=5,h=2);
+    translate([0,0, 1.5])    cylinder(d=9,h=50);
+    translate([0,0,1.5+6.5]) cylinder(d=14,h=50);
+}
+module support_barre() {
+    difference() {
+    union (){cylinder(d=15, h=8); translate([0,-15/2])cube([40,15,8]);}
+    #barre();
     }
 }
 
 module pomme() {
-translate([0,-25,0])rotate([-90,0,0])cylinder(d=26,h=100);
+    translate([  0,-25,0])rotate([-90,0,0]) cylinder(d=23,h=100);
+    translate([-10,-25,0])#cube([20,100,20]);
 }
-module pla() {
-    cylinder(d=15, h=7);
-    translate([0,-15/2,0]) cube([40,15,15]);
-    translate([35,10,0]) rotate([0,0,180+45])support_pomme();
-/*translate([0,17/2,0])difference(){
-cube([30,21.5,9]);
-rotate([0,0,45])cube([40,30,9]);
-}*/
-}
-
 module support_pomme() {
-translate([2.5,-8.5,3]) cube([10,38.5,15]);
-translate([9.5,-8.5,3])rotate([-90,0,0])cylinder(d=6,h=38.5);
-translate([-6,-8.5,0]) cube([15.5,38.5,13]);
-translate([-5.9,-8.5,3])rotate([-90,0,0])cylinder(d=6,h=38.5);
-translate([-8.9,-8.5,2.5])rotate([0,-14.5,0])#cube([5,38.5,12.8]);
-difference() {
-translate([0,-10,18])rotate([-90,0,0])cylinder(d=30,h=40);
-translate([0,10,28])#cube([24,45,20], center=true);
-}
-}
+    translate([0,-1.5,18]) rotate([-90])cylinder(d=30,h=40);
 
+translate([2.5,0,3]) cube([10,38.5,15]);
+translate([9.5,0,3])rotate([-90,0,0])cylinder(d=6,h=38.5);
+translate([-6,0,0]) cube([15.5,38.5,13]);
+translate([-5.9,0,3])rotate([-90,0,0])cylinder(d=6,h=38.5);
+translate([-8.9,0,2.5])rotate([0,-14.5,0])#cube([5,38.5,12.8]);
+}
 
 module main() {
-difference() {
-pla();
-{
-	barre();
-	translate([35,10,18]) rotate([0,0,180+45])#pomme();
-}
-}
+    difference() {
+    union() {
+        support_barre();
+        translate([35,15,0]) rotate([0,0,180+45]) support_pomme();
+    }
+    translate([35,15,18]) rotate([0,0,180+45])#pomme();
+    }
 }
 
-main();
+//main();
+
+linear_extrude(100,scale=2) scale([1,0.7]) circle(10);
