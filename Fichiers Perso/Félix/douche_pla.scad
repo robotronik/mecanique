@@ -1,9 +1,16 @@
 $fn=100;
-diam=0;
 
-module metal() {
-#import("douche_metal.stl", convexity=3);
+module barre() {
+    translate([0,0,-3.5])cylinder(d=21,h=3.5);
+    translate([0,0,0])   cylinder(d=5.90,h=8);
+    translate([0,0,7])   cylinder(d=15,h=50);
+
+    difference() {
+        cylinder(d=21,h=4);
+        translate([-20,-8.6,0])cube([40,20,4]);
+    }
 }
+
 module pomme() {
 translate([0,-25,0])rotate([-90,0,0])cylinder(d=26,h=100);
 }
@@ -34,7 +41,7 @@ module main() {
 difference() {
 pla();
 {
-	metal();
+	barre();
 	translate([35,10,18]) rotate([0,0,180+45])#pomme();
 }
 }
