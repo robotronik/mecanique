@@ -1,5 +1,8 @@
 $fn=100;
 
+rayon=42.3;
+nb_dents=floor(rayon*3.1415*2/10);
+
 module dent()
 {
 	cylinder(d=5,h=7);
@@ -15,11 +18,11 @@ module roue_dentee()
 {
 	difference()
 	{
-		cylinder(d=64.6,h=7);
-		for (i=[0:360/20:360])
+		cylinder(r=rayon,h=7);
+		for (i=[0:360/nb_dents:360])
 		{
 			rotate([0,0,i])
-				translate([32.3-2.5,0,0])
+				translate([rayon-2.5,0,0])
 					dent();
 		}
 	}
@@ -28,16 +31,16 @@ module roue_dentee()
 module roue_pleine() 
 {
 	roue_dentee();
-	cylinder(d=45, h=22);
+	cylinder(r=rayon-10, h=22);
 }
 
 module arbre_moteur() 
 {
 	translate([0,0,7]) cylinder(d=9,h=15);
-	translate([0,0,17]) rotate([90,0,180]) cylinder(d=3, h=23);
+	translate([0,0,17]) rotate([90,0,180]) cylinder(d=3, h=rayon);
 	#cylinder(d=3.5,h=8);
 }
-	
+
 difference()
 {
 	roue_pleine();
