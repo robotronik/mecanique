@@ -4,11 +4,7 @@ diametre=80;
 epaisseur=4;
 hauteur=10;
 dia_ext=10;
-<<<<<<< HEAD
 dia_trou=5.5;
-=======
-dia_trou=5;
->>>>>>> 42574bfbf3e790ee8b8e5ee4f4467d2a9eac35c1
 dia_trou_vis=5;
 
 difference()

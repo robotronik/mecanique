@@ -5,7 +5,7 @@ epaisseur=4;
 hauteur=10;
 dia_ext=10;
 dia_trou=5;
-dia_trou_vis=5;
+dia_trou_vis=5.5;
 //bras porte
 longueur_bras=40;
 largeur_bras=7;
@@ -80,12 +80,21 @@ module renfort()
 
 module partie_porte()
 {
-	attache();
-	translate([longueur_bras-largeur_bras/2+diametre/2,0,0])
-		rotate([0,0,180])
-			bras();
-	translate([diametre/2,1,0])
-		renfort();
+	difference()
+	{
+		union()
+		{
+			attache();
+			translate([longueur_bras-largeur_bras/2+diametre/2,0,0])
+				rotate([0,0,180])
+					bras();
+			translate([diametre/2,1,0])
+				renfort();
+
+			translate([diametre/2+dia_ext/2,0,0]) cylinder(d=dia_ext,h=hauteur);
+		}
+		translate([diametre/2+dia_ext/2,0,-0.1]) cylinder(d=dia_trou_vis,h=hauteur+0.2);
+}
 }
 
 module trous_servo()
@@ -95,7 +104,7 @@ module trous_servo()
 	translate([-ecart_vis/2,0,-0.1]) cylinder(d=dia_vis,h=hauteur+0.2);	
 }
 
-module partie_servo();
+module partie_servo()
 {
  	difference()
 	{

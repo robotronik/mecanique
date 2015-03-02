@@ -1,11 +1,11 @@
 $fn=100;
 i=44;
 module empileur() {
-	cube([38,10,10]);
-	cube([7,22,10]);
-	translate([31,0,0]) cube([7,22,10]);
-	translate([11,-12,-50]) #cube([18,12,100]);
-	translate([7,10,-25]) #cube([24,12,50]);
+	#cube([38,10,20]);
+	#cube([7,22,20]);
+	translate([31,0,0]) cube([7,22,20]);
+	translate([11,-12,-50]) cube([18,12,100]);
+	translate([7,10,-25]) cube([24,12,50]);
 }
 module plaque() {
 	intersection() {
@@ -19,11 +19,15 @@ module plaque() {
 	}
 square([44,22]);
 }
+module pla() {
+translate([-3,0,-5])linear_extrude(height = 20)plaque();
+translate([44+15-10,-44,-5])cube([10,26,45]);
 
+}
 
 
 difference() {
-translate([-3,0,-5])linear_extrude(height = 20)plaque();
-#empileur();
+pla();
+empileur();
 }
 
