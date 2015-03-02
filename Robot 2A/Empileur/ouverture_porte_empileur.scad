@@ -4,13 +4,14 @@ diametre=80;
 epaisseur=4;
 hauteur=10;
 dia_ext=10;
-dia_trou=5;
-dia_trou_vis=5.5;
+dia_trou=5.5;
+dia_trou_vis=5;
 //bras porte
 longueur_bras=40;
 largeur_bras=7;
 long_trou_bras=20;
 larg_trou_bras=4;
+angle_bras=-25;
 //bras servo
 longueur_bras_servo=50;
 largeur_bras_servo=7;
@@ -78,6 +79,14 @@ module renfort()
 	}
 }
 
+module rotate_bras(angle)
+{
+	translate([longueur_bras-2*larg_trou_bras,0,0])
+		rotate(angle,v=[0,0,1])
+			translate([-longueur_bras+2*larg_trou_bras,0,0])
+				child();
+}
+
 module partie_porte()
 {
 	difference()
@@ -87,13 +96,14 @@ module partie_porte()
 			attache();
 			translate([longueur_bras-largeur_bras/2+diametre/2,0,0])
 				rotate([0,0,180])
-					bras();
-			translate([diametre/2,1,0])
-				renfort();
+					rotate_bras(angle_bras)
+						bras();
+			//translate([diametre/2,1,0])
+				//renfort();
 
 			translate([diametre/2+dia_ext/2,0,0]) cylinder(d=dia_ext,h=hauteur);
 		}
-		translate([diametre/2+dia_ext/2,0,-0.1]) cylinder(d=dia_trou_vis,h=hauteur+0.2);
+		translate([diametre/2+dia_ext/2,0,-0.1]) cylinder(d=dia_trou,h=hauteur+0.2);
 }
 }
 
@@ -115,5 +125,6 @@ module partie_servo()
 	}
 }
 
-rotate([0,0,90]) partie_porte();
+rotate([0,0,90])
+	partie_porte();
 partie_servo();
