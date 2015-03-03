@@ -14,7 +14,7 @@ module renvoi_coude() { translate([0,-20,0]){
 
 module support() {
     translate([25,0,20])cube([50,40+2*5,40], center=true);
-    linear_extrude(height=3) minkowski() { union(){
+    linear_extrude(height=30) minkowski() { union(){
             translate([12.5,0])#square([25-4,67-4], center=true);
             translate([25,0])#square([5,67-4], center=true);
             translate([12.5+25,0])#square([25-4,87-4], center=true);
@@ -27,3 +27,7 @@ difference() {
 support();
 renvoi_coude();
 }
+
+
+linear_extrude(height = w, center = true, convexity = 10, twist = 0)
+polygon(points=[[0,0],[10,0],[0,10]], paths=[[0,1,2]]);
