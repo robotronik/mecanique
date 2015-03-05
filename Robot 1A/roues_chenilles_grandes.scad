@@ -1,8 +1,8 @@
 $fn=100;
 
-rayon=42.3;
+rayon=22.3;
 nb_dents=floor(rayon*3.1415*2/10);
-
+echo(nb_dents);
 module dent()
 {
 	cylinder(d=5,h=7);
