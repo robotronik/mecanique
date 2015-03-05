@@ -11,7 +11,7 @@ longueur_bras=40;
 largeur_bras=7;
 long_trou_bras=20;
 larg_trou_bras=4;
-angle_bras=-25;
+angle_bras=-50;
 //bras servo
 longueur_bras_servo=50;
 largeur_bras_servo=7;
