@@ -13,13 +13,13 @@ long_trou_bras=4;
 larg_trou_bras=4;
 angle_bras=-0;
 //bras servo
-longueur_bras_servo=50;
+longueur_bras_servo=40;
 largeur_bras_servo=7;
 long_trou_bras_servo=4;
 larg_trou_bras_servo=4;
 dia_vis=2;
 dia_milieu=4;
-pos_milieu=40;
+pos_milieu=35;
 ecart_vis=10;
 
 module ele_bras(long,larg,haut)
@@ -125,6 +125,6 @@ module partie_servo()
 	}
 }
 
-rotate([0,0,90])
-	partie_porte();
+//rotate([0,0,0]) translate([-45,0,0])
+//	partie_porte();
 partie_servo();

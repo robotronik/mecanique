@@ -7,11 +7,11 @@ dia_ext=10;
 dia_trou=5.5;
 dia_trou_vis=5;
 //bras porte
-longueur_bras=40;
+longueur_bras=35;
 largeur_bras=7;
-long_trou_bras=20;
+long_trou_bras=5;
 larg_trou_bras=4;
-angle_bras=-50;
+angle_bras=-20;
 //bras servo
 longueur_bras_servo=50;
 largeur_bras_servo=7;
@@ -94,6 +94,7 @@ module partie_porte()
 		union()
 		{
 			attache();
+			translate([0,7,0])
 			translate([longueur_bras-largeur_bras/2+diametre/2,0,0])
 				rotate([0,0,180])
 					rotate_bras(angle_bras)
@@ -127,4 +128,4 @@ module partie_servo()
 
 rotate([0,0,90])
 	partie_porte();
-partie_servo();
+//partie_servo();

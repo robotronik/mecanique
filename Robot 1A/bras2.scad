@@ -2,10 +2,10 @@ $fn=100;
 
 module bras()
 {
-	translate([0,-5,-4]) cube([75,10,8]); //bras principal
-	translate([65,-45,4]) rotate([0,90,0]) cube([8,40,10]); //bras secondaire
-	translate([45,-55,4]) rotate([0,90,0]) cube([8,20,50]); //maintien tapis
-	translate([45,-47.5,-4]) rotate([0,90,0]) cube([5,5,50]);
+	translate([0,-5,-3]) cube([75,10,8]); //bras principal
+	translate([65,-45,5]) rotate([0,90,0]) cube([8,40,10]); //bras secondaire
+	translate([45,-55,5]) rotate([0,90,0]) cube([8,20,50]); //maintien tapis
+	translate([45,-47.5,-3]) rotate([0,90,0]) cube([5,5,50]);
 	
 	
 
