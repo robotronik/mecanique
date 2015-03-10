@@ -7,12 +7,12 @@ vis_empileur_d=5;
 axe_d_int=5.5;
 axe_d_ext=10.;
 axe_d_tete=9;
-long_securite = empileur_d/2 + 50;
+long_securite = empileur_d/2 + 10;
 hauteur_attache=10;
 epaisseur_attache=4;
 
 //bras porte
-longueur_bras=35;
+longueur_bras=25;
 largeur_bras=7;
 long_trou_bras=4;
 larg_trou_bras=4;
@@ -54,7 +54,7 @@ module attache() {
 	translate([-long_securite,-long_securite,-empileur_h/2])
 		cube([long_securite*2,long_securite,empileur_h]);
 	translate([13.6,37.6,-empileur_h/2])rotate([0,0,15])
-		cube([long_securite*2,long_securite,empileur_h]);
+		cube([long_securite,long_securite,empileur_h]);
 	}
 	translate([empileur_d/2+axe_d_ext/2,0,0])
 		cylinder(d=axe_d_ext,h=hauteur_attache);
