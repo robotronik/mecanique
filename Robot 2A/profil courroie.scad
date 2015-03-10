@@ -6,7 +6,7 @@ long_totale=long_trou+long_bosse;
 largeur_courroie=10;
 hauteur_courroie=2.4;
 
-epaisseur_plaque=2;
+epaisseur_plaque=0.5;
 
 module dent() {
 	difference() {
@@ -31,7 +31,7 @@ translate([0,0,hauteur_courroie+epaisseur_plaque]) rotate([-90,0,0])
 	linear_extrude(height=largeur_courroie) courroie_inverse(4);
 
 epaisseur_supports=2;
-hauteur_supports=15;
+hauteur_supports=13.5;
 translate([0,-epaisseur_supports])
 	cube([4*long_totale,epaisseur_supports,hauteur_supports]);
 translate([0,largeur_courroie])
