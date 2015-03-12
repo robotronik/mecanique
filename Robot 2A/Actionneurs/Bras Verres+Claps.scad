@@ -1,5 +1,5 @@
 $fn=50;
-
+module tout() {
 translate([-9,6,10])rotate([90,0,0])difference() {
 	translate([0,-6,0])cube([18,34,6]);
 	
@@ -9,12 +9,9 @@ translate([-9,6,10])rotate([90,0,0])difference() {
 		translate([7,24.5,0]) cylinder(20, d=2.5);
 	}
 }
-translate([4,0,5])polyhedron(
-  points=[ [0,0,0], [0,0,30], [0,-15,0],
-          [5,0,0],[5,0,30],[5,-15,0]],
-  faces=[ [0,1,2],[3,4,5],[0,1,3],[1,3,4],
-              [1,2,4],[2,5,4],[0,2,3],[5,2,3] ] );
-
+translate([2.5,-18,7]) difference(){cube([6.5,18,28]);
+rotate([57.5,0,0])cube([7,100,100]);
+}
 translate([0,0,0]) {
 	translate([-9,-56,0])cube([14,62,10]);
 	translate([5,-62,5]) rotate([-90,0,0]) cylinder(68, d=10);	
@@ -38,3 +35,5 @@ translate([-135,-62,0]) {
  		translate([5,0,5]) rotate([-90,0,0]) cylinder(10, d=10);
 	}
 }
+}
+tout();
