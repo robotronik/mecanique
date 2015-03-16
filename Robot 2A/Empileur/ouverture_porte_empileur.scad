@@ -1,5 +1,7 @@
 $fn=100;
 
+// L'axe du servo doit être (à peu près) à 35mm de la surface de l'empileur :)
+
 // Constantes
 empileur_d=80;
 empileur_h=40;
@@ -8,7 +10,7 @@ axe_d_int=5.5;
 axe_d_ext=10.;
 axe_d_tete=9;
 long_securite = empileur_d/2 + 10;
-hauteur_attache=10;
+hauteur_attache=1.8;
 epaisseur_attache=4;
 
 //bras porte
@@ -110,7 +112,7 @@ module partie_servo() {
         trous_servo(hauteur_attache);
 	}
     translate([20,0,0]) rotate([0,0,45])barre(20,largeur_bras,hauteur_attache);
-    translate([10,0,0]) rotate([0,0,90])barre(20,largeur_bras,hauteur_attache);
+    translate([10,0,0]) rotate([0,0,90])barre(30,largeur_bras,hauteur_attache);
 }
 
 partie_servo();
