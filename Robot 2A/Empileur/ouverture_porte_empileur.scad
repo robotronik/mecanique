@@ -11,6 +11,7 @@ axe_d_ext=10.;
 axe_d_tete=9;
 long_securite = empileur_d/2 + 10;
 hauteur_attache=10;
+hauteur_partie_servo=6;
 epaisseur_attache=4;
 
 //bras porte
@@ -26,7 +27,7 @@ long_trou_bras_servo=0;
 dia_vis=2;
 dia_milieu=4;
 pos_milieu=40;
-ecart_vis=10;
+ecart_vis=15;
 
 module empileur() {
     translate([0,0,-empileur_h/2]) {
@@ -104,25 +105,20 @@ module partie_porte() {
 		empileur();
 	}
 }
-//partie_porte();
-module partie_mileu() {
-	difference() {
-		bras_type_b(16.7,largeur_bras,long_trou_bras);
-		translate([0,0,-0.1])barre(0,larg_trou_bras,hauteur_attache+0.2);
-	}
-}
 
 module partie_servo() {
  	difference() {
+        union() {
 		translate([-9,0,0])
-            barre(longueur_bras_servo+9,largeur_bras,hauteur_attache);
-        trous_servo(hauteur_attache);
+            barre(longueur_bras_servo+9,largeur_bras,hauteur_partie_servo);
+        translate([20,0,0]) rotate([0,0,45])barre(20,largeur_bras,hauteur_partie_servo);
+        translate([10,0,0]) rotate([0,0,90])barre(30,largeur_bras,hauteur_partie_servo);
+        }
+        trous_servo(hauteur_partie_servo);
 	}
-    translate([20,0,0]) rotate([0,0,45])barre(20,largeur_bras,hauteur_attache);
-    translate([10,0,0]) rotate([0,0,90])barre(30,largeur_bras,hauteur_attache);
 }
 
-charniere_simple();
+partie_servo();
 // Non utilisés :
 
 module renfort()
