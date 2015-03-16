@@ -10,7 +10,7 @@ axe_d_int=5.5;
 axe_d_ext=10.;
 axe_d_tete=9;
 long_securite = empileur_d/2 + 10;
-hauteur_attache=1.8;
+hauteur_attache=10;
 epaisseur_attache=4;
 
 //bras porte
@@ -84,6 +84,13 @@ module bras_type_b(long, larg, long_trou) {
 			barre(0, larg_trou_bras, hauteur_attache+0.2);
 	}
 }
+module charniere_simple() {
+	difference() {
+        attache();
+		vis_empileur();
+		empileur();
+	}
+}
 
 module partie_porte() {
 	difference() {
@@ -115,7 +122,7 @@ module partie_servo() {
     translate([10,0,0]) rotate([0,0,90])barre(30,largeur_bras,hauteur_attache);
 }
 
-partie_servo();
+charniere_simple();
 // Non utilisés :
 
 module renfort()
