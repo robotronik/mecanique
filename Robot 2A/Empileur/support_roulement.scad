@@ -1,5 +1,5 @@
 $fn=30;
-hauteur_roulement=9-4;
+hauteur_roulement=9-4+0.5;
 longueur_axe=22-2*2;
 
 module support()
@@ -8,13 +8,13 @@ module support()
         cube([5,longueur_axe,3]);
     difference()
     {
-        cube([14,longueur_axe+14,2.5]);
+        cube([14,longueur_axe+20,2.5]);
         union()
         {
             
             translate([10,21,-0.1]) cylinder(d=3,h=3.2);
-            translate([4,28,-0.1]) cylinder(d=3,h=3.2);
-            translate([10,28,-0.1]) cylinder(d=3,h=3.2);
+            translate([4,34,-0.1]) cylinder(d=3,h=3.2);
+            translate([10,34,-0.1]) cylinder(d=3,h=3.2);
         }
     }
 
@@ -34,6 +34,6 @@ difference()
         support();
         cylindre_h(3+2,longueur_axe);
     }
-    cylindre_h(3,longueur_axe);
-    translate([0,longueur_axe/2-2,0]) cylindre_h(8.5,4);
+    cylindre_h(3.1,longueur_axe);
+    translate([0,longueur_axe/2-2,0]) cylindre_h(9,4);
 }
