@@ -11,6 +11,7 @@ axe_d_ext=10.;
 axe_d_tete=9;
 long_securite = empileur_d/2 + 100;
 hauteur_attache=10;
+hauteur_partie_servo=6;
 epaisseur_attache=4;
 
 //bras porte
