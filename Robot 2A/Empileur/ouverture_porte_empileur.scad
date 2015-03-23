@@ -65,7 +65,7 @@ module trous_servo(haut)
 {
 	translate([0,0,-0.1]) cylinder(d=dia_milieu,h=haut+0.2);
 	translate([ecart_vis/2,0,-0.1]) cylinder(d=dia_vis,h=haut+0.2);
-	translate([-ecart_vis/2,0,-0.1]) cylinder(d=dia_vis,h=haut+0.2);	
+	translate([-ecart_vis/2,0,-0.1]) cylinder(d=dia_vis,h=haut+0.2);
 }
 
 
