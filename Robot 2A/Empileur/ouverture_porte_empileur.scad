@@ -1,15 +1,15 @@
 $fn=100;
 
-// L'axe du servo doit être (à peu près) à 35mm de la surface de l'empileur :)
+include <../../Modèles/Servo.scad>
 
 // Constantes
 empileur_d=80;
-empileur_h=40;
+empileur_h=100;
 vis_empileur_d=5;
 axe_d_int=5.5;
 axe_d_ext=10.;
 axe_d_tete=9;
-long_securite = empileur_d/2 + 10;
+long_securite = empileur_d/2 + 100;
 hauteur_attache=10;
 hauteur_partie_servo=6;
 epaisseur_attache=4;
@@ -27,7 +27,7 @@ long_trou_bras_servo=0;
 dia_vis=2;
 dia_milieu=4;
 pos_milieu=40;
-ecart_vis=15;
+ecart_vis=10;
 
 module empileur() {
     translate([0,0,-empileur_h/2]) {
@@ -42,12 +42,12 @@ module vis_empileur() {
     translate([0,0,hauteur_attache/2])
         for(i=[1,2]) {
             rotate([0,90,i*70/3])
-                cylinder(d=vis_empileur_d,h=long_securite);
+                #cylinder(d=vis_empileur_d,h=empileur_d/2+epaisseur_attache+0.1);
         }
-    translate([empileur_d/2+axe_d_ext/2,0,-empileur_h/2])
-        cylinder(d=axe_d_int,h=empileur_h+0.2);
-    translate([empileur_d/2+axe_d_ext/2,0,hauteur_attache])
-        cylinder(d=axe_d_tete,h=empileur_h+0.2);
+        
+    translate([empileur_d/2+4,7,-5])
+        rotate([0,0,15])translate([10,10,0])
+            #cylinder(d=3, h=30);
 }
 
 module attache() {
@@ -58,8 +58,8 @@ module attache() {
     translate([13.6,37.6,-empileur_h/2])rotate([0,0,15])
         cube([long_securite,long_securite,empileur_h]);
     }
-    translate([empileur_d/2+axe_d_ext/2,0,0])
-        cylinder(d=axe_d_ext,h=hauteur_attache);
+    //translate([empileur_d/2+axe_d_ext/2,0,0])
+    //    #cylinder(d=axe_d_ext,h=hauteur_attache);
 }
 
 
@@ -89,17 +89,29 @@ module charniere_simple() {
 	difference() {
         attache();
 		vis_empileur();
-		empileur();
+        empileur();
 	}
 }
 
+module partie_simple() {
+	difference() {
+		union() {
+			attache();
+			translate([(empileur_d+axe_d_ext)/2-1,3.5,0])
+				rotate([0,0,66])
+					barre(17.3,largeur_bras,hauteur_attache);
+		}
+		vis_empileur();
+		empileur();
+	}
+}
 module partie_porte() {
 	difference() {
 		union() {
 			attache();
-			translate([(empileur_d+axe_d_ext)/2,0,0])
-				rotate([0,0,-20])
-					bras_type_b(longueur_bras,largeur_bras,long_trou_bras);
+			translate([(empileur_d+axe_d_ext)/2-1.5,0,0])
+				rotate([0,0,-68])
+					barre(20.5,largeur_bras,hauteur_attache);
 		}
 		vis_empileur();
 		empileur();
@@ -107,19 +119,32 @@ module partie_porte() {
 }
 
 module partie_servo() {
- 	difference() {
-        union() {
-		translate([-9,0,0])
-            barre(longueur_bras_servo+9,largeur_bras,hauteur_partie_servo);
-        translate([20,0,0]) rotate([0,0,45])barre(20,largeur_bras,hauteur_partie_servo);
-        translate([10,0,0]) rotate([0,0,90])barre(30,largeur_bras,hauteur_partie_servo);
-        }
-        trous_servo(hauteur_partie_servo);
+	difference() {
+		union() {
+            charniere_simple();
+            translate([empileur_d/2+4,7,-45+hauteur_attache]) 
+                rotate([0,0,15])difference() {
+                    union() {
+                        translate([-4-16,-6.5,-3])cube([28+12,35,33]);
+                        translate([-4-16,-6.5,-3])cube([20,44,38]);
+                        
+                    }
+                    #servo();
+                }
+		}
+    translate([-long_securite,-long_securite,-empileur_h/2])
+        cube([long_securite*2,long_securite,empileur_h]);
+		vis_empileur();
+		empileur();
 	}
 }
 
+mirror([0,1,0])
 partie_servo();
+translate([0,0,hauteur_attache]) partie_porte();
 // Non utilisés :
+//translate([empileur_d/2+4,7,-45+hauteur_attache])
+//    rotate([0,0,15])translate([10,10,36]) cylinder(d=3, h=2);
 
 module renfort()
 {

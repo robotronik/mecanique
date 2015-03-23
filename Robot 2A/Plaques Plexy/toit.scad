@@ -53,7 +53,10 @@ module plateau() {
   }
 }
 
-difference() {
-	plateau();
-	tous_les_trous();
+module toit() {
+    difference() {
+        plateau();
+        tous_les_trous();
+    }
 }
+toit();
