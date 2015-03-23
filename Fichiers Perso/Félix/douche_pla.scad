@@ -19,8 +19,8 @@ module support_barre() {
 }
 
 module pomme() {
-    translate([  0,-25,0])rotate([-90,0,0]) cylinder(d=23,h=100);
-    translate([-10,-25,0])#cube([20,100,20]);
+    translate([  0,-50,0])rotate([-90,0,0]) cylinder(d=21,h=100);
+    translate([0,0,10])#cube([19,100,20], center=true);
 }
 module support_pomme() {
     translate([0,-1.5,18]) rotate([-90])cylinder(d=30,h=40);
@@ -42,6 +42,6 @@ module main() {
     }
 }
 
-//main();
+main();
 
-linear_extrude(100,scale=2) scale([1,0.7]) circle(10);
+//linear_extrude(100,scale=2) scale([1,0.7]) circle(10);

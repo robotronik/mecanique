@@ -24,7 +24,7 @@ module porte_servo()
 	{
 		translate([0,25,-3]) rotate([180,0,0]) cube([56.4,24,32]);
 		translate([50,20,-6]) rotate([180,0,270]) servo();
-		translate([50,7,-9]) cube([7,9,3]);
+		//translate([50,7,-9]) cube([7,9,3]);
 		translate([50,4,-25]) cube([7,15,2]);
 		translate([0,4,-25]) cube([7,15,2]);
 	}
