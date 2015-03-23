@@ -5,7 +5,11 @@ module courbe() {
 			cylinder(20, r=65);
 		}
 		cube([70, 70, 20]);
-	}
+    }
+    difference() {
+        cylinder(20, r=5);
+        cylinder(20, r=2);
+    }
 }
 
 module pales() {

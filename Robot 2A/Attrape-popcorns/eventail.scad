@@ -16,4 +16,3 @@ difference() {
 	pales();
 	cylinder(20, r=5);
 }
-translate([-80,20,0])sphere(d=40);
