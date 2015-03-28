@@ -9,6 +9,10 @@ module partie_simple() {
 					barre(17.3,largeur_bras,hauteur_attache);
             translate([empileur_d/2+4,7,0])
                 rotate([0,0,15])translate([10,10,0])
+					rotate([0,0,140])
+                        barre(17.3,largeur_bras,hauteur_attache);
+            translate([empileur_d/2+4,7,0])
+                rotate([0,0,15])translate([10,10,0])
                     cylinder(d=axe_d_ext, h=hauteur_attache);
 		}
         translate([empileur_d/2+4,7,-5])
