@@ -1,6 +1,6 @@
 $fn=100;
 
-dia_couronne=200;
+dia_couronne=201;
 hauteur_couronne=42;
 epaisseur=4;
 largeur_base=12;
