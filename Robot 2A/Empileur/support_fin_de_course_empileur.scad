@@ -1,12 +1,13 @@
 $fn=50;
 dia_PVC=81;
 dia_trous=3;
-larg=15;
+larg=20;
 long=25;
 long_switch=21;
 larg_switch=7;
 prof_switch=10;
 dist_trous=10;
+avancement_switch=3;
 
 module PVC()
 {
@@ -72,7 +73,7 @@ module support_complet()
     difference()
     {
         support_base();
-        translate([-4,0,0])
+        translate([-avancement_switch,0,0])
         union()
         {
             scale([2,1,1.1])
