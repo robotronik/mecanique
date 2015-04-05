@@ -1,12 +1,15 @@
 $fn=50;
 dia_PVC=81;
 dia_trous=3;
-larg=15;
+larg=20;
 long=25;
 long_switch=21;
 larg_switch=7;
 prof_switch=10;
-dist_trous=10;
+dist_trous=9.5;
+avancement_trous=4;
+dia_tete_vis=6.5;
+dist_tete=12;
 
 module PVC()
 {
@@ -57,13 +60,25 @@ module support_base()
 
 module trous()
 {
-    translate([7,0,5+long-long_switch])
+    translate([7,0,5+long-long_switch+0.5])
     rotate([90,0,0])
         union()
         {
             cylinder(d=dia_trous,h=larg,center=true);
+            difference()
+            {
+                cylinder(d=dia_tete_vis,h=larg,center=true);
+                cylinder(d=dia_tete_vis+0.2,h=dist_tete,center=true);
+            }
             translate([0,dist_trous,0])
+            {
                 cylinder(d=dia_trous,h=larg,center=true);
+                difference()
+                {
+                    cylinder(d=dia_tete_vis,h=larg,center=true);
+                    cylinder(d=dia_tete_vis+0.2,h=dist_tete,center=true);
+                }
+            }
         }
 }
 
@@ -72,7 +87,7 @@ module support_complet()
     difference()
     {
         support_base();
-        translate([-4,0,0])
+        translate([-avancement_trous,0,0])
         union()
         {
             scale([2,1,1.1])
