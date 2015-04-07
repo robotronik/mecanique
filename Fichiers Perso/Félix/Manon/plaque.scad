@@ -1,5 +1,5 @@
 
-largeur=60;
+largeur=50;
 longueur=60;
 
 diam_trou=4;
@@ -16,7 +16,8 @@ square([longueur,largeur]);
 module trou(x,y) {
 translate([marge_x+espacement_x*x,
            marge_y+espacement_y*y])
-circle(d=diam_trou, $fn=100);
+/*circle(d=diam_trou, $fn=100);*/
+square([espacement_x,6]);
 }
 
 module trous() {
