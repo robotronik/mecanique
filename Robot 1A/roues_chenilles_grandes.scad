@@ -32,12 +32,12 @@ module roue_pleine()
 {
 	roue_dentee();
 	cylinder(r=rayon-15, h=22);
-	translate([0,0,22]) cylinder(d=11,h=6);
+	//translate([0,0,22]) cylinder(d=11,h=6);
 }
 
 module arbre_moteur() 
 {
-	translate([0,0,7]) cylinder(d=9,h=21);
+	translate([0,0,7]) cylinder(d=10.3,h=21);
 	translate([0,0,18.5]) rotate([90,0,180]) cylinder(d=4, h=rayon);
 	#cylinder(d=3.5,h=8);
 }

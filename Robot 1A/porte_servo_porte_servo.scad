@@ -2,7 +2,7 @@ $fn=100;
 
 module base()
 {
-		translate([0,25,-28]) cube([5,8,25]);
+		translate([0,25,-28]) cube([3,8,25]);
 }
 
 module vis()
