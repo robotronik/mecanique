@@ -67,32 +67,32 @@ module moteur_et_roue() {
             cube([50,120,50], center=true);
     }*/
     translate([35,0,hauteur_interm-25])
-            cube([50,120,50], center=true);
+            cube([50,119,50], center=true);
     // Roue motrice
-    translate([0,entraxe_roues/2-8,20])rotate([90,0,0])
+    translate([0,entraxe_roues/2-8,30])rotate([90,0,0])
         cylinder(h = larg_roues-25, r=30, center=true);
     translate([-15,entraxe_roues_cod/2-44,hauteur_bas])
-        cube([30,20,30]);
+        cube([30,20,50]);
     // Roue codeuse
-    translate([0,entraxe_roues_cod/2+10,10])rotate([90,0,0])
+    translate([0,entraxe_roues_cod/2+10,20])rotate([90,0,0])
         cylinder(h = larg_roues_cod-3, r=20, center=true);
     translate([-10,entraxe_roues_cod/2+12,hauteur_bas])
-        cube([20,20,20]);
+        cube([20,20,30]);
     
     // Courroie
-    translate([0,entraxe_roues_cod/2-54,20]) rotate([0,17,0]) {
+    translate([0,entraxe_roues_cod/2-54,30]) rotate([0,17,0]) {
         translate([0,10,0])
-            #rotate([90,0,0])cylinder(h=10,d=28);
-        translate([0,10,120])
-                #rotate([90,0,0])cylinder(h=10,d=28);
+            rotate([90,0,0])cylinder(h=10,d=28);
+        translate([0,10,110])
+                rotate([90,0,0])cylinder(h=10,d=28);
         difference() {
             minkowski() {
-                cube([0.1,10,120]);
+                cube([0.1,10,110]);
                 rotate([90,0,0])cylinder(h=0.1,d=40);
             }
-            minkowski() {
-                cube([0.1,10,120]);
-                rotate([90,0,0])cylinder(h=0.1,d=30);
+            translate([0,1])minkowski() {
+                cube([0.3,10,110]);
+                rotate([90,0,0])cylinder(h=2,d=30);
             }
         }
     }
