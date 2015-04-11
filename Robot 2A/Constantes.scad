@@ -23,6 +23,9 @@ hauteur_haut=hauteur_robot-epaisseur_plexy;
 hauteur_plexy=310;
 larg_pliure=cote_octogone/sqrt(2);
 
+
+cote_profile=11;
+
 //base bas
 rayon_evidee=70;
 entraxe_roues=180+45;

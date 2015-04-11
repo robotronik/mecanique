@@ -1,9 +1,6 @@
 $fn=100;
-cote_octogone=140;
-rayon_circons=cote_octogone/(sqrt(2-sqrt(2)));
-rayon_inscrit=cote_octogone*1.2071;
 
-cote_profile=11;
+include <../Constantes.scad>;
 
 module trou_vis()    { circle(d=4 ); }
 module arretUrgence(){ circle(d=23); }
