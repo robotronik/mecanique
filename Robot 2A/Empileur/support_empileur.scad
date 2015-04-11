@@ -114,46 +114,49 @@ module base()
 	}
 }
 
-//construction du support
-intersection()
-{
-	union()
-	{
-		//trous
-		difference()
-		{
-			base();
-			for (i=[-45,0,45])
-			{
-				rotate([0,0,i])
-					translate([0,dia_int/2-1,abs(i/45)*20-10])	
-						trou();
-			}
-			translate([sqrt(pow(dia_int/2,2)-pow(cote_carre/2,2))+cote_carre/2,cote_carre/2-1,0])
-					trou();
-			translate([sqrt(pow(dia_int/2,2)-pow(cote_carre/2,2))+cote_carre/2,-cote_carre/2-epaisseur-1,0])
-					trou();
-			for (i=[-68,0,80])
-			{
-				rotate([0,0,i])
-						translate([0,abs(i)/65*13-3,0])
-							trou_plaque();
-			}
-		}
-		//renforts
-		for (i=[-35,35,90])
-		{
-			rotate([0,0,i])
-				triangle();
-		}
-	}
-	difference()
-	{
-		zone_robot();
-		translate([0,-0.5,0])
-			zone_plaque_elec();
-	}
+module support_empileur() {
+    //construction du support
+    intersection()
+    {
+        union()
+        {
+            //trous
+            difference()
+            {
+                base();
+                for (i=[-45,0,45])
+                {
+                    rotate([0,0,i])
+                        translate([0,dia_int/2-1,abs(i/45)*20-10])	
+                            trou();
+                }
+                translate([sqrt(pow(dia_int/2,2)-pow(cote_carre/2,2))+cote_carre/2,cote_carre/2-1,0])
+                        trou();
+                translate([sqrt(pow(dia_int/2,2)-pow(cote_carre/2,2))+cote_carre/2,-cote_carre/2-epaisseur-1,0])
+                        trou();
+                for (i=[-68,0,80])
+                {
+                    rotate([0,0,i])
+                            translate([0,abs(i)/65*13-3,0])
+                                trou_plaque();
+                }
+            }
+            //renforts
+            for (i=[-35,35,90])
+            {
+                rotate([0,0,i])
+                    triangle();
+            }
+        }
+        difference()
+        {
+            zone_robot();
+            translate([0,-0.5,0])
+                zone_plaque_elec();
+        }
+    }
 }
+support_empileur();
 
 //zone accessible pour mettre le support
 /*#difference()
