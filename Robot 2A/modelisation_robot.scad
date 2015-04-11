@@ -3,9 +3,15 @@ use <Plaques Alu/plaques.scad>
 use <Plaques Plexy/coté.scad>
 use <Plaques Plexy/toit.scad>
 use <Empileur/support_empileur.scad>
+use <Empileur/ouverture_porte_partie_servo.scad>
+use <Empileur/ouverture_porte_partie_simple.scad>
+use <Empileur/ouverture_porte_partie_porte.scad>
+$fn=50;
 
 hauteur_demi_lune=0;
 angle_demi_lune=90;
+angle_porte_empileur=0;
+
 module structure() {
     translate([0,0,hauteur_bas])
         linear_extrude(height=epaisseur_alu) plaque_bas();
@@ -69,6 +75,12 @@ module empileur() {
     translate([-145,0,hauteur_interm + epaisseur_alu])
         rotate([0,0,-90])
         support_empileur();
+    translate([-145,0,hauteur_interm + epaisseur_alu+100])
+        rotate([0,0,125])partie_servo_avec_servo();
+    
+    translate([-145,0,hauteur_bas + epaisseur_alu+100])
+        rotate([0,0,125])mirror([0,1,0]) partie_simple();
+        
     translate([-145,0,0])
         empileur_technique();
 }
@@ -80,7 +92,7 @@ module empileur_technique() {
     translate([2,-empileur_d/2-19,
         hauteur_demi_lune+hauteur_bas+epaisseur_alu+5]) {
             #cube([6,6,100]);
-            translate([-15+3,6,0])cube([30,25,5]);
+            translate([-15+3,6,0])cube([30,20,5]);
             translate([12,22,5])rotate([angle_demi_lune,0])
                 translate([0,13,0])
                 difference() {
@@ -89,6 +101,29 @@ module empileur_technique() {
             }
         }
 }
+module empileur_porte() {
+    translate([-145,0,0]) 
+    translate([-13.525,52.875,0]) rotate([0,0,-angle_porte_empileur])
+    translate([13.525,-52.875,0]) {
+        
+        intersection() {
+            difference() {
+                cylinder(d=empileur_d, h=empileur_h);
+                cylinder(d=empileur_d_interieur, h=empileur_h);
+            }
+            translate([-empileur_d/2,0,empileur_h/2])
+                cube([empileur_d, 60, empileur_h], center=true);
+        }
+        translate([0,0,hauteur_bas + epaisseur_alu+100+12])
+            rotate([0,0,125]) partie_porte();
+        translate([0,0,hauteur_interm + epaisseur_alu+100+12])
+            rotate([0,0,125])
+        partie_porte();
+}
+    
+    
+}
 empileur();
+empileur_porte();
 structure();
 //plexy_tour();
