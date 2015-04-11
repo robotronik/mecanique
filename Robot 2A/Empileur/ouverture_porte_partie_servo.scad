@@ -11,7 +11,7 @@ module partie_servo() {
                         translate([-4-16,-6.5,-3])cube([20,44,38]);
                         
                     }
-                    #servo();
+                    servo();
                 }
 		}
     translate([-long_securite,-long_securite,-empileur_h/2])
@@ -20,5 +20,11 @@ module partie_servo() {
 		empileur();
 	}
 }
-
-mirror([0,1,0]) partie_servo();
+module partie_servo_avec_servo() {
+    mirror([0,1,0]) partie_servo();
+    mirror([0,1,0]) translate([empileur_d/2+4,7,-45+hauteur_attache]) 
+        rotate([0,0,15])difference()
+            servo();
+    
+}
+partie_servo_avec_servo();
