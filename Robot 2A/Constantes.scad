@@ -29,7 +29,7 @@ cote_profile=11;
 // Empileur
 empileur_d = 80;
 empileur_d_interieur=75;
-empileur_h = 320;
+empileur_h = 350;
 
 //base bas
 rayon_evidee=70;
