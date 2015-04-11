@@ -10,7 +10,7 @@ $fn=50;
 
 hauteur_demi_lune=0;
 angle_demi_lune=90;
-angle_porte_empileur=0;
+angle_porte_empileur=100;
 
 module structure() {
     translate([0,0,hauteur_bas])
@@ -114,9 +114,9 @@ module empileur_porte() {
             translate([-empileur_d/2,0,empileur_h/2])
                 cube([empileur_d, 60, empileur_h], center=true);
         }
-        translate([0,0,hauteur_bas + epaisseur_alu+100+12])
+        translate([0,0,hauteur_bas + epaisseur_alu+100+10])
             rotate([0,0,125]) partie_porte();
-        translate([0,0,hauteur_interm + epaisseur_alu+100+12])
+        translate([0,0,hauteur_interm + epaisseur_alu+100+10])
             rotate([0,0,125])
         partie_porte();
 }
@@ -126,4 +126,4 @@ module empileur_porte() {
 empileur();
 empileur_porte();
 structure();
-//plexy_tour();
+plexy_tour();
