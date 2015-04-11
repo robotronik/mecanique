@@ -18,14 +18,14 @@ module plaque_bas() {
 	}
 }
 
-module plaque_milieu() {
+module plaque_interm() {
 	difference() {
         rotate([0,0,360/16]) circle(r=rayon_circons,$fn=8);
         translate([-rayon_inscrit,0,0])
             circle(d=cote_octogone);
     }
 }
-//*
+/*
 plaque_bas();
-translate([0,0,300])plaque_milieu();
+translate([0,0,300])plaque_interm();
 //*/

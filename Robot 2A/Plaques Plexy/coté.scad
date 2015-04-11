@@ -29,7 +29,7 @@ module petit_bord_avant() {
 }
 
 
-module plaque_plate() {
+module cote_plat() {
     translate([0])
         arriere();
     translate([1*cote_octogone,0])
@@ -40,7 +40,7 @@ module plaque_plate() {
         petit_bord_avant();
 }
 
-module plaque_pliee() {
+module cote_plie() {
     translate([0,0,-larg_pliure])
         rotate([0,-45])
             translate([0,0,-5])

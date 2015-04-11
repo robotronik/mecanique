@@ -14,10 +14,18 @@ module commutateur_couleur() {
 }
 
 module vis_pour_profiles() {
-    translate([ cote_octogone/2-cote_profile/2, rayon_inscrit-cote_profile/2]) trou_vis();
-    translate([-cote_octogone/2+cote_profile/2, rayon_inscrit-cote_profile/2]) trou_vis();
-    translate([ cote_octogone/2-cote_profile/2,-rayon_inscrit+cote_profile/2]) trou_vis();
-    translate([-cote_octogone/2+cote_profile/2,-rayon_inscrit+cote_profile/2]) trou_vis();
+    translate([+cote_octogone/2-cote_profile/2,
+        +rayon_inscrit-cote_profile/2])
+            trou_vis();
+    translate([-cote_octogone/2+cote_profile/2,
+        +rayon_inscrit-cote_profile/2])
+            trou_vis();
+    translate([+cote_octogone/2-cote_profile/2,
+        -rayon_inscrit+cote_profile/2])
+            trou_vis();
+    translate([-cote_octogone/2+cote_profile/2,
+        -rayon_inscrit+cote_profile/2])
+            trou_vis();
 }
 module support_tourelle() {
 	translate([+21,+21]) trou_vis(); 
@@ -27,9 +35,9 @@ module support_tourelle() {
 }
 
 module alimentation() {
-  translate([ 12, 0]) circle(d=11);
-  translate([-12, 0]) circle(d=11);
-  translate([ 0,32]) circle(d=6);
+    translate([ 12, 0]) circle(d=11);
+    translate([-12, 0]) circle(d=11);
+    translate([ 0,32]) circle(d=6);
 }
 
 module tous_les_trous() {
@@ -42,16 +50,18 @@ module tous_les_trous() {
 
 
 module plateau() {
-  difference() {
-     rotate([0,0,22.5])circle(rayon_circons, $fn=8);
-     union () {  translate([rayon_inscrit, 0]) circle(d=cote_octogone);
-                  translate([-rayon_inscrit, 0]) square([150, 100], center=true);
-	}
-  }
+    difference() {
+        rotate([0,0,22.5])
+            circle(rayon_circons, $fn=8);
+        translate([rayon_inscrit, 0])
+            circle(d=cote_octogone);
+        translate([-rayon_inscrit, 0])
+        square([150, 100], center=true);
+    }
 }
 
 module toit() {
-    difference() {
+    rotate([0,0,180])difference() {
         plateau();
         tous_les_trous();
     }
