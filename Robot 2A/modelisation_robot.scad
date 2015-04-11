@@ -6,6 +6,7 @@ use <Empileur/support_empileur.scad>
 use <Empileur/ouverture_porte_partie_servo.scad>
 use <Empileur/ouverture_porte_partie_simple.scad>
 use <Empileur/ouverture_porte_partie_porte.scad>
+use <Attrape-popcorns/eventail.scad>
 $fn=100;
 
 hauteur_demi_lune=30;
@@ -45,9 +46,8 @@ module structure() {
 
 module profile_alu(hauteur) {
     translate([0,0,hauteur/2])
-        #cube([cote_profile,cote_profile,hauteur],center=true);
+        cube([cote_profile,cote_profile,hauteur],center=true);
 }
-
 
 module plexy_tour() {
     #translate([-rayon_inscrit,-rayon_inscrit-epaisseur_plexy/2, hauteur_bas+epaisseur_alu])
@@ -125,7 +125,14 @@ module empileur_porte() {
     
     
 }
+
+module attrape_popcorns() {
+    eventail();
+    
+    
+}
+
 //empileur();
 //empileur_porte();
 structure();
-//plexy_tour();
+plexy_tour();
