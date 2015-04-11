@@ -66,4 +66,33 @@ module toit() {
         tous_les_trous();
     }
 }
+
+
+module tourelle(dia_barre,cote_trou,cote_tour,hauteur) {
+		translate([cote_trou/2,cote_trou/2,0])
+			cylinder(d1=dia_barre,d2=dia_barre,h=hauteur);
+		translate([-cote_trou/2,cote_trou/2,0])
+			cylinder(d1=dia_barre,d2=dia_barre,h=hauteur);
+		translate([cote_trou/2,-cote_trou/2,0])
+			cylinder(d1=dia_barre,d2=dia_barre,h=hauteur);
+		translate([-cote_trou/2,-cote_trou/2,0])
+			cylinder(d1=dia_barre,d2=dia_barre,h=hauteur);
+		translate([0,0,hauteur-epaisseur_plaque])
+			linear_extrude(epaisseur_alu)
+				square(cote_tour,center=true);
+}
+module elements_du_toit() {
+    rotate([0,0,180]) {
+	tourelle(4,42,60,75);
+	translate([0,0,-10])
+        linear_extrude(height=20)translate([0,-130])
+            alimentation();
+	translate([0,0,-10])
+        linear_extrude(height=20)translate([0,  75])
+            commutateur_couleur();
+	translate([0,0,-10])
+        linear_extrude(height=40)translate([0, 120]) arretUrgence();
+    }
+}
 toit();
+elements_du_toit();

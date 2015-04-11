@@ -6,10 +6,10 @@ use <Empileur/support_empileur.scad>
 use <Empileur/ouverture_porte_partie_servo.scad>
 use <Empileur/ouverture_porte_partie_simple.scad>
 use <Empileur/ouverture_porte_partie_porte.scad>
-$fn=50;
+$fn=100;
 
-hauteur_demi_lune=0;
-angle_demi_lune=90;
+hauteur_demi_lune=30;
+angle_demi_lune=50;
 angle_porte_empileur=100;
 
 module structure() {
@@ -18,22 +18,24 @@ module structure() {
     translate([0,0,hauteur_interm])
         linear_extrude(height=epaisseur_alu) plaque_interm();
 
-    translate([0,0,hauteur_toit])
+    translate([0,0,hauteur_toit]) {
         linear_extrude(height=epaisseur_plexy) toit();
+        elements_du_toit();
+    }
 
     translate([0,0,hauteur_bas]) {
-    translate([+cote_octogone/2-cote_profile/2,
-        +rayon_inscrit-cote_profile/2])
-            profile_alu(hauteur_toit);
-    translate([-cote_octogone/2+cote_profile/2,
-        +rayon_inscrit-cote_profile/2])
-            profile_alu(hauteur_toit);
-    translate([+cote_octogone/2-cote_profile/2,
-        -rayon_inscrit+cote_profile/2])
-            profile_alu(hauteur_toit);
-    translate([-cote_octogone/2+cote_profile/2,
-        -rayon_inscrit+cote_profile/2])
-            profile_alu(hauteur_toit);
+        translate([+cote_octogone/2-cote_profile/2,
+            +rayon_inscrit-cote_profile/2])
+                profile_alu(hauteur_toit);
+        translate([-cote_octogone/2+cote_profile/2,
+            +rayon_inscrit-cote_profile/2])
+                profile_alu(hauteur_toit);
+        translate([+cote_octogone/2-cote_profile/2,
+            -rayon_inscrit+cote_profile/2])
+                profile_alu(hauteur_toit);
+        translate([-cote_octogone/2+cote_profile/2,
+            -rayon_inscrit+cote_profile/2])
+                profile_alu(hauteur_toit);
     }
     translate([-110,60,0])
         rotate([0,0,45])profile_alu(hauteur_interm);
@@ -43,7 +45,7 @@ module structure() {
 
 module profile_alu(hauteur) {
     translate([0,0,hauteur/2])
-        cube([cote_profile,cote_profile,hauteur],center=true);
+        #cube([cote_profile,cote_profile,hauteur],center=true);
 }
 
 
@@ -123,7 +125,7 @@ module empileur_porte() {
     
     
 }
-empileur();
-empileur_porte();
+//empileur();
+//empileur_porte();
 structure();
-plexy_tour();
+//plexy_tour();

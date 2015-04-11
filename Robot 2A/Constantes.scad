@@ -19,7 +19,6 @@ epaisseur_plexy=5;
 hauteur_bas=3;
 hauteur_interm=163;
 hauteur_toit=hauteur_robot-epaisseur_plexy;
-
 hauteur_plexy=310;
 larg_pliure=cote_octogone/sqrt(2);
 
