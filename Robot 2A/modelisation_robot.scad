@@ -7,12 +7,15 @@ use <Empileur/ouverture_porte_partie_servo.scad>
 use <Empileur/ouverture_porte_partie_simple.scad>
 use <Empileur/ouverture_porte_partie_porte.scad>
 use <Attrape-popcorns/eventail.scad>
+use <Attrape-verres/Bras Verres+Claps.scad>
 $fn=100;
 
-hauteur_demi_lune=30;
-angle_demi_lune=50;
-angle_porte_empileur=100;
+hauteur_demi_lune=100;//*$t;
+angle_demi_lune=90;//*$t;
+angle_porte_empileur=120;//*$t;
 angle_attrape_popcorns=20;
+angle_bras_verres_droite=130*$t;
+angle_bras_verres_gauche=130*(1-$t);
 
 module structure() {
     translate([0,0,hauteur_bas])
@@ -173,6 +176,19 @@ module attrape_popcorns() {
             eventail();
 }
 
+
+module attrape_verre() {
+    translate([10,-rayon_inscrit+13,hauteur_interm+23])
+        rotate([-angle_bras_verres_droite])
+            translate([0,-25,2]) rotate([270,360-90,0])
+                bras_verres_et_claps();
+    mirror([0,1,0])
+    translate([10,-rayon_inscrit+13,hauteur_interm+23])
+        rotate([-angle_bras_verres_gauche])
+            translate([0,-25,2]) rotate([270,360-90,0])
+                bras_verres_et_claps();
+    
+}
 empileur();
 empileur_porte();
 structure();
@@ -180,3 +196,4 @@ translate([-11,0,0])moteur_et_roue();
 translate([-11,0,0])rotate([0,0,180])moteur_et_roue();
 //plexy_tour();
 attrape_popcorns();
+attrape_verre();
