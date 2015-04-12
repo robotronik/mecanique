@@ -18,6 +18,9 @@ angle_attrape_popcorns=20;
 angle_bras_verres_droite=0*$t;
 angle_bras_verres_gauche=130*(1-$t);
 
+module plateau() {
+    translate([0,0,-0.1])%cube([1000,1000,0.1], center=true);
+}
 module structure() {
     translate([0,0,hauteur_bas])
         linear_extrude(height=epaisseur_alu) plaque_bas();
@@ -200,8 +203,9 @@ module attrape_verres() {
 }
 //empileur();
 //empileur_porte();
+plateau();
 structure();
-//moteurs_et_roues()
-plexy_tour();
+moteurs_et_roues()
+//plexy_tour();
 //attrape_popcorns();
 attrape_verres();
