@@ -8,13 +8,14 @@ use <Empileur/ouverture_porte_partie_simple.scad>
 use <Empileur/ouverture_porte_partie_porte.scad>
 use <Attrape-popcorns/eventail.scad>
 use <Attrape-verres/Bras Verres+Claps.scad>
+use <Attrape-verres/Porte-servo.scad>
 $fn=100;
 
 hauteur_demi_lune=100;//*$t;
 angle_demi_lune=90;//*$t;
 angle_porte_empileur=120;//*$t;
 angle_attrape_popcorns=20;
-angle_bras_verres_droite=130*$t;
+angle_bras_verres_droite=0*$t;
 angle_bras_verres_gauche=130*(1-$t);
 
 module structure() {
@@ -102,6 +103,10 @@ module moteur_et_roue() {
     
 }
 
+module moteurs_et_roues() {
+    translate([-11,0,0])moteur_et_roue();
+    translate([-11,0,0])rotate([0,0,180])moteur_et_roue();
+}
 module empileur() {
     translate([-145,0,0])difference() {
         cylinder(d=empileur_d, h=empileur_h);
@@ -177,23 +182,26 @@ module attrape_popcorns() {
 }
 
 
-module attrape_verre() {
-    translate([10,-rayon_inscrit+13,hauteur_interm+23])
-        rotate([-angle_bras_verres_droite])
-            translate([0,-25,2]) rotate([270,360-90,0])
-                bras_verres_et_claps();
-    mirror([0,1,0])
-    translate([10,-rayon_inscrit+13,hauteur_interm+23])
-        rotate([-angle_bras_verres_gauche])
-            translate([0,-25,2]) rotate([270,360-90,0])
-                bras_verres_et_claps();
+module attrape_verre(angle) {
+    //translate([10,-rayon_inscrit+13,hauteur_interm+23])
+    rotate([-angle])
+        translate([-8,-25,2]) rotate([270,360-90,0])
+            bras_verres_et_claps();
+    rotate([180,0,-90])translate([-14,-39,-37.8])
+        porte_servo_avec_servo();
     
 }
-empileur();
-empileur_porte();
+module attrape_verres() {
+    translate([20,-rayon_inscrit+11,hauteur_interm+20])
+        attrape_verre(angle_bras_verres_droite);
+    mirror([0,1,0])
+    translate([20,-rayon_inscrit+11,hauteur_interm+20])
+        attrape_verre(angle_bras_verres_gauche);
+}
+//empileur();
+//empileur_porte();
 structure();
-translate([-11,0,0])moteur_et_roue();
-translate([-11,0,0])rotate([0,0,180])moteur_et_roue();
-//plexy_tour();
-attrape_popcorns();
-attrape_verre();
+//moteurs_et_roues()
+plexy_tour();
+//attrape_popcorns();
+attrape_verres();
