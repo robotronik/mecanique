@@ -13,8 +13,8 @@ module rond()
 	difference()
 	{
 		cylinder(d=dia_couronne+2*epaisseur,h=hauteur_couronne);
-		translate([0,0,-0.1])
-            cylinder(d=dia_couronne,h=hauteur_couronne+0.2);
+		translate([0,0,-1])
+            cylinder(d=dia_couronne,h=hauteur_couronne+2);
 	}
 }
 
@@ -23,8 +23,8 @@ module base()
 	difference()
 	{
 		cylinder(d=dia_couronne+2*epaisseur+2*largeur_base,h=epaisseur);
-		translate([0,0,-0.1])
-            cylinder(d=dia_couronne+2*epaisseur-0.1,h=hauteur_couronne+0.2);
+		translate([0,0,-1])
+            cylinder(d=dia_couronne+2*epaisseur-0.1,h=hauteur_couronne+2);
 	}
 }
 
@@ -76,9 +76,11 @@ module trous()
 			cylinder(d=dia_trous,h=epaisseur+0.2);
 	
 }
-
+module support_couronne() {
 difference()
 {
 	support();
 	trous();
 }
+}
+support_couronne();
