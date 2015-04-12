@@ -4,7 +4,7 @@ include <../../Modèles/Servo.scad>
 
 // Constantes
 empileur_d=80;
-empileur_h=100;
+empileur_h=80;
 vis_empileur_d=5;
 axe_d_int=5.5;
 axe_d_ext=10.;

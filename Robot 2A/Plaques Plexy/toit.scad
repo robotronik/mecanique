@@ -83,15 +83,16 @@ module tourelle(dia_barre,cote_trou,cote_tour,hauteur) {
 }
 module elements_du_toit() {
     rotate([0,0,180]) {
-	tourelle(4,42,60,75);
-	translate([0,0,-10])
-        linear_extrude(height=20)translate([0,-130])
-            alimentation();
-	translate([0,0,-10])
-        linear_extrude(height=20)translate([0,  75])
-            commutateur_couleur();
-	translate([0,0,-10])
-        linear_extrude(height=40)translate([0, 120]) arretUrgence();
+        color("grey")tourelle(4,42,60,75);
+        translate([0,0,-10])
+            color("purple")linear_extrude(height=20)translate([0,-130])
+                alimentation();
+        translate([0,0,-10])
+            color("yellow")linear_extrude(height=20)translate([0,  75])
+                commutateur_couleur();
+        translate([0,0,-10])
+            color("red")linear_extrude(height=40)translate([0, 120])
+                arretUrgence();
     }
 }
 toit();

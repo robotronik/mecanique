@@ -11,45 +11,47 @@ use <Attrape-verres/Bras Verres+Claps.scad>
 use <Attrape-verres/Porte-servo.scad>
 $fn=100;
 
-hauteur_demi_lune=100;//*$t;
-angle_demi_lune=90;//*$t;
+hauteur_demi_lune=10;//*$t;
+angle_demi_lune=40;//*$t;
 angle_porte_empileur=120;//*$t;
 angle_attrape_popcorns=20;
 angle_bras_verres_droite=0*$t;
 angle_bras_verres_gauche=130*(1-$t);
 
 module plateau() {
-    translate([0,0,-0.1])%cube([1000,1000,0.1], center=true);
+    translate([0,0,-0.1     ])// color("grey")
+        %cube([2000,2000,0.1], center=true);
 }
 module structure() {
-    translate([0,0,hauteur_bas])
-        linear_extrude(height=epaisseur_alu) plaque_bas();
-    translate([0,0,hauteur_interm])
-        linear_extrude(height=epaisseur_alu) plaque_interm();
+    color("silver") {
+        translate([0,0,hauteur_bas])
+            linear_extrude(height=epaisseur_alu) plaque_bas();
+        translate([0,0,hauteur_interm])
+            linear_extrude(height=epaisseur_alu) plaque_interm();
+        translate([0,0,hauteur_bas]) {
+            translate([+cote_octogone/2-cote_profile/2,
+                +rayon_inscrit-cote_profile/2])
+                    profile_alu(hauteur_toit);
+            translate([-cote_octogone/2+cote_profile/2,
+                +rayon_inscrit-cote_profile/2])
+                    profile_alu(hauteur_toit);
+            translate([+cote_octogone/2-cote_profile/2,
+                -rayon_inscrit+cote_profile/2])
+                    profile_alu(hauteur_toit);
+            translate([-cote_octogone/2+cote_profile/2,
+                -rayon_inscrit+cote_profile/2])
+                    profile_alu(hauteur_toit);
+        }
+        translate([-110,60,0])
+            rotate([0,0,45])profile_alu(hauteur_interm);
+        translate([-110,-60,0])
+            rotate([0,0,45])profile_alu(hauteur_interm);
+    }
 
     translate([0,0,hauteur_toit]) {
-        linear_extrude(height=epaisseur_plexy) toit();
+        color("silver") linear_extrude(height=epaisseur_plexy) toit();
         elements_du_toit();
     }
-
-    translate([0,0,hauteur_bas]) {
-        translate([+cote_octogone/2-cote_profile/2,
-            +rayon_inscrit-cote_profile/2])
-                profile_alu(hauteur_toit);
-        translate([-cote_octogone/2+cote_profile/2,
-            +rayon_inscrit-cote_profile/2])
-                profile_alu(hauteur_toit);
-        translate([+cote_octogone/2-cote_profile/2,
-            -rayon_inscrit+cote_profile/2])
-                profile_alu(hauteur_toit);
-        translate([-cote_octogone/2+cote_profile/2,
-            -rayon_inscrit+cote_profile/2])
-                profile_alu(hauteur_toit);
-    }
-    translate([-110,60,0])
-        rotate([0,0,45])profile_alu(hauteur_interm);
-    translate([-110,-60,0])
-        rotate([0,0,45])profile_alu(hauteur_interm);
 }
 
 module profile_alu(hauteur) {
@@ -67,22 +69,16 @@ module plexy_tour() {
 }
 
 module moteur_et_roue() {
-  /*  translate([0,0,hauteur_interm-25]) {
-        translate([-35,0,0])
-            cube([50,120,50], center=true);
-        translate([35,0,0])
-            cube([50,120,50], center=true);
-    }*/
     translate([35,0,hauteur_interm-25])
             cube([50,119,50], center=true);
     // Roue motrice
-    translate([0,entraxe_roues/2-8,30])rotate([90,0,0])
+    color("green")translate([0,entraxe_roues/2-8,30])rotate([90,0,0])
         cylinder(h = larg_roues-25, r=30, center=true);
     translate([-15,entraxe_roues_cod/2-44,hauteur_bas])
         cube([30,20,50]);
     // Roue codeuse
     translate([0,entraxe_roues_cod/2+10,20])rotate([90,0,0])
-        cylinder(h = larg_roues_cod-3, r=20, center=true);
+        color("yellow")cylinder(h = larg_roues_cod-3, r=20, center=true);
     translate([-10,entraxe_roues_cod/2+12,hauteur_bas])
         cube([20,20,30]);
     
@@ -92,7 +88,7 @@ module moteur_et_roue() {
             rotate([90,0,0])cylinder(h=10,d=28);
         translate([0,10,110])
                 rotate([90,0,0])cylinder(h=10,d=28);
-        difference() {
+        color("black")difference() {
             minkowski() {
                 cube([0.1,10,110]);
                 rotate([90,0,0])cylinder(h=0.1,d=40);
@@ -111,9 +107,10 @@ module moteurs_et_roues() {
     translate([-11,0,0])rotate([0,0,180])moteur_et_roue();
 }
 module empileur() {
-    translate([-145,0,0])difference() {
+    color("grey")translate([-145,0,0])difference() {
         cylinder(d=empileur_d, h=empileur_h);
-        cylinder(d=empileur_d_interieur, h=empileur_h);
+        translate([0,0,-0.1])
+            cylinder(d=empileur_d_interieur, h=empileur_h+0.2);
         translate([-empileur_d/2,0,empileur_h/2])
             cube([empileur_d, 64, empileur_h], center=true);
         translate([empileur_d/2,0,42])
@@ -121,18 +118,18 @@ module empileur() {
         translate([0,-empileur_d/2-20,37])
             cube([empileur_d/2+8, 70, 200], center=true);
     }
-    translate([-145,-empileur_d/2-30.5/2+3, 220]) difference() {
+    color("silver")translate([-145,-empileur_d/2-30.5/2+3, 220]) difference() {
         cube([30.5,30.5,200], center=true);
         translate([0,3,0])
             cube([23,29,200], center=true);
     }
-    translate([-145,0,hauteur_interm + epaisseur_alu])
+    color("white")translate([-145,0,hauteur_interm + epaisseur_alu])
         rotate([0,0,-90])
         support_empileur();
-    translate([-145,0,hauteur_interm + epaisseur_alu+100])
+    color("red")translate([-145,0,hauteur_interm + epaisseur_alu+100])
         rotate([0,0,125])partie_servo_avec_servo();
     
-    translate([-145,0,hauteur_bas + epaisseur_alu+100])
+    color("red")translate([-145,0,hauteur_bas + epaisseur_alu+100])
         rotate([0,0,125])mirror([0,1,0]) partie_simple();
         
     translate([-145,0,0])
@@ -159,8 +156,7 @@ module empileur_porte() {
     translate([-145,0,0]) 
     translate([-13.525,52.875,0]) rotate([0,0,-angle_porte_empileur])
     translate([13.525,-52.875,0]) {
-        
-        intersection() {
+        color("grey")intersection() {
             difference() {
                 cylinder(d=empileur_d, h=empileur_h);
                 cylinder(d=empileur_d_interieur, h=empileur_h);
@@ -168,14 +164,12 @@ module empileur_porte() {
             translate([-empileur_d/2,0,empileur_h/2])
                 cube([empileur_d, 60, empileur_h], center=true);
         }
-        translate([0,0,hauteur_bas + epaisseur_alu+100+10])
+        color("red")translate([0,0,hauteur_bas + epaisseur_alu+100+10])
             rotate([0,0,125]) partie_porte();
-        translate([0,0,hauteur_interm + epaisseur_alu+100+10])
+        color("red")translate([0,0,hauteur_interm + epaisseur_alu+100+10])
             rotate([0,0,125])
         partie_porte();
-}
-    
-    
+    }
 }
 
 module attrape_popcorns() {
@@ -186,13 +180,11 @@ module attrape_popcorns() {
 
 
 module attrape_verre(angle) {
-    //translate([10,-rayon_inscrit+13,hauteur_interm+23])
     rotate([-angle])
         translate([-8,-25,2]) rotate([270,360-90,0])
             bras_verres_et_claps();
     rotate([180,0,-90])translate([-14,-39,-37.8])
         porte_servo_avec_servo();
-    
 }
 module attrape_verres() {
     translate([20,-rayon_inscrit+11,hauteur_interm+20])
@@ -201,8 +193,8 @@ module attrape_verres() {
     translate([20,-rayon_inscrit+11,hauteur_interm+20])
         attrape_verre(angle_bras_verres_gauche);
 }
-//empileur();
-//empileur_porte();
+empileur();
+empileur_porte();
 plateau();
 structure();
 moteurs_et_roues()
