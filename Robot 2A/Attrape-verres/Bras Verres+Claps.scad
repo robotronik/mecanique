@@ -1,5 +1,5 @@
 $fn=50;
-module tout() {
+module bras_verres_et_claps() {
 translate([-9,6,10])rotate([90,0,0])difference() {
 	translate([0,-6,0])cube([18,34,6]);
 	
@@ -36,4 +36,4 @@ translate([-135,-62,0]) {
 	}
 }
 }
-tout();
+bras_verres_et_claps();
