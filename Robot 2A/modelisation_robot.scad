@@ -15,9 +15,10 @@ $fn=100;
 hauteur_demi_lune=10;//*$t;
 angle_demi_lune=40;//*$t;
 angle_porte_empileur=120;//*$t;
-angle_attrape_popcorns=20;
+angle_attrape_popcorns=100;
 angle_bras_verres_droite=0*$t;
 angle_bras_verres_gauche=130*(1-$t);
+vue_eclatee=1;
 
 module plateau() {
     translate([0,0,-0.1     ])// color("grey")
@@ -49,7 +50,7 @@ module structure() {
             rotate([0,0,45])profile_alu(hauteur_interm);
     }
 
-    translate([0,0,hauteur_toit]) {
+    translate([0,0,hauteur_toit+100*vue_eclatee]) {
         color("silver") linear_extrude(height=epaisseur_plexy) toit();
         elements_du_toit();
     }
@@ -60,11 +61,13 @@ module profile_alu(hauteur) {
         cube([cote_profile,cote_profile,hauteur],center=true);
 }
 
-module plexy_tour() {
+module plexy_tour() {        
+    translate([0,-150*vue_eclatee,0])
     #translate([-rayon_inscrit,-rayon_inscrit-epaisseur_plexy/2, hauteur_bas+epaisseur_alu])
         rotate([90,0,0])cote_plie();
     
     #mirror([0,1,0])
+    translate([0,-150*vue_eclatee,0])
     translate([-rayon_inscrit,-rayon_inscrit-epaisseur_plexy/2, hauteur_bas+epaisseur_alu])
         rotate([90,0,0])cote_plie();
 }
@@ -173,13 +176,23 @@ module empileur_porte() {
         partie_porte();
     }
 }
-
+module popcorn() {
+    color("white")sphere(d=40);
+}
 module attrape_popcorns() {
     translate([66,0, hauteur_interm+epaisseur_alu]) {
         rotate([0,0,165+angle_attrape_popcorns])
             eventail();
-        rotate([0,0,70])
-            translate([0,0,0.2])support_couronne();
+        rotate([0,0,80])
+            translate([10,0,0.2])support_couronne();
+        rotate([0,0,-30+angle_attrape_popcorns-1])
+            translate([90,0,25])popcorn();
+        rotate([0,0,-60+angle_attrape_popcorns-1])
+            translate([90,0,20])popcorn();
+        rotate([0,0,-90+angle_attrape_popcorns-1])
+            translate([90,0,20])popcorn();
+        rotate([0,0,-0+angle_attrape_popcorns-1])
+            translate([90,0,20])popcorn();
         }
 }
 
@@ -202,7 +215,7 @@ empileur();
 empileur_porte();
 plateau();
 structure();
-moteurs_et_roues()
+moteurs_et_roues();
 plexy_tour();
 attrape_popcorns();
 attrape_verres();
