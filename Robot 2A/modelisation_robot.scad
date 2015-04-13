@@ -29,7 +29,10 @@ module structure() {
         translate([0,0,hauteur_bas])
             linear_extrude(height=epaisseur_alu) plaque_bas();
         translate([0,0,hauteur_interm])
-            linear_extrude(height=epaisseur_alu) plaque_interm();
+            //linear_extrude(height=epaisseur_alu) {plaque_interm();
+                translate([-53.4,46,1.5])
+                scale([1,1,3])
+                import("Plaques Alu/intermédiaire_gros_15.dxf");//}
         translate([0,0,hauteur_bas]) {
             translate([+cote_octogone/2-cote_profile/2,
                 +rayon_inscrit-cote_profile/2])
