@@ -12,13 +12,13 @@ use <Attrape-verres/Bras Verres+Claps.scad>
 use <Attrape-verres/Porte-servo.scad>
 $fn=100;
 
-hauteur_demi_lune=10;//*$t;
-angle_demi_lune=40;//*$t;
-angle_porte_empileur=120;//*$t;
+hauteur_demi_lune=0;//*$t;
+angle_demi_lune=90;//*$t;
+angle_porte_empileur=0;//*$t;
 angle_attrape_popcorns=100;
-angle_bras_verres_droite=0*$t;
-angle_bras_verres_gauche=130*(1-$t);
-vue_eclatee=1;
+angle_bras_verres_droite=130;
+angle_bras_verres_gauche=130;
+vue_eclatee=0;
 
 module plateau() {
     translate([0,0,-0.1     ])// color("grey")
@@ -30,7 +30,7 @@ module structure() {
             linear_extrude(height=epaisseur_alu) plaque_bas();
         translate([0,0,hauteur_interm])
             linear_extrude(height=epaisseur_alu) plaque_interm();
-        translate([0,0,hauteur_bas]) {
+  /*      translate([0,0,hauteur_bas]) {
             translate([+cote_octogone/2-cote_profile/2,
                 +rayon_inscrit-cote_profile/2])
                     profile_alu(hauteur_toit);
@@ -47,7 +47,7 @@ module structure() {
         translate([-110,60,0])
             rotate([0,0,45])profile_alu(hauteur_interm);
         translate([-110,-60,0])
-            rotate([0,0,45])profile_alu(hauteur_interm);
+            rotate([0,0,45])profile_alu(hauteur_interm);*/
     }
 
     translate([0,0,hauteur_toit+100*vue_eclatee]) {
@@ -176,6 +176,10 @@ module empileur_porte() {
         partie_porte();
     }
 }
+module pied() {
+    color("green")cylinder(d=60,h=70);
+}
+
 module popcorn() {
     color("white")sphere(d=40);
 }
@@ -211,11 +215,14 @@ module attrape_verres() {
     translate([20,-rayon_inscrit+11,hauteur_interm+20])
         attrape_verre(angle_bras_verres_gauche);
 }
+translate([-100,0,0])pied();
+translate([-50,0,0])pied();
+translate([-0,0,0])pied();
 empileur();
 empileur_porte();
 plateau();
 structure();
-moteurs_et_roues();
+//moteurs_et_roues();
+attrape_verres();
 plexy_tour();
 attrape_popcorns();
-attrape_verres();
