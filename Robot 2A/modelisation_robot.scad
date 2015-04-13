@@ -26,13 +26,14 @@ module plateau() {
 }
 module structure() {
     color("silver") {
-        translate([0,0,hauteur_bas])
-            linear_extrude(height=epaisseur_alu) plaque_bas();
-        translate([0,0,hauteur_interm])
-            //linear_extrude(height=epaisseur_alu) {plaque_interm();
-                translate([-53.4,46,1.5])
-                scale([1,1,3])
-                import("Plaques Alu/intermédiaire_gros_15.dxf");//}
+        // Plaque Bas
+        rotate([0,0,180]) translate([-70,-169,hauteur_bas])
+            linear_extrude(height=epaisseur_alu)
+                import("Plaques Alu/base_gros_15.dxf");
+        // Plaque Intermédiaire
+        translate([-53.4,46,1.5+hauteur_interm])
+            scale([1,1,3])
+                import("Plaques Alu/intermédiaire_gros_15.dxf");
         translate([0,0,hauteur_bas]) {
             translate([+cote_octogone/2-cote_profile/2,
                 +rayon_inscrit-cote_profile/2])
@@ -245,9 +246,9 @@ translate([-50,0,0])pied();
 translate([-0,0,0])pied();
 empileur();
 empileur_porte();
-plateau();
+//plateau();
 structure();
-//moteurs_et_roues();
+moteurs_et_roues();
 attrape_verres();
 plexy_tour();
 attrape_popcorns();
