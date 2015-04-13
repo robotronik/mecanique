@@ -179,12 +179,34 @@ module empileur_porte() {
 module popcorn() {
     color("white")sphere(d=40);
 }
+
+module couronne()
+{
+    epaisseur_couronne=3;
+    color("grey")
+    intersection()
+    {
+        difference()
+        {
+            cylinder(d=200,h=42);
+            translate([0,0,-0.1])
+                cylinder(d=200-2*epaisseur_couronne,h=42+0.2);
+        }
+        rotate([0,0,-60]) cube([200,200,200]);
+    }
+}
 module attrape_popcorns() {
     translate([66,0, hauteur_interm+epaisseur_alu]) {
         rotate([0,0,165+angle_attrape_popcorns])
             eventail();
-        rotate([0,0,80])
-            translate([10,0,0.2])support_couronne();
+        translate([8,17,0.2])
+            rotate([0,0,90])
+                //translate([10,0,0.2])
+                support_couronne();
+        translate([8,17,0.2])
+            rotate([0,0,80])
+                //translate([10,0,0.2])
+                couronne();
         rotate([0,0,-30+angle_attrape_popcorns-1])
             translate([90,0,25])popcorn();
         rotate([0,0,-60+angle_attrape_popcorns-1])
