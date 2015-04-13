@@ -29,8 +29,11 @@ module structure() {
         translate([0,0,hauteur_bas])
             linear_extrude(height=epaisseur_alu) plaque_bas();
         translate([0,0,hauteur_interm])
-            linear_extrude(height=epaisseur_alu) plaque_interm();
-  /*      translate([0,0,hauteur_bas]) {
+            //linear_extrude(height=epaisseur_alu) {plaque_interm();
+                translate([-53.4,46,1.5])
+                scale([1,1,3])
+                import("Plaques Alu/intermédiaire_gros_15.dxf");//}
+        translate([0,0,hauteur_bas]) {
             translate([+cote_octogone/2-cote_profile/2,
                 +rayon_inscrit-cote_profile/2])
                     profile_alu(hauteur_toit);
@@ -47,7 +50,7 @@ module structure() {
         translate([-110,60,0])
             rotate([0,0,45])profile_alu(hauteur_interm);
         translate([-110,-60,0])
-            rotate([0,0,45])profile_alu(hauteur_interm);*/
+            rotate([0,0,45])profile_alu(hauteur_interm);
     }
 
     translate([0,0,hauteur_toit+100*vue_eclatee]) {
@@ -183,12 +186,34 @@ module pied() {
 module popcorn() {
     color("white")sphere(d=40);
 }
+
+module couronne()
+{
+    epaisseur_couronne=3;
+    color("grey")
+    intersection()
+    {
+        difference()
+        {
+            cylinder(d=200,h=42);
+            translate([0,0,-0.1])
+                cylinder(d=200-2*epaisseur_couronne,h=42+0.2);
+        }
+        rotate([0,0,-60]) cube([200,200,200]);
+    }
+}
 module attrape_popcorns() {
     translate([66,0, hauteur_interm+epaisseur_alu]) {
         rotate([0,0,165+angle_attrape_popcorns])
             eventail();
-        rotate([0,0,80])
-            translate([10,0,0.2])support_couronne();
+        translate([8,17,0.2])
+            rotate([0,0,90])
+                //translate([10,0,0.2])
+                support_couronne();
+        translate([8,17,0.2])
+            rotate([0,0,80])
+                //translate([10,0,0.2])
+                couronne();
         rotate([0,0,-30+angle_attrape_popcorns-1])
             translate([90,0,25])popcorn();
         rotate([0,0,-60+angle_attrape_popcorns-1])
