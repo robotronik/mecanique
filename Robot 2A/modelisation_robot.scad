@@ -67,10 +67,10 @@ module profile_alu(hauteur) {
 
 module plexy_tour() {        
     translate([0,-150*vue_eclatee,0])
-    #translate([-rayon_inscrit,-rayon_inscrit-epaisseur_plexy/2, hauteur_bas+epaisseur_alu])
+    %translate([-rayon_inscrit,-rayon_inscrit-epaisseur_plexy/2, hauteur_bas+epaisseur_alu])
         rotate([90,0,0])cote_plie();
     
-    #mirror([0,1,0])
+    %mirror([0,1,0])
     translate([0,-150*vue_eclatee,0])
     translate([-rayon_inscrit,-rayon_inscrit-epaisseur_plexy/2, hauteur_bas+epaisseur_alu])
         rotate([90,0,0])cote_plie();
