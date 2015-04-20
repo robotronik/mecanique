@@ -4,7 +4,7 @@ include <../../Modèles/Servo.scad>
 
 // Constantes
 empileur_d=80;
-empileur_h=100;
+empileur_h=80;
 vis_empileur_d=5;
 axe_d_int=5.5;
 axe_d_ext=10.;
@@ -42,12 +42,12 @@ module vis_empileur() {
     translate([0,0,hauteur_attache/2])
         for(i=[1,2]) {
             rotate([0,90,i*70/3])
-                #cylinder(d=vis_empileur_d,h=empileur_d/2+epaisseur_attache+0.1);
+                cylinder(d=vis_empileur_d,h=empileur_d/2+epaisseur_attache+0.1);
         }
         
     translate([empileur_d/2+4,7,-5])
         rotate([0,0,15])translate([10,10,0])
-            #cylinder(d=3, h=30);
+            cylinder(d=3, h=30);
 }
 
 module attache() {

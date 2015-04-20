@@ -3,7 +3,7 @@ $fn=100;
 module pale() {
     difference(){
         cube([3.5, 100, 35]);
-        translate([0,100,20]) rotate([75, 0, 0]) #cube([3.5, 100, 100]);
+        translate([-0.1,100,20]) rotate([75, 0, 0]) cube([4, 100, 100]);
     }
 }
 
@@ -36,6 +36,9 @@ module viscentrale() {
     }
 }
 
-pales();
-attache();
-viscentrale();
+module eventail() {
+    pales();
+    attache();
+    viscentrale();
+}
+eventail();
