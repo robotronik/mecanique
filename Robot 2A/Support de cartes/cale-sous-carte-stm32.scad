@@ -11,18 +11,23 @@ translate([0,0,-epaisseur_fente/2])
 translate([0,0,epaisseur_plaque/2])
     cube([largeur_fente*2, longueur_fente,epaisseur_plaque],
         center=true);
-    
 }
 
 module support_ovale() {
     intersection() {
-        translate([0,-85,0]) scale (v=[4,9,1]) 
-            cylinder(h = 10, r=10, $fn=100, center=true);
-        union() {
-        cube([50,10,10], center=true);
-        }
+    translate([0,-90/2,-epaisseur_fente])
+        scale (v=[4,9,1]) 
+        cylinder(h = epaisseur_fente+epaisseur_plaque,
+            d=10, $fn=100);
+    difference() {
+        longueur=3+1.65+3;
+        translate([-12,(-2*longueur)/2,-epaisseur_fente])
+            cube([24,longueur,epaisseur_fente+epaisseur_plaque]);
+        translate([-12,-1.65-3,0])
+            #cube([24,1.65,epaisseur_plaque]);
+        
     }
-    
+    }
 }
 
-support_fente();
+support_ovale();
