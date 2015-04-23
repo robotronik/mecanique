@@ -44,6 +44,7 @@ module trous_haut()
         cylinder(d=dia_trou_haut,h=epaisseur+0.2);
 }
 
+rotate([90,0,0])
 difference()
 {
     base();
