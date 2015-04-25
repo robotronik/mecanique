@@ -1,6 +1,6 @@
 $fn=50;
-largeur=22;
-profondeur=17;
+largeur=23;
+profondeur=17.5;
 epaisseur=2;
 longueur_haut=20;
 dia_trou_capteur=3+0.5;
@@ -25,7 +25,7 @@ module base()
 module trous_capteurs()
 {
     //bas
-    translate([largeur+epaisseur-ecart_bord_trou,0,2])
+    translate([largeur+epaisseur-ecart_bord_trou,0,1])
     rotate([-90,0,0])
         translate([0,0,-0.1])
             cylinder(d=dia_trou_capteur,h=epaisseur+0.2);
