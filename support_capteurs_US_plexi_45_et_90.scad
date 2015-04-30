@@ -1,6 +1,7 @@
 $fn=50;
 dia_trou_fixation=4;
 include <capteur_US.scad>
+// En imprimer 2 de 45
 
 module support45() {
     difference() {
@@ -33,7 +34,7 @@ module support45() {
         rotate([-90,0,-90])#capteur_US();
     }
 }
-support90();
+support45();
 module support90() {
     difference() {
         mirror([1,1,0]) {

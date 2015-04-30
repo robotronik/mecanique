@@ -12,9 +12,11 @@ ecart_fixation=35;
 dia_fixation=6;
 dia_trou_fixation=4;
 epaisseur_fixation=2;
+// En imprimer 2 ou pas du tout
+
 
 include <capteur_US.scad>
-//translate([0,0,10])rotate([180,0,90]) #capteur_US();
+translate([0,0,10])rotate([180,0,90]) #capteur_US();
 module emplacement_vis() {
     mirror([0,0,1]) rotate([180,0,90])
     translate([-capteurUS_largeur/2,-capteurUS_longueur/2]) {
@@ -48,7 +50,7 @@ module cadre() {
         square([capteurUS_largeur+3,capteurUS_longueur+1], center=true);
         translate([-1,0])
         //circle(d=18.5);
-        square([capteurUS_largeur-3.2,capteurUS_longueur-5.4],
+        square([capteurUS_largeur-2.6,capteurUS_longueur-4.2],
             center=true);
     }
     
