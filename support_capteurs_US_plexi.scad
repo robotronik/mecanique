@@ -16,7 +16,7 @@ epaisseur_fixation=2;
 
 
 include <capteur_US.scad>
-translate([0,0,12.5])rotate([180,0,90]) #capteur_US();
+translate([0,0,12.5])rotate([180,0,90]) %capteur_US();
 module emplacement_vis() {
     mirror([0,0,1]) rotate([180,0,90])
     translate([-capteurUS_largeur/2,-capteurUS_longueur/2]) {
