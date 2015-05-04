@@ -1,7 +1,7 @@
 $fn=50;
 carre_haut=18*sqrt(2);
 carre_bas=35;
-hauteur=12-3-3; //longueur capteur-epaisseur plaque-long_vis
+hauteur=9;
 epaisseur_haut=3;
 epaisseur_bas=5;
 long_vis=3;
@@ -16,7 +16,7 @@ epaisseur_fixation=2;
 
 
 include <capteur_US.scad>
-translate([0,0,10])rotate([180,0,90]) #capteur_US();
+translate([0,0,12.5])rotate([180,0,90]) %capteur_US();
 module emplacement_vis() {
     mirror([0,0,1]) rotate([180,0,90])
     translate([-capteurUS_largeur/2,-capteurUS_longueur/2]) {
