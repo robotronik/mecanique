@@ -1,68 +1,62 @@
 $fn=50;
-carre_haut=17*sqrt(2);
+carre_haut=18*sqrt(2);
 carre_bas=35;
-hauteur=12-3-3; //longueur capteur-epaisseur plaque-long_vis
+hauteur=9;
 epaisseur_haut=3;
 epaisseur_bas=5;
 long_vis=3;
-dia_vis=5;
+dia_vis=4;
 dia_trou_vis=2;
 ecart_vis=21.7;
 ecart_fixation=35;
 dia_fixation=6;
 dia_trou_fixation=4;
 epaisseur_fixation=2;
+// En imprimer 2 ou pas du tout
 
-module emplacement_vis()
-{
-    translate([ecart_vis/2,0,hauteur])
-    {
-        difference()
-        {
-            cylinder(d=dia_vis,h=long_vis);
-            cylinder(d=dia_trou_vis,h=long_vis);
-        }
+
+include <capteur_US.scad>
+translate([0,0,12.5])rotate([180,0,90]) %capteur_US();
+module emplacement_vis() {
+    mirror([0,0,1]) rotate([180,0,90])
+    translate([-capteurUS_largeur/2,-capteurUS_longueur/2]) {
+        translate([2.54,        2.54,   hauteur])
+            support_vis();
+        translate([2.54+12.6,   2.54+17,hauteur])
+            support_vis();
     }
-    translate([-ecart_vis/2,0,hauteur])
-    {
-        difference()
-        {
-            cylinder(d=dia_vis,h=long_vis);
-            cylinder(d=dia_trou_vis,h=long_vis);
-        }
+}
+module support_vis() {
+    difference() {
+        cylinder(d=dia_vis,h=long_vis);
+        cylinder(d=dia_trou_vis,h=long_vis);
     }
-
 }
 
-module gen_emplacement_vis()
-{
-    translate([ecart_vis/2,0,hauteur/2-long_vis])
-            circle(d=dia_vis);
-    translate([-ecart_vis/2,0,hauteur/2-long_vis])
-            circle(d=dia_vis);
+module support_emplacement_vis() {
+    mirror([0,0,1])rotate([180,0,90])
+    translate([-capteurUS_largeur/2,-capteurUS_longueur/2])
+        vis_capteur();
+    translate([6.5,5])square([4,5]);
+    translate([17/2,5.2])circle(d=dia_vis);
+    
+    translate([-17/2,-7.4])circle(d=dia_vis);
+    translate([-10.5,-10.4])square([4,3]);
 }
 
-module gen_support()
-{
-        difference()
-        {
-            square([(carre_bas+2*epaisseur_bas)/sqrt(2),(carre_bas+2*epaisseur_bas)/sqrt(2)],center=true);
-            square([carre_bas/sqrt(2),carre_bas/sqrt(2)],center=true);
-        }
-        
-}
-module support()
-{
-    linear_extrude(height=hauteur,scale=carre_haut/carre_bas)
-        gen_support();
-    translate([0,0,hauteur])
-    mirror([0,0,1])
-        linear_extrude(height=hauteur,scale=carre_bas/carre_haut)
-            rotate([0,0,45]) gen_emplacement_vis();
+module cadre() {
+    support_emplacement_vis();
+    rotate([180,0,90]) difference() {
+        square([capteurUS_largeur+3,capteurUS_longueur+1], center=true);
+        translate([-1,0])
+        //circle(d=18.5);
+        square([capteurUS_largeur-2.6,capteurUS_longueur-4.2],
+            center=true);
+    }
+    
 }
 
-module base_fixation()
-{
+module base_fixation() {
     difference()
     {
         union()
@@ -75,16 +69,16 @@ module base_fixation()
     }
 }
 
-module fixation()
-{
+module fixation() {
     translate([0,ecart_fixation/2,0])
         mirror([0,1,0]) base_fixation();
     translate([0,-ecart_fixation/2,0])
         base_fixation();
 }
 
-//cylinder(d=15,h=100,center=true);
+translate([0,0,hauteur]) mirror([0,0,1])
+    linear_extrude(height=hauteur,scale=carre_bas/carre_haut)
+        cadre();
 
-support();
-rotate([0,0,45]) emplacement_vis();
+emplacement_vis();
 fixation();
