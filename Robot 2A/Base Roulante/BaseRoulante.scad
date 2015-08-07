@@ -2,6 +2,7 @@ $fn=100;
 
 include <../Plaques Alu/plaques.scad>;
 include <modules.scad>
+use <../../Modèles/stm32f4discovery.scad>
 
 decalage_y_moteurs = 5;
 decalage_x_moteurs = 0;
@@ -17,6 +18,9 @@ codeurs();
 //main();
 moteurs();
 rotate([0,0,90])plaque_bas();
+
+translate([0,0,60])
+translate([-97/2,-66/2])stm32f4();
 
 module moteurs() {
 translate([0,0,reducteur_diametre/2 + 6+1]) {
