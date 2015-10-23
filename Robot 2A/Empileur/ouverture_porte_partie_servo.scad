@@ -27,4 +27,4 @@ module partie_servo_avec_servo() {
             servo();
     
 }
-partie_servo_avec_servo();
+partie_servo();

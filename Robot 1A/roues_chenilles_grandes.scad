@@ -31,7 +31,7 @@ module roue_dentee()
 module roue_pleine() 
 {
 	roue_dentee();
-	cylinder(r=rayon-15, h=22);
+	cylinder(r=rayon-17, h=22);
 	//translate([0,0,22]) cylinder(d=11,h=6);
 }
 

@@ -26,3 +26,4 @@ module porte_servo_avec_servo() {
     porte_servo();
     translate([4,1,48])rotate([-90,0,0])servo();
 }
+porte_servo();

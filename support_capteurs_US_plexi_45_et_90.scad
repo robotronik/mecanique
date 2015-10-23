@@ -3,17 +3,17 @@ dia_trou_fixation=4;
 include <capteur_US.scad>
 // En imprimer 2 de 45
 module support45() {
-    // Attache sur le servo
+    // Attache sur le capteur
     translate([10,0])
     difference() {
         translate([0,0,-2]) {
             translate([0,0])
                 cube([2, capteurUS_largeur-1,capteurUS_longueur+4]);
             translate([0,1])
-                cube([2,capteurUS_largeur,capteurUS_longueur]);
+                cube([2,capteurUS_largeur,capteurUS_longueur+4]);
         }
-        translate([0,capteurUS_largeur/2+1,capteurUS_longueur/2])
-            rotate([-90,0,90])#capteur_US();
+        translate([0,capteurUS_largeur/2+1.1,capteurUS_longueur/2])
+            mirror([0,0,1])rotate([-90,0,90])#capteur_US();
     }
     // Attache sur la plaque de plexy
     rotate([0,0,-45]) translate([0,2,-2])difference() {
@@ -38,8 +38,7 @@ module support45() {
              (-capteurUS_largeur+2)/1.414]]);
     }
 }
-rotate([0,0,45])translate([-3/2,0,0])#cube([3,100,100], center=true);
-support45();
+//rotate([0,0,45])translate([-3/2,0,0])#cube([3,100,100], center=true);
 
 module support90() {
     difference() {
@@ -77,3 +76,5 @@ module support90() {
         rotate([-90,0,-90])#capteur_US();
     }
 }
+
+mirror([0,1,0])support45();
