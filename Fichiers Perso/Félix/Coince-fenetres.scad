@@ -14,18 +14,20 @@ module plaque() {
     }
 }
 module trou1() {
-    translate([25,0])
-        square([27,15]);
+    translate([23,0]) difference() {
+        square([30,15]);
+        translate([11.5,0]) square([11,15]);
+    }
 }
 module trou2() {
     translate([126,0])
-        square([9,25]);
+        square([7.8,25]);
 }
 
 
 module attaches() {
 difference() {
-    minkowski(){
+     minkowski(){
         trou1();
         circle();
     }
