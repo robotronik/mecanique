@@ -77,20 +77,11 @@ module mdp_ts10093(){
                 translate([14,0,L_corps/2-3])plot();
             }
         }
-
-        for(i = [0 : 1]){
-            rotate([0,0,i*180+22.5]) {
-                translate([12.7, 0, -L_corps/2-0.1]) cylinder(4.1, d=1.6);
-            }
-        }
     }
 
     for(i = [0 : 1]){
-        rotate([0,0,i*180+22.5]) {
-            translate([12.7, 0, -L_corps/2  ]) thread_in(1.6, 4);
-            rotate([0,0,45])
+        rotate([0,0,i*180+67.5])
             translate([12.7, 0, -L_corps/2-7]) rotate([0,90,0]) cosse();
-        }
     }
 
     /////\\\\       VIS     /////\\\\\
@@ -101,5 +92,12 @@ module mdp_ts10093(){
         }
     }
     
+    for(i = [0 : 1]){
+        rotate([0,0,i*180+22.5]) {
+            translate([12.7, 0, -L_corps/2-4]) vis(8, 1.6);
+        }
+    }
+
 }
 
+mdp_ts10093();
