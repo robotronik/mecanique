@@ -1,8 +1,7 @@
-use <../lib/ISOThread.scad>;
+use <../Modèles/ISOThread.scad>;
 include <roue_motrice.scad>;
 include <roue_dentee.scad>;
 include <mdp_ts10093.scad>;
-include <axe56.scad>;
 $fn=30;
 
 // ecart moteur
@@ -15,8 +14,8 @@ epp = 1; //mm epaisseur des plaques
 d_perc = 3; //mm diametre perçage
 
 //****\\Placement des moteurs //****\\//
-translate([0, -ecart, hauteur])rotate([0, 90, 0])mdp_ts10093();
-translate([0, ecart, hauteur])rotate([180, 90, 0])mdp_ts10093();
+#translate([0, -ecart, hauteur])rotate([0, 90, 0])mdp_ts10093();
+#translate([0, ecart, hauteur])rotate([180, 90, 0])mdp_ts10093();
 
 //****\\Placements des roues dentees en lien avec les moteurs//****\\//
 translate([67, -ecart, hauteur])rotate([0, 90, 0])roue_dentee();
@@ -122,21 +121,19 @@ translate([0, -ecart*0.5, hauteur*0.25+d_perc])rotate([0, 90, 0])
 }
 //platine1();
 
-module platine2()
-{
-    difference()
-    {
+module platine2() {
+    difference() {
     translate([-49-epp, ecart-d_moteur/2-(d_moteur*0.2/2), 0])cube([epp, (d_moteur)*1.2, (d_moteur*1.3)]);
     translate([0, ecart, hauteur])rotate([180, 90, 0])mdp_ts10093();
         /////// percage \\\\\\/
     translate([0, ecart/2, hauteur*1.75+d_perc])rotate([0, 90, 0]) 
-    cylinder(h=1000, r=d_perc/2, center=true);
-translate([0, ecart*1.5, hauteur*1.75+d_perc])rotate([0, 90, 0]) 
-    cylinder(h=1000, r=d_perc/2, center=true);
-translate([0, ecart*1.5, hauteur*0.25+d_perc])rotate([0, 90, 0]) 
-    cylinder(h=1000, r=d_perc/2, center=true);
-translate([0, ecart*0.5, hauteur*0.25+d_perc])rotate([0, 90, 0]) 
-    cylinder(h=1000, r=d_perc/2, center=true);
+        cylinder(h=1000, r=d_perc/2, center=true);
+    translate([0, ecart*1.5, hauteur*1.75+d_perc])rotate([0, 90, 0]) 
+        cylinder(h=1000, r=d_perc/2, center=true);
+    translate([0, ecart*1.5, hauteur*0.25+d_perc])rotate([0, 90, 0]) 
+        cylinder(h=1000, r=d_perc/2, center=true);
+    translate([0, ecart*0.5, hauteur*0.25+d_perc])rotate([0, 90, 0]) 
+        cylinder(h=1000, r=d_perc/2, center=true);
     }
 }
 //platine2();
