@@ -16,14 +16,12 @@ d_perc = 3; //mm diametre perçage
 //****\\Placement des moteurs //****\\//
 
 module placement() {
-    rotate([0, 90, 0]) {
-        translate([-hauteur, -ecart, 0]) {
-            mdp_ts10093();
-            translate([ 0, 0, 67]) roue_dentee();
-        }
-        translate([0, 0, 67])rotate([0,180, 0])roue_dentee();
-        translate([0, 0, 95])roue_motrice();
+    translate([0, -ecart, hauteur]) {
+        rotate([0, 90, 0]) mdp_ts10093();
+        translate([ 63, 0, 0]) mirror([1,0,0])roue_dentee();
     }
+    translate([63, 0, 0])roue_dentee();
+    translate([90, 0, 0])roue_motrice();
 }
 
 placement();

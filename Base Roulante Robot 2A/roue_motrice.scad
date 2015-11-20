@@ -19,7 +19,7 @@ module tore(){
 }
 
 module roue_motrice() {
-    difference () {
+    rotate([0,90,0]) difference () {
         roue();
         translate([0, 0, 8.5]) tore();
         translate([0, 0, -8.5]) tore();
@@ -27,5 +27,3 @@ module roue_motrice() {
         
     }
 }
-
-//rotate([90,0,0]) roue_motrice();

@@ -26,7 +26,7 @@ module roue1() {
 };
 
 module roue_dentee() {
-    difference() {
+    rotate([0,90,0])difference() {
         roue1();
         cylinder(h=100, r=rayon_axe, center=true);
     }
