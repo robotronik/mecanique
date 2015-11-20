@@ -24,14 +24,6 @@ module arrondi(hauteur, profondeur, sens, diam, H){
         polygon(points=[[profondeur+0.1, hauteur+0.1], [profondeur, 0], [0, hauteur]]);
 }
 
-module cosse(){
-    translate([0, 0, -0.5])
-    linear_extrude(height=1, convexity=2) difference(){
-        polygon(points=[[-7,-2], [-7, 2], [6, 2],
-                        [ 7, 1], [ 7,-1], [6,-2]]);
-        translate([5, 0]) circle(d=2);
-    }
-}
 
 module corps(){
     cylinder(L_corps, d=d_corps, center=true);
@@ -41,11 +33,6 @@ module corps(){
 
     translate([0, 0, -L_corps/2-L_supp_arr])  cylinder(L_supp_arr, d=d_supp_arr);
     translate([0, 0, -L_corps/2-L_rotor_arr]) cylinder(L_rotor_arr, d=d_rotor_arr);
-}
-
-module vis   (longueur,   diametre) {
-    cylinder (longueur, d=diametre);
-    thread_in(diametre,   longueur);
 }
 
 module plot() {
@@ -60,6 +47,42 @@ module plot() {
         }
     }
 }
+
+
+module vis   (longueur,   diametre) {
+    cylinder (longueur, d=diametre);
+    //thread_out(diametre,   longueur);
+}
+module mdp_ts10093_vis() {
+    for(i = [0 : 3]){
+        rotate([0,0,90*i]) {
+            translate([13  , 0,  L_corps/2]) vis(6, 3);
+        }
+    }
+    
+    for(i = [0 : 1]){
+        rotate([0,0,i*180+22.5]) {
+            translate([12.7, 0, -L_corps/2]) vis(4, 1.6);
+        }
+    }
+}
+
+
+module cosse(){
+    translate([0, 0, -0.5])
+    linear_extrude(height=1, convexity=2) difference(){
+        polygon(points=[[-7,-2], [-7, 2], [6, 2],
+                        [ 7, 1], [ 7,-1], [6,-2]]);
+        translate([5, 0]) circle(d=2);
+    }
+}
+module mdp_ts10093_cosses() {
+    for(i = [0 : 1]){
+        rotate([0,0,i*180+67.5])
+            translate([12.7, 0, -L_corps/2-7]) rotate([0,90,0]) cosse();
+    }
+}
+
 
 module mdp_ts10093(){
     difference(){
@@ -79,25 +102,6 @@ module mdp_ts10093(){
         }
     }
 
-    for(i = [0 : 1]){
-        rotate([0,0,i*180+67.5])
-            translate([12.7, 0, -L_corps/2-7]) rotate([0,90,0]) cosse();
-    }
-
-    /////\\\\       VIS     /////\\\\\
-
-    for(i = [0 : 3]){
-        rotate([0,0,90*i]) {
-            translate([13, 0, L_corps/2-4]) vis(10, 3);
-        }
-    }
-    
-    for(i = [0 : 1]){
-        rotate([0,0,i*180+22.5]) {
-            translate([12.7, 0, -L_corps/2-4]) vis(8, 1.6);
-        }
-    }
-
+    mdp_ts10093_vis();
+    mdp_ts10093_cosses();
 }
-
-mdp_ts10093();
