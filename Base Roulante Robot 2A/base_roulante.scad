@@ -1,6 +1,7 @@
 include <roue_motrice.scad>;
 include <roue_dentee.scad>;
 include <mdp_ts10093.scad>;
+use <../Modèles/stm32f4discovery.scad>
 
 $fn=50;
 
@@ -33,7 +34,7 @@ translate([0,0,rayon_roue]) {
 
     longueur = 150;
     /////// percage \\\\\\/
-    translate([0, -ecart/2, hauteur*1.75+d_perc])rotate([0, 90, 0]) 
+    translate([0, -ecart*0.5, hauteur*1.75+d_perc])rotate([0, 90, 0]) 
         cylinder(h=longueur, r=d_perc/2, center=true);
     translate([0, -ecart*1.5, hauteur*1.75+d_perc])rotate([0, 90, 0]) 
         cylinder(h=longueur, r=d_perc/2, center=true);
@@ -41,13 +42,13 @@ translate([0,0,rayon_roue]) {
         cylinder(h=longueur, r=d_perc/2, center=true);
     translate([0, -ecart*0.5, hauteur*0.25+d_perc])rotate([0, 90, 0]) 
         cylinder(h=longueur, r=d_perc/2, center=true);
-    translate([0, ecart/2, hauteur*1.75+d_perc])rotate([0, 90, 0]) 
+    translate([0,  ecart*0.5, hauteur*1.75+d_perc])rotate([0, 90, 0]) 
         cylinder(h=longueur, r=d_perc/2, center=true);
-    translate([0, ecart*1.5, hauteur*1.75+d_perc])rotate([0, 90, 0]) 
+    translate([0,  ecart*1.5, hauteur*1.75+d_perc])rotate([0, 90, 0]) 
         cylinder(h=longueur, r=d_perc/2, center=true);
-    translate([0, ecart*1.5, hauteur*0.25+d_perc])rotate([0, 90, 0]) 
+    translate([0,  ecart*1.5, hauteur*0.25+d_perc])rotate([0, 90, 0]) 
         cylinder(h=longueur, r=d_perc/2, center=true);
-    translate([0, ecart*0.5, hauteur*0.25+d_perc])rotate([0, 90, 0]) 
+    translate([0,  ecart*0.5, hauteur*0.25+d_perc])rotate([0, 90, 0]) 
         cylinder(h=longueur, r=d_perc/2, center=true);
 }
 }
@@ -99,6 +100,26 @@ module trous_roues() {
         cube([largeur_roue+6, 55, 25], center=true);
 }
 
+module support_roue() {
+    _epaisseur =  3;
+    _largeur   = 26;
+    _hauteur   = 40;
+    _espace    = 25;
+    _posin     = 48.5 - _epaisseur;
+    _posout    =_posin + _espace + _epaisseur;
+    // Supports des axes
+    difference() {
+        union(){
+        translate([_posout, -_largeur/2, 7+epp]) cube([_epaisseur,_largeur,_hauteur]);
+        translate([_posin,  -_largeur/2, 7+epp]) cube([_epaisseur,_largeur,_hauteur]);
+        }
+        translate([_posin-0.2,            0, rayon_roue])
+            rotate([0,90,0]) cylinder(d=18,_espace + 2*_epaisseur+0.4);
+    }
+    translate([_posin,  -_largeur/2, 7+epp])
+        cube([_espace + 2*_epaisseur,_largeur,_epaisseur]);
+}
+
 module support_roues() {
     difference() {
     translate([0,0,7+epp/2])
@@ -106,23 +127,23 @@ module support_roues() {
         cube([250, 90, epp], center=true);
         trous_roues();
     }
-    // Supports des axes
-    translate([-78.5,-15,7+epp/2])
-        #cube([5,30,40]);
-    translate([-48.5,-15,7+epp/2])
-        #cube([5,30,40]);
+    
+    support_roue();
+    mirror([1,0,0])
+    support_roue();
 }
 support_roues();
 
 placement();
 rotate ([0,0,180])
-#placement();
+placement();
+
 difference() {
     plaques();
     moteurs_pour_diff();
 }
 plaque_dessous();
-
+translate([30,-48,20]) rotate([0,0,90])stm32f4();
 
 
 /*
@@ -135,9 +156,11 @@ platine2();
 
 /*
 //****\\platine des roues dentees et motrices//****\\//
-module equerre1()
-{
- translate([81, -((d_moteur*2+ecart)*1.2)/2, -d_roued])cube([3, (d_moteur*2+ecart)*1.2, d_rouem]);
-    translate([40, -((d_moteur*2+ecart)*1.2)/2, -d_roued])rotate([0, 90, 0])cube([3, (d_moteur*2+ecart)*1.2, d_rouem]);  
+module equerre1() {
+    translate([81, -((d_moteur*2+ecart)*1.2)/2, -d_roued])
+        cube([3, (d_moteur*2+ecart)*1.2, d_rouem]);
+    translate([40, -((d_moteur*2+ecart)*1.2)/2, -d_roued])
+    rotate([0, 90, 0])
+    cube([3, (d_moteur*2+ecart)*1.2, d_rouem]);
 }
 */
