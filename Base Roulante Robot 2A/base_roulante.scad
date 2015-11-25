@@ -1,20 +1,19 @@
-include <roue_motrice.scad>;
-include <roue_dentee.scad>;
-include <mdp_ts10093.scad>;
+use <roue_motrice.scad>;
+use <roue_dentee.scad>;
+use <mdp_ts10093.scad>;
 
 $fn=50;
 
-// ecart moteur
-ecart = 30; //mm
-hauteur = 20; //mm
-d_moteur = 32; //mm
-d_rouem = 72; //mm
-d_roued = 27.5; //mm
-epp = 1; //mm epaisseur des plaques
-d_perc = 3; //mm diametre perçage
+// Dimensions en millimètres
+ecart = 30;     // écart moteur
+hauteur = 20;
+d_moteur = 32;
+d_rouem = 72;
+d_roued = 27.5;
+epp = 3;        // épaisseur des plaques
+d_perc = 3;     // diamètre perçage
 
 //****\\Placement des moteurs //****\\//
-
 module placement() {
     translate([0, -ecart, hauteur]) {
         rotate([0, 90, 0]) mdp_ts10093();
@@ -24,14 +23,10 @@ module placement() {
     translate([90, 0, 0])roue_motrice();
 }
 
-placement();
 
-rotate ([0,0,180])
-placement();
 
 
 //****\\Platine des moteurs//****\\//
-//grande platine
 module plaque1() {
     difference() {
         translate([40, -(d_moteur+ecart/2)*1.2, 0])
@@ -49,7 +44,6 @@ module plaque1() {
             cylinder(h=1000, r=d_perc/2, center=true);
     }
 }
-plaque1();
 
 module plaque2() {
     difference() {
@@ -68,7 +62,6 @@ module plaque2() {
             cylinder(h=1000, r=d_perc/2, center=true);
     }
 }
-plaque2();
 
 module plaque3() {
    difference() {
@@ -99,9 +92,6 @@ module plaque3() {
     }
 }
 
-plaque3();
-//projection( cut=true )plaque3();
-///petite platine
 module platine1() {
     difference()
     {
@@ -118,7 +108,6 @@ module platine1() {
             cylinder(h=1000, r=d_perc/2, center=true);
     }
 }
-platine1();
 
 module platine2() {
     difference() {
@@ -135,19 +124,20 @@ module platine2() {
             cylinder(h=1000, r=d_perc/2, center=true);
     }
 }
+
+placement();
+rotate ([0,0,180])
+placement();
+
+plaque1();
+plaque2();
+plaque3();
+platine1();
 platine2();
 
+
 /*
-translate([0, -ecart/2, hauteur*1.75+d_perc])rotate([0, 90, 0]) 
-    cylinder(h=1000, r=d_perc/2, center=true);
-translate([0, -ecart*1.5, hauteur*1.75+d_perc])rotate([0, 90, 0]) 
-    cylinder(h=1000, r=d_perc/2, center=true);
-translate([0, -ecart*1.5, hauteur*0.25+d_perc])rotate([0, 90, 0]) 
-    cylinder(h=1000, r=d_perc/2, center=true);
-translate([0, -ecart*0.5, hauteur*0.25+d_perc])rotate([0, 90, 0]) 
-    cylinder(h=1000, r=d_perc/2, center=true);*/
-/*
-//****\\Platine des roues dentees et motrices//****\\//
+//****\\platine des roues dentees et motrices//****\\//
 module equerre1()
 {
  translate([81, -((d_moteur*2+ecart)*1.2)/2, -d_roued])cube([3, (d_moteur*2+ecart)*1.2, d_rouem]);
