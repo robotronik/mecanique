@@ -2,9 +2,10 @@
 // modèle roue dentée
 
 //\\épaisseur//
-largeur_dent    = 16.1;
+largeur_roue_dentee = 26.0;   // Épaisseur totale
+largeur_dent    = 20.4;
 largeur_disque  =  1.7;
-largeur_cyl     =  5.9;
+largeur_cyl     =  5.6;
 //\\rayon//
 rayon_dis   = 31.8;
 rayon_dent  = 27.5;
@@ -16,12 +17,13 @@ module cyl_ext() {
 }
 
 module roue1() {
-    cylinder(h=largeur_dent, d=rayon_dent, center=true );
-    translate([0, 0,  (largeur_dent/2+(largeur_disque/2))])
+    translate([0,0, largeur_disque/2])
         cyl_ext();
-    translate([0, 0, -(largeur_dent/2+(largeur_disque/2))])
+    translate([0,0, largeur_dent/2])
+        cylinder(h=largeur_dent, d=rayon_dent, center=true);
+    translate([0,0, largeur_dent-largeur_disque/2])
         cyl_ext();
-    translate([0, 0, -(largeur_dent/2+(largeur_cyl/2))])
+    translate([0,0, largeur_dent+largeur_cyl/2])
         cylinder(h=largeur_cyl, d=rayon_cyl, center=true );
 };
 
