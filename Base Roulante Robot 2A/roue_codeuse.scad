@@ -18,7 +18,7 @@ module _roue_codeuse() {
     // Codeur
     translate([0,0,codeuse_epaisseur/2 + 8.5]) {
         cylinder(d=codeur_diametre, h=codeur_epaisseur);
-        translate([codeur_diametre/2,0,codeur_epaisseur/2])
+        translate([-codeur_diametre/2,0,codeur_epaisseur/2])
             cube(center=true, [3,12,6]);
     }
 }
