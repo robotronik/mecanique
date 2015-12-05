@@ -2,7 +2,7 @@
 // modèle roue dentée
 
 //\\épaisseur//
-largeur_roue_dentee = 26.0;   // Épaisseur totale
+largeur_roue_dentee = 27.0;   // Épaisseur totale
 largeur_dent    = 20.4;
 largeur_disque  =  1.7;
 largeur_cyl     =  5.6;
