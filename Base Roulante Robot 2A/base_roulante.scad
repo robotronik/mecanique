@@ -20,7 +20,7 @@ d_perc      = 3;    // diamètre perçage
 /**** Placement des moteurs ****/
 module placement() {
     translate([mot_ecart_x, -mot_ecart_y, mot_hauteur+rayon_roue]) {
-        rotate([0, 90, 0]) mdp_ts10093();
+        //rotate([0, 90, 0]) mdp_ts10093();
         translate([52.5, 0, 0]) roue_dentee();
     }
     translate([mot_ecart_x+73, 0, rayon_roue]) {
@@ -30,6 +30,11 @@ module placement() {
     }
     translate([mot_ecart_x+90, 0, rayon_roue])  roue_motrice();
     translate([101, 0, codeuse_diametre/2])     roue_codeuse();
+}
+
+module placement_moteur() {
+        translate([mot_ecart_x, -mot_ecart_y, mot_hauteur+rayon_roue]) {
+        rotate([0, 90, 0]) mdp_ts10093();}
 }
 
 module moteurs_pour_diff() {
@@ -71,7 +76,7 @@ module support_moteur(){
     difference(){
         translate([ -50-_epp/2  -mot_ecart_x ,-(mot_diam+mot_ecart_y/2)*1.2, rayon_roue+mot_hauteur-18])
             cube([_epp, (mot_diam+mot_ecart_y/2)*1.2, (mot_diam*1.3)]);
-        placement();
+        placement_moteur();
     }
     /// plaque gauche (cote roue dentee)
     translate([-5,0,0])
@@ -88,7 +93,14 @@ module support_moteur(){
     }*/
     /// plaque en dessous
     translate([ -50-_epp/2-mot_ecart_x , -(mot_diam*2+mot_ecart_y)*0.6 , rayon_roue-_epp+mot_hauteur-18])
+    /// percage de la plaque
+    difference(){
         cube([ 101+_epp/2+mot_ecart_x*2 , (mot_diam*2+mot_ecart_y)*0.6 , _epp]);
+        translate([ 29.5 , mot_ecart_y*0.5, 0])cylinder(h=10, r=d_perc/2, center=true);
+        translate([ 29.5 , mot_ecart_y*1.5, 0])cylinder(h=10, r=d_perc/2, center=true);
+        translate([ 62.5 , mot_ecart_y*0.5, 0])cylinder(h=10, r=d_perc/2, center=true);
+        translate([ 62.5 , mot_ecart_y*1.5, 0])cylinder(h=10, r=d_perc/2, center=true);
+    }
 }
 
 
@@ -177,6 +189,9 @@ module support_rail() {
 placement();
 rotate ([0,0,180])
     placement();
+/*
+placement_moteur();
+rotate([0,0,180])placement_moteur();*/
 
 
 // Support des roues dentées + motrices
