@@ -1,8 +1,21 @@
 $fn=100;
 
-include <../Plaques Alu/plaques.scad>;
-include <modules.scad>
-use <../../Modèles/stm32f4discovery.scad>
+use <../Modèles/stm32f4discovery.scad>
+use <moteur_maxxon.scad>
+use <roue_motrice.scad>
+use <roue_codeuse.scad>
+
+roue_diametre = 60;
+roue_epaisseur= 20;
+
+
+reducteur_longueur = 39;
+reducteur_diametre = 32;
+
+moteur_longueur = 54.5;
+moteur_diametre = 25;
+
+centre_moteur = (moteur_longueur+reducteur_longueur)/2;
 
 decalage_y_moteurs = 5;
 decalage_x_moteurs = 0;
@@ -15,38 +28,38 @@ hauteur_axe_roues = roue_diametre/2 - hauteur_plaque_bas;
 
 roues();
 codeurs();
-//main();
+main();
 moteurs();
-rotate([0,0,90])plaque_bas();
+//rotate([0,0,90])plaque_bas();
 
 translate([0,0,60])
 translate([-97/2,-66/2])stm32f4();
 
 module moteurs() {
-translate([0,0,reducteur_diametre/2 + 6+1]) {
-    translate([decalage_x_moteurs,
-        -(reducteur_diametre+moteur_diametre+decalage_y_moteurs)/4])
-        rotate([0,  90]) moteur();
+    translate([0,0,reducteur_diametre/2 + 6+1]) {
+        translate([decalage_x_moteurs,
+            -(reducteur_diametre+moteur_diametre+decalage_y_moteurs)/4])
+            rotate([0,  90]) moteur_maxxon();
 
-    translate([-decalage_x_moteurs,
-         (reducteur_diametre+moteur_diametre+decalage_y_moteurs)/4])
-        rotate([0, -90]) moteur();
-}
+        translate([-decalage_x_moteurs,
+             (reducteur_diametre+moteur_diametre+decalage_y_moteurs)/4])
+            rotate([0, -90]) moteur_maxxon();
+    }
 }
 
 module roues() {
     translate([0,0,hauteur_axe_roues]) {
-        translate([ demie_entraxe_roues,0])roue();
-        translate([-demie_entraxe_roues,0])roue();
+        translate([ demie_entraxe_roues,0])roue_motrice();
+        translate([-demie_entraxe_roues,0])roue_motrice();
         
     }
 }
 
 module codeurs() {
     translate([ demie_entraxe_codeurs,0,15])
-        rotate([0,-90,0])roue_codeuse();
-    translate([-demie_entraxe_codeurs,0,15])mirror([1,0,0])
-        rotate([0,-90,0])roue_codeuse();
+        mirror([1,0,0])roue_codeuse();
+    translate([-demie_entraxe_codeurs,0,15])
+        mirror([0,0,0])roue_codeuse();
 }
 
 module main() {
