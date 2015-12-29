@@ -138,12 +138,22 @@ module fixations_coque() {
 
 //bille 3mm plus haute sous openscad
 module bille_jockey() {
+	difference() {
 	cylinder(d=30.2, h=1.5);
+	translate([0,12.6,-1])cylinder(d=3,h=3);
+	rotate([0,0,-120])translate([0,12.6,-1])cylinder(d=3,h=3);
+	rotate([0,0,120])translate([0,12.6,-1])cylinder(d=3,h=3);
+	}
 	translate([0,0,1.5])cylinder(h=8, r1=10, r2=7);
 	difference() {
 	translate([0,0,-1.5])sphere(r=10.5);
 	translate([0,0,0]) cylinder(d=21,h=5);
 	}
+}
+
+module billes_jockey() {
+	translate([38.1,111.9,-1.5])bille_jockey(); 
+	translate([161.9,111.9,-1.5])bille_jockey(); 
 }
 
 module visM(M, L, taraudage) {
@@ -160,7 +170,8 @@ color ("red") moteurs_Brushless();
 color ("green") roues_codeuses();
 color("grey")coque_exterieure();
 color ("orange") fixations_coque();
-translate([milieu_l,111.9,-1.5])bille_jockey(); 
+//translate([milieu_l,111.9,-1.5])bille_jockey(); 
+billes_jockey();
 //visM(M=4,L=10,taraudage=1);
 // -->
 roues();
