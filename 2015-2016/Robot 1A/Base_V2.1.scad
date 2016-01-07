@@ -87,19 +87,19 @@ module roues_codeuses(){
 
 module coque_exterieure() {
 	difference() {
-		translate([0,3,5]) cube([3,134,100]);
+		translate([0,3,5]) cube([3,134,200]);
 		translate([-1,21,0]) cube([5,44,35]);
 	}
-	translate([0,137,5]) cube([200,3,100]);	
+	translate([0,137,5]) cube([200,3,200]);	
 	difference() {
-		translate([197,3,5]) cube([3,134,100]);
+		translate([197,3,5]) cube([3,134,200]);
 		translate([196,21,0]) cube([5,44,35]);
 	}
-	translate([0,0,5]) cube([200,3,100]);
+	translate([0,0,5]) cube([200,3,200]);
 }
 
 largeur_Barre = 10;
-longueur_Barre = 150;
+longueur_Barre = 200;
 module fixation_coque_Barre() {
 	cube([largeur_Barre,largeur_Barre,longueur_Barre]); 
 }
@@ -163,6 +163,15 @@ module visM(M, L, taraudage) {
         cylinder(d=M-1, h=L);
 }
 
+module etages() {
+	translate([14,12.5,65]) cube([173,122,3]) ;
+	translate([14,12.5,140]) cube([173,122,3]) ;
+}
+
+module batterie() {
+	translate([14,12.5,68]) cube([170,110,70]) ;
+}
+
 base();
 //#moteurs_DC();
 // -->
@@ -172,6 +181,8 @@ color("grey")coque_exterieure();
 color ("orange") fixations_coque();
 //translate([milieu_l,111.9,-1.5])bille_jockey(); 
 billes_jockey();
+color("purple") etages();
+color("black") batterie() ;
 //visM(M=4,L=10,taraudage=1);
 // -->
 roues();
