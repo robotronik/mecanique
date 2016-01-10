@@ -25,12 +25,12 @@ module moteur_Brushless() {
 	translate([-25.5,0,-6.3]) rotate([0,90,0]) cylinder(d=8,h=25.5);
 }
 
-module moteurs_DC() {
+/*module moteurs_DC() {
     translate([  3+Tx,2.5+Ty,5])
         moteur_DC();
     translate([157-Tx,2.5+Ty,5])
         moteur_DC();
-}
+}*/
 
 largeur_base = 200;
 longueur_base = 140;
@@ -136,6 +136,25 @@ module fixations_coque() {
 	translate([140,13,5]) rotate([0,0,90]) fixation_coque_Equerre();
 }
 
+module fixation_etage(L) {
+	cube([25,L,5]); 
+	difference() {
+		rotate([0,90,0])cube([20,L,5]);
+		translate([-1,5,-10])rotate([0,90,0])cylinder(d=4,h=7);
+		translate([-1,L-5,-10])rotate([0,90,0])cylinder(d=4,h=7);
+	}
+	translate([0,L/2-2.5,0])polyhedron(
+		points=[ [5,0,0],[25,0,0],[25,5,0],[5,5,0],[5,0,-20],[5,5,-20] ],
+		faces=[ [0,1,4],[3,2,5],[0,3,1],[1,2,3],[0,3,5],[4,5,0],[1,2,4],[4,5,2] ]
+	);
+	
+}
+
+module fixations_etage(L,H_etage) {
+	translate([13,80,H_etage])fixation_etage(57);
+	translate([140,13,H_etage])rotate([0,0,90])fixation_etage(80);
+	translate([187,137,H_etage])rotate([0,0,-180])fixation_etage(57);
+}
 //bille 3mm plus haute sous openscad
 module bille_jockey() {
 	difference() {
@@ -156,33 +175,28 @@ module billes_jockey() {
 	translate([161.9,111.9,-1.5])bille_jockey(); 
 }
 
-module visM(M, L, taraudage) {
-    if(taraudage == 0)
-        cylinder(d=M  , h=L);
-    else
-        cylinder(d=M-1, h=L);
-}
-
 module etages() {
-	translate([14,12.5,65]) cube([173,122,3]) ;
-	translate([14,12.5,140]) cube([173,122,3]) ;
+	translate([14,14,65]) cube([173,122,3]) ;
+	translate([14,14,140]) cube([173,122,3]) ;
 }
 
 module batterie() {
-	translate([14,12.5,68]) cube([170,110,70]) ;
+	translate([14,14,68]) cube([170,110,70]) ;
 }
+
 
 base();
 //#moteurs_DC();
 // -->
 color ("red") moteurs_Brushless();
 color ("green") roues_codeuses();
-color("grey")coque_exterieure();
+//color("grey")coque_exterieure();
 color ("orange") fixations_coque();
 //translate([milieu_l,111.9,-1.5])bille_jockey(); 
 billes_jockey();
 color("purple") etages();
-color("black") batterie() ;
-//visM(M=4,L=10,taraudage=1);
+//color("black") batterie();
+color("blue") fixations_etage(60,60);
+color("blue") fixations_etage(60,135);
 // -->
 roues();
