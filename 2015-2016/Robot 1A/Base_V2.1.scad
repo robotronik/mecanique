@@ -143,17 +143,25 @@ module fixation_etage(L) {
 		translate([-1,5,-10])rotate([0,90,0])cylinder(d=4,h=7);
 		translate([-1,L-5,-10])rotate([0,90,0])cylinder(d=4,h=7);
 	}
-	translate([0,L/2-2.5,0])polyhedron(
-		points=[ [5,0,0],[25,0,0],[25,5,0],[5,5,0],[5,0,-20],[5,5,-20] ],
-		faces=[ [0,1,4],[3,2,5],[0,3,1],[1,2,3],[0,3,5],[4,5,0],[1,2,4],[4,5,2] ]
-	);
-	
+	translate([0,L/2+2.5,0]) rotate([90,0,0])linear_extrude(height = 5)polygon(
+		points=[ [0,0],[20,0],[0,-20] ],
+		paths=[ [0,1,2] ]
+	);	
 }
 
-module fixations_etage(L,H_etage) {
-	translate([13,80,H_etage])fixation_etage(57);
-	translate([140,13,H_etage])rotate([0,0,90])fixation_etage(80);
-	translate([187,137,H_etage])rotate([0,0,-180])fixation_etage(57);
+module fixations_etage1(L,H_etage) {
+	translate([13,80,H_etage])fixation_etage(L);
+	translate([L+83,13,H_etage])rotate([0,0,90])fixation_etage(80);
+	translate([130+L,80+L,H_etage])rotate([0,0,-180])fixation_etage(L);
+}
+
+module fixations_etage2(H_etage) {	
+	//translate([13,80,5+H_etage]) fixation_coque_Equerre();
+	translate([13,127,5+H_etage]) fixation_coque_Equerre();
+	translate([187,127,5+H_etage])mirror([1,0,0]) fixation_coque_Equerre();
+	//translate([187,80,5+H_etage])mirror([1,0,0]) fixation_coque_Equerre();
+	translate([70,13,5+H_etage]) rotate([0,0,90]) fixation_coque_Equerre();
+	translate([140,13,5+H_etage]) rotate([0,0,90]) fixation_coque_Equerre();
 }
 //bille 3mm plus haute sous openscad
 module bille_jockey() {
@@ -177,7 +185,7 @@ module billes_jockey() {
 
 module etages() {
 	translate([14,14,65]) cube([173,122,3]) ;
-	translate([14,14,140]) cube([173,122,3]) ;
+	translate([14,14,145]) cube([173,122,3]) ;
 }
 
 module batterie() {
@@ -195,8 +203,8 @@ color ("orange") fixations_coque();
 //translate([milieu_l,111.9,-1.5])bille_jockey(); 
 billes_jockey();
 color("purple") etages();
-//color("black") batterie();
-color("blue") fixations_etage(60,60);
-color("blue") fixations_etage(60,135);
+color("black") batterie();
+color("blue") fixations_etage1(57,60);
+color("blue") fixations_etage2(143);
 // -->
 roues();
