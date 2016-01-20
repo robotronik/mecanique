@@ -57,6 +57,7 @@ module roues()
     translate([milieu_l+(ecart_moteur/2+longueur_moteur+ecart_RoueMot),23+Ty,25]) roue();
 }
 
+// copie d'un fichier mais modifier par la suite
 codeuse_diametre    = 41.2;
 codeuse_epaisseur   = 10;
 codeur_diametre     = 21.6;
@@ -78,6 +79,10 @@ module roue_codeuse() {
         translate([codeur_diametre/2,0,codeur_epaisseur/2])
             cube(center=true, [3,12,6]);
     }
+	difference() {
+	translate([-10,-10,10])cube([50,20,3]);
+	translate([32.5,0,9])cylinder(h=5, d=6);
+	}
 }
 
 module roues_codeuses(){
@@ -163,6 +168,9 @@ module fixations_etage2(H_etage) {
 	translate([70,13,5+H_etage]) rotate([0,0,90]) fixation_coque_Equerre();
 	translate([140,13,5+H_etage]) rotate([0,0,90]) fixation_coque_Equerre();
 }
+
+
+
 //bille 3mm plus haute sous openscad
 module bille_jockey() {
 	difference() {
@@ -192,6 +200,39 @@ module batterie() {
 	translate([14,14,68]) cube([170,110,70]) ;
 }
 
+// copie d'un fichier
+capteurUS_largeur = 19.9;
+capteurUS_longueur= 22.1;
+capteurUS_ep_PCB= 1.7;
+
+module vis_capteur() {
+    translate([2.54,2.54])
+        circle(d=3.1);
+    translate([2.54+12.6,2.54+17])
+        circle(d=3.1);
+}
+module capteur_US_base() {
+    cube([capteurUS_largeur,capteurUS_longueur,capteurUS_ep_PCB]);
+    translate([0,0,-10])linear_extrude(height=20)vis_capteur();
+    translate([9,capteurUS_longueur/2])cylinder(d=16.4, h=15.5);
+    translate([17.9,0,-7]) cube([2,19,7]);
+}
+module capteur_US() {
+    translate([-capteurUS_largeur/2,-capteurUS_longueur/2])capteur_US_base();
+}
+module fixation_roues_codeuses() {
+	rotate([0,0,90]){linear_extrude(height=20)polygon(
+			points=[ [0,0],[26,0],[26,-9], [18,-9], [18,-6], [23,-6], [23,-3], [3,-3],[3,-6],[8,-6],[8,-9],[0,-9] ],
+			paths=[ [0,1,2,3,4,5,6,7,8,9,10,11] ]
+		);	
+	translate([0,-2,10])cube([65,5,20]);
+	translate([0,-2,0])cube([26,5,10]);
+	}
+}
+module fixations_roues_codeuses () {
+	mirror([1,0,0])translate([-21,30,30]) fixation_roues_codeuses();
+	translate([179,30,30]) fixation_roues_codeuses();
+}
 
 base();
 //#moteurs_DC();
@@ -206,5 +247,11 @@ color("purple") etages();
 color("black") batterie();
 color("blue") fixations_etage1(57,60);
 color("blue") fixations_etage2(143);
+//color("pink") translate([0,120,70])rotate([0,90,90])capteur_US();
+color("brown")fixations_roues_codeuses();
+
 // -->
 roues();
+
+
+
