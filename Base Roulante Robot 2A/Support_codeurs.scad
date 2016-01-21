@@ -2,7 +2,7 @@ $fn = 40;
 codeur_diam_pasdevis = 9.3;
 
 // TODO déterminer ces dimensions
-rails_distance      = 36;
+rails_distance      = 50;
 rails_diametre      =  8;
 roulements_diametre = 15;
 
