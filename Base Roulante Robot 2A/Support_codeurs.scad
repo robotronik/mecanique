@@ -58,8 +58,8 @@ module supports_rails() {
             
         }
 
-        translate([0, rails_distance/2,2])  cylinder(d = rails_diametre-0.3, h = 50);
-        translate([0,-rails_distance/2,2])  cylinder(d = rails_diametre-0.3, h = 50);
+        translate([0, rails_distance/2,2])  cylinder(d = rails_diametre, h = 50);
+        translate([0,-rails_distance/2,2])  cylinder(d = rails_diametre, h = 50);
     }
 }
 
