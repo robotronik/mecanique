@@ -5,16 +5,16 @@ module rouleaux_1(L,D) {
 		rotate([0,90,0])cylinder(d=D, h=L);
 		translate([-1,0,0])rotate([0,90,0])cylinder(d=32, h=L+2);
 	}
-	translate([L+17,0,0])rotate([-90,0,90])cylinder(d=2.8, h=81);	
-	translate([0,0,-1.5])cube([10,D/2-1,3]);
-	translate([0,1.5,0])rotate([90,0,0])cube([10,D/2-1,3]);
-	translate([0,0,1.5])rotate([180,0,0])cube([10,D/2-1,3]);
-	translate([0,-1.5,0])rotate([-90,0,0])cube([10,D/2-1,3]);
-	translate([L-10,0,-1.5])cube([10,D/2-1,3]);
-	translate([L-10,1.5,0])rotate([90,0,0])cube([10,D/2-1,3]);
-	translate([L-10,0,1.5])rotate([180,0,0])cube([10,D/2-1,3]);
-	translate([L-10,-1.5,0])rotate([-90,0,0])cube([10,D/2-1,3]);
-	
+	difference() {
+		union () {	
+			translate([0,0,-1.5])cube([L,D/2-1,3]);
+			translate([0,1.5,0])rotate([90,0,0])cube([L,D/2-1,3]);
+			translate([0,0,1.5])rotate([180,0,0])cube([L,D/2-1,3]);
+			translate([0,-1.5,0])rotate([-90,0,0])cube([L,D/2-1,3]);
+		}
+		translate([L+17,0,0])rotate([-90,0,90])cylinder(d=2.9, h=81);
+	}
+	translate([L+17,0,0])rotate([-90,0,90])#cylinder(d=2.8, h=81);
 
 }
 
