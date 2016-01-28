@@ -2,13 +2,13 @@ $fn = 40;
 codeur_diam_pasdevis = 9.3;
 
 // TODO déterminer ces dimensions
-rails_distance      = 50;
+rails_distance      = 60;
 rails_diametre      =  8;
 roulements_diametre = 15;
 
-chariot_hauteur     = 15;
+chariot_hauteur     = 24;
 chariot_epaisseur   =  3;
-dim_supports_roulements = roulements_diametre + 8;
+dim_supports_roulements = roulements_diametre + 4;
 dim_supports_roulements_carres = roulements_diametre ;
 
 support_rails_larg  = 15;
@@ -29,12 +29,17 @@ module chariot() {
             translate([0,-rails_distance/2,-chariot_hauteur/2]) rotate([0,0, 45])
                 cube([dim_supports_roulements/2,
                       dim_supports_roulements/2,chariot_hauteur]);
+            
         }
         rotate([0,90,0])cylinder(d = codeur_diam_pasdevis, h = 20, center=true);
         translate([0, rails_distance/2,0])
             cylinder(d = roulements_diametre, h = 50, center=true);
         translate([0,-rails_distance/2,0])
             cylinder(d = roulements_diametre, h = 50, center=true);
+        translate([0, 2*rails_distance/3, 0]) 
+            cube([3, roulements_diametre, 50], center = true);
+        translate([0, -2*rails_distance/3, 0]) 
+            cube([3, roulements_diametre, 50], center = true);
     }
 }
 
@@ -48,12 +53,12 @@ module supports_rails() {
             translate([0,-rails_distance/2,0])
                 cylinder(d = support_rails_larg, h = support_rails_epp);
             translate([0, rails_distance/2,support_rails_epp]) difference() {
-                cylinder(d = rails_diametre+4, h = 5);
-                translate([0,0,4.5]) cube([rails_diametre+4,1,7], center=true);
+                cylinder(d = rails_diametre+4, h = 10);
+                //translate([0,0,6.5]) cube([rails_diametre+4,1,10], center=true);
             }
             translate([0,-rails_distance/2,support_rails_epp]) difference() {
-                cylinder(d = rails_diametre+4, h = 5);
-                translate([0,0,4.5]) cube([rails_diametre+4,1,7], center=true);
+                cylinder(d = rails_diametre+4, h = 10);
+                //translate([0,0,7.5]) cube([rails_diametre+4,1,10], center=true);
             }
             
         }
@@ -63,5 +68,6 @@ module supports_rails() {
     }
 }
 
-translate([0,0,20])chariot();
+translate([0,0,40])
+chariot();
 supports_rails();
