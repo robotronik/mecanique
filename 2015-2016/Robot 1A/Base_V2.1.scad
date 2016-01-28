@@ -227,6 +227,7 @@ module fixation_roues_codeuses() {
 		);	
 	translate([0,-2,10])cube([65,5,20]);
 	translate([0,-2,0])cube([26,5,10]);
+	translate([0,-9,20])cube([26,7,10]);
 	}
 }
 module fixations_roues_codeuses () {
@@ -247,7 +248,7 @@ color("purple") etages();
 color("black") batterie();
 color("blue") fixations_etage1(57,60);
 color("blue") fixations_etage2(143);
-//color("pink") translate([0,120,70])rotate([0,90,90])capteur_US();
+color("pink") translate([0,120,70])rotate([0,90,90])capteur_US();
 color("brown")fixations_roues_codeuses();
 
 // -->
