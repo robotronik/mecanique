@@ -121,6 +121,15 @@ module trous_percage()  {
     
     translate([45, -22, 0]) cylinder(h=20, d=3, center=true);
     translate([45, -39, 0]) cylinder(h=20, d=3, center=true);
+    
+    translate([110, -12, 0]) cylinder(h=20, d=3, center=true);
+    translate([110, -52, 0]) cylinder(h=20, d=3, center=true);
+}
+
+module trous_profiles() {
+    translate([69, 99, 0]) cylinder(h=20, d=4, center=true);
+    translate([124, 44, 0]) cylinder(h=20, d=4, center=true);
+    translate([124, -99, 0]) cylinder(h=20, d=4, center=true);
 }
 
 module support_roue() {
@@ -168,17 +177,29 @@ module plaque_base() {
         translate([10,32,10]) trous_percage();
         mirror([1,0,0])
         translate([10,32,10]) trous_percage();
+        trous_profiles();
+        mirror([1,0,0]) trous_profiles();
     }
 }
 
 module plaque_sup() {
     translate([0, 0, 100])
     difference() {
-        rotate([0, 0, 22.5]) cylinder(d=290, h=plaque_epp, center=true, $fn=8);
-        translate([70, 70, 0]) cylinder(h=20, d=20, center=true);
-        translate([-70, 70, 0]) cylinder(h=20, d=20, center=true);
-        translate([70, -70, 0]) cylinder(h=20, d=20, center=true);
-        translate([-70, -70, 0]) cylinder(h=20, d=20, center=true);
+        translate([-135,-110,7])
+          cube([270,220,plaque_epp]);
+    //translate([0,0,7+plaque_epp/2])
+        // Plaque principale
+        translate([77,47,2])
+      linear_extrude(height=10) polygon(points=[[65,65],[0,65],[65,0]]);
+                translate([-77,47,2])
+      linear_extrude(height=10) rotate([0,0,90]) polygon(points=[[65,65],[0,65],[65,0]]);
+        translate([70, 70, 0]) cylinder(h=30, d=20, center=true);
+        translate([-70, 70, 0]) cylinder(h=30, d=20, center=true);
+        translate([70, -70, 0]) cylinder(h=30, d=20, center=true);
+        translate([-70, -70, 0]) cylinder(h=30, d=20, center=true);
+        
+        trous_profiles();
+        mirror([1,0,0]) trous_profiles();
     }
 }
 
@@ -228,7 +249,7 @@ mirror([1,0,0])
 translate([10,32,10])
     support_rail();
 
-#support_moteur();
+support_moteur();
 rotate([0 , 0, 180 ])
     support_moteur();
 
