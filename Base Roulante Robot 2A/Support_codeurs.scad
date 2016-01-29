@@ -4,7 +4,7 @@ include <../Modèles/support_roulement_lineaire.scad>;
 include <roue_codeuse.scad>
 
 // TODO déterminer ces dimensions
-rails_distance      = 50;
+rails_distance      = 60;
 rails_diametre      =  8;
 roulements_diametre = 15;
 
@@ -26,8 +26,8 @@ module chariot() {
                 rails_distance-2*rails_diametre, chariot_hauteur], center=true);
         rotate([0,90,0])cylinder(d = codeur_diam_pasdevis, h = 20, center=true);
     }
-    
-    
+
+
     // Un hack affreux (l'intersection) pour avoir des supports en dessous des attaches
     // pour que ça ne s'imprime pas dans le vide…
     translate([0, rails_distance/2,-chariot_hauteur/2+2])

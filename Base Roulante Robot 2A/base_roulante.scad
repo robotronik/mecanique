@@ -75,14 +75,14 @@ module support_moteur(){
     /// plaque droite (opposee à la roue dentee)
     difference(){
         translate([ -50-_epp/2  -mot_ecart_x ,-(mot_diam+mot_ecart_y/2)*1.2, rayon_roue+mot_hauteur-18])
-            cube([_epp, (mot_diam+mot_ecart_y/2)*1.2, (mot_diam*1.3)]);
+            cube([_epp, (mot_diam*2+mot_ecart_y)*0.59, (mot_diam*1.3)]);
         placement_moteur();
     }
     /// plaque gauche (cote roue dentee)
     translate([-5,0,0])
     difference(){
         translate([ 53+mot_ecart_x+_epp/2  ,-(mot_diam+mot_ecart_y/2)*1.2, rayon_roue+mot_hauteur-18])
-            cube([_epp, (mot_diam+mot_ecart_y/2)*1.2, (mot_diam*1.3)]);
+            cube([_epp, (mot_diam*2+mot_ecart_y)*0.59, (mot_diam*1.3)]);
         moteurs_pour_diff();
     }
     /// plaque tenant l'axe
@@ -95,16 +95,13 @@ module support_moteur(){
     translate([ -50-_epp/2-mot_ecart_x , -(mot_diam*2+mot_ecart_y)*0.6 , rayon_roue-_epp+mot_hauteur-18])
     /// percage de la plaque
     difference(){
-        cube([ 101+_epp/2+mot_ecart_x*2 , (mot_diam*2+mot_ecart_y)*0.6 , _epp]);
+        cube([ 101+_epp/2+mot_ecart_x*2 , (mot_diam*2+mot_ecart_y)*0.59 , _epp]);
         translate([ 29.5 , mot_ecart_y*0.5, 0])cylinder(h=10, r=d_perc/2, center=true);
         translate([ 29.5 , mot_ecart_y*1.5, 0])cylinder(h=10, r=d_perc/2, center=true);
         translate([ 62.5 , mot_ecart_y*0.5, 0])cylinder(h=10, r=d_perc/2, center=true);
         translate([ 62.5 , mot_ecart_y*1.5, 0])cylinder(h=10, r=d_perc/2, center=true);
     }
 }
-
-
-
 
 module trous_roues() {
     _largeur = 55;
@@ -121,8 +118,19 @@ module trous_roues() {
 module trous_percage()  {
     translate([10, -2,0]) cylinder(h=20,d=3,center=true);
     translate([10,-62,0]) cylinder(h=20,d=3,center=true);
+    
+    translate([45, -22, 0]) cylinder(h=20, d=3, center=true);
+    translate([45, -39, 0]) cylinder(h=20, d=3, center=true);
+    
+    translate([110, -12, 0]) cylinder(h=20, d=3, center=true);
+    translate([110, -52, 0]) cylinder(h=20, d=3, center=true);
 }
 
+module trous_profiles() {
+    translate([69, 99, 0]) cylinder(h=20, d=4, center=true);
+    translate([124, 44, 0]) cylinder(h=20, d=4, center=true);
+    translate([124, -99, 0]) cylinder(h=20, d=4, center=true);
+}
 
 module support_roue() {
     _epaisseur =  3;
@@ -138,19 +146,30 @@ module support_roue() {
                 cube([_epaisseur,_largeur,_mot_hauteur]);
             translate([_posin,  -_largeur/2, 7+plaque_epp])
                 cube([_epaisseur,_largeur,_mot_hauteur]);
+        translate([_posin,  -_largeur/2, 7+plaque_epp])
+            cube([_espace + 2*_epaisseur,_largeur,_epaisseur]);
         }
         translate([_posin-0.2, 0, rayon_roue])
-            rotate([0,90,0]) cylinder(d=18,_espace + 2*_epaisseur+0.4);
+            rotate([0,90,0])
+                cylinder(d=18,_espace + 2*_epaisseur+0.4);
+       
+        
+        translate([10,32,10]) trous_percage();
+        mirror([1,0,0])
+        translate([10,32,10]) trous_percage();
     }
-    translate([_posin,  -_largeur/2, 7+plaque_epp])
-        cube([_espace + 2*_epaisseur,_largeur,_epaisseur]);
 }
 
 module plaque_base() {
     difference() {
-    translate([0,0,7+plaque_epp/2])
+        translate([-135,-110,7])
+          cube([270,220,plaque_epp]);
+    //translate([0,0,7+plaque_epp/2])
         // Plaque principale
-        cube([270, 90, plaque_epp], center=true);
+        translate([77,47,2])
+      linear_extrude(height=10) polygon(points=[[65,65],[0,65],[65,0]]);
+                translate([-77,47,2])
+      linear_extrude(height=10) rotate([0,0,90]) polygon(points=[[65,65],[0,65],[65,0]]);
         trous_roues();
         mirror([1,0,0])
         trous_roues();
@@ -158,8 +177,32 @@ module plaque_base() {
         translate([10,32,10]) trous_percage();
         mirror([1,0,0])
         translate([10,32,10]) trous_percage();
+        trous_profiles();
+        mirror([1,0,0]) trous_profiles();
     }
 }
+
+module plaque_sup() {
+    translate([0, 0, 100])
+    difference() {
+        translate([-135,-110,7])
+          cube([270,220,plaque_epp]);
+    //translate([0,0,7+plaque_epp/2])
+        // Plaque principale
+        translate([77,47,2])
+      linear_extrude(height=10) polygon(points=[[65,65],[0,65],[65,0]]);
+                translate([-77,47,2])
+      linear_extrude(height=10) rotate([0,0,90]) polygon(points=[[65,65],[0,65],[65,0]]);
+        translate([70, 70, 0]) cylinder(h=30, d=20, center=true);
+        translate([-70, 70, 0]) cylinder(h=30, d=20, center=true);
+        translate([70, -70, 0]) cylinder(h=30, d=20, center=true);
+        translate([-70, -70, 0]) cylinder(h=30, d=20, center=true);
+        
+        trous_profiles();
+        mirror([1,0,0]) trous_profiles();
+    }
+}
+
 
 module support_rail() {
     facteur = 2.0;//
@@ -212,5 +255,6 @@ rotate([0 , 0, 180 ])
 
 plaque_base();
 
+plaque_sup();
 
-translate([30,-48,20]) rotate([0,0,90])stm32f4();
+//translate([30,-48,20]) rotate([0,0,90])stm32f4();
