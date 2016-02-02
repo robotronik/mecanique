@@ -10,7 +10,7 @@ roulements_diametre = 15;
 
 
 
-chariot_hauteur     = 15;
+chariot_hauteur     = 20;
 chariot_epaisseur   =  4;
 dim_supports_roulements = roulements_diametre + 8;
 dim_supports_roulements_carres = roulements_diametre ;
@@ -18,30 +18,43 @@ dim_supports_roulements_carres = roulements_diametre ;
 support_rails_larg  = 15;
 support_rails_epp   = 3;
 
+
 module chariot() {
-    translate([-8.5,0,0])
     difference() {
-        %translate([-11,0,0])roue_codeuse();
-        translate([-chariot_epaisseur/2,-rails_distance/2,-chariot_hauteur/2])
-            cube([  chariot_epaisseur,   rails_distance,  chariot_hauteur+5]);
-        rotate([0,90,0])cylinder(d = codeur_diam_pasdevis, h = 20, center=true);
+        union() {
+            echo(rails_distance/2-12.65);
+            translate([-8.5-chariot_epaisseur/2,5-rails_distance/2, 0])
+                cube([  chariot_epaisseur,-10+rails_distance  , chariot_hauteur]);
+
+            rayon_courbure = 2;
+
+            // Droite
+            translate([0, rails_distance/2,2])
+                support_roulement_lineaire_simple();
+            translate([-6.5, rails_distance/2-10.35,2])
+                cube([7, 2.5, chariot_hauteur-2]);
+            translate([-6.5,rails_distance/2-10.35 - rayon_courbure,0]) difference() {
+                cube([rayon_courbure, rayon_courbure, chariot_hauteur]);
+                translate([rayon_courbure,0,0])cylinder(h=chariot_hauteur, d = 2*rayon_courbure);
+            }
+        
+            // Gauche
+            translate([0,-rails_distance/2,2])
+                support_roulement_lineaire_simple();
+            translate([-6.5,-rails_distance/2+10.35-2.5,2])
+                cube([7, 2.5, chariot_hauteur-2]);
+            translate([-6.5,-rails_distance/2+10.35,0]) difference() {
+                cube([rayon_courbure, rayon_courbure, chariot_hauteur]);
+                translate([rayon_courbure,rayon_courbure,0])cylinder(h=chariot_hauteur, d = 2*rayon_courbure);
+            }
+        }
+        translate([-8.5,0,6.5]) {
+            rotate([0,90,0]) cylinder(d = codeur_diam_pasdevis, h = 20, center=true);
+            %translate([-11,0,0])roue_codeuse();
+        }
+        translate([-11,0,-0.01])rotate([0,90,0])
+            courbe(hauteur = 2, ecartement = rails_distance-20.7, epaisseur = 15);
     }
-
-
-    // Un hack affreux (l'intersection) pour avoir des supports en dessous des attaches
-    // pour que ça ne s'imprime pas dans le vide…
-    translate([0, rails_distance/2,-chariot_hauteur/2+2]) {
-        support_roulement_lineaire_simple();
-        intersection() {
-           translate([0,0,-1])cube([100,100,2], center=true);
-           translate([0,0,-20])support_roulement_lineaire_simple();
-        } };
-    translate([0,-rails_distance/2,-chariot_hauteur/2+2]) {
-        support_roulement_lineaire_simple();
-        intersection() {
-           translate([0,0,-1])cube([100,100,2], center=true);
-           translate([0,0,-20])support_roulement_lineaire_simple();
-        } };
 }
 
 module attache_rail() {
@@ -89,15 +102,36 @@ module supports_rails_haut() {
     }
 }
 
-translate([0,0,14])chariot();
+//translate([0,0,14])
+chariot();
+
+
 %union() {
     translate([0, rails_distance/2,2])  cylinder(d = rails_diametre, h = 50);
     translate([0,-rails_distance/2,2])  cylinder(d = rails_diametre, h = 50);
 }
 
-
+/*
 supports_rails();
 translate([0,0,50]) supports_rails_haut();
 %translate([0,0,-3/2])cube([1000,1000,3], center=true);
+*/
+
+module courbe(hauteur = 2, ecartement = 20, epaisseur = 5) {
+    rayon = hauteur/4 + (ecartement*ecartement)/(16*hauteur);
+    intersection() {
+        union(){
+        translate([rayon-hauteur, ecartement/2,0])cylinder(r=rayon, h = epaisseur, $fn=100);
+        translate([rayon-hauteur,-ecartement/2,0])cylinder(r=rayon, h = epaisseur, $fn=100);
+        difference() {
+            translate([-hauteur/2,-ecartement/2,0])cube([rayon,ecartement, epaisseur]);
+            translate([-rayon,0,0])cylinder(r=rayon, h = epaisseur, $fn=100);
+        }
+        }
+        translate([-hauteur,-ecartement/2,0])cube([hauteur,ecartement, epaisseur]);
+    }
+    translate([-hauteur, ecartement/2,0])cube([hauteur,100,epaisseur]);
+    translate([-hauteur,-ecartement/2-100,0])cube([hauteur,100,epaisseur]);
+}
 
 
