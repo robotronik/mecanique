@@ -1,5 +1,5 @@
 $fn = 40;
-codeur_diam_pasdevis = 9.3;
+codeur_diam_pasdevis = 9.5;
 include <../Modèles/support_roulement_lineaire.scad>;
 include <roue_codeuse.scad>
 
@@ -8,7 +8,7 @@ rails_diametre      =  8;
 roulements_diametre = 15;
 
 
-chariot_hauteur     = 20;
+chariot_hauteur     = 29.7;
 chariot_epaisseur   =  4;
 dim_supports_roulements = roulements_diametre + 8;
 dim_supports_roulements_carres = roulements_diametre ;
@@ -23,19 +23,25 @@ module chariot() {
     difference() {
         union() {
             echo(rails_distance/2-12.65);
+            // Plaque principale
             translate([-8.5-chariot_epaisseur/2,5-rails_distance/2, 0])
                 cube([  chariot_epaisseur,-10+rails_distance  , chariot_hauteur]);
 
-            rayon_courbure = 2;
+            // Haut
+            translate([-8.5,9-rails_distance/2, chariot_hauteur-2])
+                cube([ 8.5,-18+rails_distance  , 2]);
+
+            rayon_courbure = 2.3;
 
             // Droite
             translate([0, rails_distance/2,delta_hauteur_chariot])
                 support_roulement_lineaire_simple();
             translate([-6.5, rails_distance/2-10.35,delta_hauteur_chariot])
                 cube([7, 2.5, chariot_hauteur-delta_hauteur_chariot]);
-            translate([-6.5,rails_distance/2-10.35 - rayon_courbure,0]) difference() {
-                cube([rayon_courbure, rayon_courbure, chariot_hauteur]);
-                translate([rayon_courbure,0,0])cylinder(h=chariot_hauteur, d = 2*rayon_courbure);
+            translate([-6.5,rails_distance/2-10.35 - rayon_courbure,0]) 
+                scale([3.0,1,1])difference() {
+                cube([rayon_courbure, rayon_courbure, chariot_hauteur-2]);
+                translate([rayon_courbure,0,0])cylinder(h=chariot_hauteur-2, d = 2*rayon_courbure);
             }
         
             // Gauche
@@ -43,14 +49,15 @@ module chariot() {
                 support_roulement_lineaire_simple();
             translate([-6.5,-rails_distance/2+10.35-2.5,delta_hauteur_chariot])
                 cube([7, 2.5, chariot_hauteur-delta_hauteur_chariot]);
-            translate([-6.5,-rails_distance/2+10.35,0]) difference() {
-                cube([rayon_courbure, rayon_courbure, chariot_hauteur]);
-                translate([rayon_courbure,rayon_courbure,0])cylinder(h=chariot_hauteur, d = 2*rayon_courbure);
+            translate([-6.5,-rails_distance/2+10.35,0]) 
+                scale([3.0,1,1])difference() {
+                cube([rayon_courbure, rayon_courbure, chariot_hauteur-2]);
+                translate([rayon_courbure,rayon_courbure,0])cylinder(h=chariot_hauteur-2, d = 2*rayon_courbure);
             }
         }
         translate([-8.5,0,6.5]) {
             rotate([0,90,0]) cylinder(d = codeur_diam_pasdevis, h = 20, center=true);
-            %translate([-11,0,0])roue_codeuse();
+            %translate([-11.4,0,0])roue_codeuse();
         }
         translate([-11,0,-0.01])rotate([0,90,0])
             courbe(hauteur = delta_hauteur_chariot, ecartement = rails_distance-20.7, epaisseur = 15);
@@ -102,8 +109,8 @@ module supports_rails_haut() {
     }
 }
 
-//translate([0,0,14])
-chariot();
+// Contre la plaque : 4.5
+translate([0,0,4.5 + support_rails_epp]) chariot();
 
 
 %union() {
@@ -111,11 +118,10 @@ chariot();
     translate([0,-rails_distance/2,2])  cylinder(d = rails_diametre, h = 50);
 }
 
-/*
-supports_rails();
-translate([0,0,50]) supports_rails_haut();
-%translate([0,0,-3/2])cube([1000,1000,3], center=true);
-*/
+//supports_rails();
+//translate([0,0,50]) supports_rails_haut();
+//%translate([0,0,-3/2])cube([1000,1000,3], center=true);
+
 
 module courbe(hauteur = 2, ecartement = 20, epaisseur = 5) {
     rayon = hauteur/4 + (ecartement*ecartement)/(16*hauteur);
