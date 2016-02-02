@@ -3,17 +3,17 @@ codeur_diam_pasdevis = 9.3;
 include <../Modèles/support_roulement_lineaire.scad>;
 include <roue_codeuse.scad>
 
-// TODO déterminer ces dimensions
 rails_distance      = 46;
 rails_diametre      =  8;
 roulements_diametre = 15;
-
 
 
 chariot_hauteur     = 20;
 chariot_epaisseur   =  4;
 dim_supports_roulements = roulements_diametre + 8;
 dim_supports_roulements_carres = roulements_diametre ;
+
+delta_hauteur_chariot = 3;
 
 support_rails_larg  = 15;
 support_rails_epp   = 3;
@@ -29,20 +29,20 @@ module chariot() {
             rayon_courbure = 2;
 
             // Droite
-            translate([0, rails_distance/2,2])
+            translate([0, rails_distance/2,delta_hauteur_chariot])
                 support_roulement_lineaire_simple();
-            translate([-6.5, rails_distance/2-10.35,2])
-                cube([7, 2.5, chariot_hauteur-2]);
+            translate([-6.5, rails_distance/2-10.35,delta_hauteur_chariot])
+                cube([7, 2.5, chariot_hauteur-delta_hauteur_chariot]);
             translate([-6.5,rails_distance/2-10.35 - rayon_courbure,0]) difference() {
                 cube([rayon_courbure, rayon_courbure, chariot_hauteur]);
                 translate([rayon_courbure,0,0])cylinder(h=chariot_hauteur, d = 2*rayon_courbure);
             }
         
             // Gauche
-            translate([0,-rails_distance/2,2])
+            translate([0,-rails_distance/2,delta_hauteur_chariot])
                 support_roulement_lineaire_simple();
-            translate([-6.5,-rails_distance/2+10.35-2.5,2])
-                cube([7, 2.5, chariot_hauteur-2]);
+            translate([-6.5,-rails_distance/2+10.35-2.5,delta_hauteur_chariot])
+                cube([7, 2.5, chariot_hauteur-delta_hauteur_chariot]);
             translate([-6.5,-rails_distance/2+10.35,0]) difference() {
                 cube([rayon_courbure, rayon_courbure, chariot_hauteur]);
                 translate([rayon_courbure,rayon_courbure,0])cylinder(h=chariot_hauteur, d = 2*rayon_courbure);
@@ -53,7 +53,7 @@ module chariot() {
             %translate([-11,0,0])roue_codeuse();
         }
         translate([-11,0,-0.01])rotate([0,90,0])
-            courbe(hauteur = 2, ecartement = rails_distance-20.7, epaisseur = 15);
+            courbe(hauteur = delta_hauteur_chariot, ecartement = rails_distance-20.7, epaisseur = 15);
     }
 }
 
