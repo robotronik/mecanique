@@ -26,8 +26,8 @@ module fixation_rouleau_1() {
 	difference() {
 
 		cube([25,30,3]);
-		translate([5,22.5,-1]) rail(15);
-		translate([15,22.5,-1]) rail(15);
+		translate([5,10,-1])rotate([0,0,90]) rail(15);
+		translate([5,22.5,-1])rotate([0,0,90]) rail(15);
 	}
 	difference() {
 		translate([0,0,0])cube([25,3,33]);
@@ -70,4 +70,4 @@ module rouleau_1(L,D) {
 }*/
 
 rouleau_1(47,35);
-//translate([37,0,0])rouleau_2(47,35);
+translate([37,0,0])rouleau_1(47,35);
