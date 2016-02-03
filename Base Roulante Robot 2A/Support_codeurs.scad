@@ -8,12 +8,12 @@ rails_diametre      =  8;
 roulements_diametre = 15;
 
 
-chariot_hauteur     = 31.7;
+delta_hauteur_chariot = 7;
+chariot_hauteur     = delta_hauteur_chariot + 26.7;
 chariot_epaisseur   =  4;
 dim_supports_roulements = roulements_diametre + 8;
 dim_supports_roulements_carres = roulements_diametre ;
 
-delta_hauteur_chariot = 7;
 
 support_rails_larg  = 15;
 support_rails_epp   = 3;
