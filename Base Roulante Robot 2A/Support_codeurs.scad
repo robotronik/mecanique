@@ -4,7 +4,7 @@ include <../Modèles/support_roulement_lineaire.scad>;
 include <roue_codeuse.scad>
 
 rails_distance      = 46;
-rails_diametre      =  8;
+rails_diametre      =  8.23;
 roulements_diametre = 15;
 
 
@@ -15,7 +15,7 @@ dim_supports_roulements = roulements_diametre + 8;
 dim_supports_roulements_carres = roulements_diametre ;
 
 
-support_rails_larg  = 15;
+support_rails_larg  = rails_diametre+10;
 support_rails_epp   = 3;
 
 
@@ -60,18 +60,31 @@ module cote() {
 }
 
 module supports_rails() {
+    diametre_vis = 3;
     difference() {
         union() {
-            translate([0,0,support_rails_epp/2])
-            cube([support_rails_larg,rails_distance, support_rails_epp], center=true);
-            translate([0, rails_distance/2,0])
-                cylinder(d = support_rails_larg, h = support_rails_epp);
-            translate([0,-rails_distance/2,0])
-                cylinder(d = support_rails_larg, h = support_rails_epp);
+            hull() {
+                translate([0,0,support_rails_epp/2])
+                cube([support_rails_larg,rails_distance, support_rails_epp], center=true);
+                translate([0, rails_distance/2,0])
+                    cylinder(d = support_rails_larg, h = support_rails_epp);
+                translate([0,-rails_distance/2,0])
+                    cylinder(d = support_rails_larg, h = support_rails_epp);
+
+                translate([0, rails_distance/2+12,0])
+                    cylinder(d = diametre_vis + 4, h = support_rails_epp);
+                translate([0,-rails_distance/2-12,0])
+                    cylinder(d = diametre_vis + 4, h = support_rails_epp);
+            }
             translate([0, rails_distance/2,support_rails_epp]) difference()
                 cylinder(d = rails_diametre+7, h = 11);
             translate([0,-rails_distance/2,support_rails_epp]) difference()
                 cylinder(d = rails_diametre+7, h = 11);
+
+            translate([0, rails_distance/2,support_rails_epp]) difference()
+                cylinder(d1 = support_rails_larg,d2 = rails_diametre+7, h = 3);
+            translate([0,-rails_distance/2,support_rails_epp]) difference()
+                cylinder(d1 = support_rails_larg,d2 = rails_diametre+7, h = 3);
         }
 
         translate([0, rails_distance/2,1])      cylinder(d = rails_diametre,    h = 50);
@@ -82,6 +95,20 @@ module supports_rails() {
         translate([0,-rails_distance/2,-0.1])   cylinder(d = rails_diametre-2,  h = 50);
         translate([0,-rails_distance/2,8])      rotate([0,90,0]) cylinder(d=2,h=10);
 
+        
+        translate([0, rails_distance/2+12,0])
+            cylinder(d = diametre_vis, h = support_rails_epp+5);
+        translate([0,-rails_distance/2-12,0])
+            cylinder(d = diametre_vis, h = support_rails_epp+5);
+        
+        translate([ support_rails_larg/2-3, rails_distance/2-10,0])
+            cylinder(d = diametre_vis, h = support_rails_epp+5);
+        translate([ support_rails_larg/2-3,-rails_distance/2+10,0])
+            cylinder(d = diametre_vis, h = support_rails_epp+5);
+        translate([-support_rails_larg/2+3, rails_distance/2-10,0])
+            cylinder(d = diametre_vis, h = support_rails_epp+5);
+        translate([-support_rails_larg/2+3,-rails_distance/2+10,0])
+            cylinder(d = diametre_vis, h = support_rails_epp+5);
     }
 }
 module supports_rails_haut() {
@@ -105,7 +132,7 @@ module supports_rails_haut() {
 }
 
 // Contre la plaque : 4.5
-translate([0,0,4.5 + support_rails_epp]) chariot();
+//translate([0,0,4.5 + support_rails_epp]) chariot();
 
 
 %union() {
