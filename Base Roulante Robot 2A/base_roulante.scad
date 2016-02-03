@@ -127,9 +127,9 @@ module trous_percage()  {
 }
 
 module trous_profiles() {
-    translate([69, 99, 0]) cylinder(h=20, d=4, center=true);
-    translate([124, 44, 0]) cylinder(h=20, d=4, center=true);
-    translate([124, -99, 0]) cylinder(h=20, d=4, center=true);
+    translate([44, 99, 0]) cylinder(h=30, d=4, center=true);
+    translate([124, 44, 0]) cylinder(h=30, d=4, center=true);
+    translate([124, -99, 0]) cylinder(h=30, d=4, center=true);
 }
 
 module support_roue() {
@@ -249,7 +249,22 @@ mirror([1,0,0])
 translate([10,32,10])
     support_rail();
 
-support_moteur();
+// projection(cut = false)
+*union(){
+    translate([0, 56, 0]) support_moteur();
+    
+    translate([0, 6, 0]) rotate([90, 0, 0]) support_moteur();
+    
+    difference(){
+        translate([-40, -1, 0]) rotate([0, 90, 180]) support_moteur();
+        translate([-200, -5, -200]) cube(200);
+    }
+    
+    difference(){
+        translate([40, -1, 0]) rotate([0, -90, 180]) support_moteur();
+        translate([0, -5, -200]) cube(200);
+    }
+}
 rotate([0 , 0, 180 ])
     support_moteur();
 
