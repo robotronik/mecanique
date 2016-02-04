@@ -51,7 +51,7 @@ module cote() {
         support_roulement_lineaire_simple();
     translate([-6.5,-rails_distance/2+10.3-2.5,0])
         cube([7, 2.5, chariot_hauteur]);
-    translate([-6.5,-rails_distance/2+10.35,0]) 
+    translate([-6.5,-rails_distance/2+10.35,0])
         scale([3.0,1.8,1])difference() {
         cube([rayon_courbure, rayon_courbure, chariot_hauteur-2]);
         translate([rayon_courbure,rayon_courbure,0])
@@ -86,21 +86,26 @@ module supports_rails() {
             translate([0,-rails_distance/2,support_rails_epp]) difference()
                 cylinder(d1 = support_rails_larg,d2 = rails_diametre+7, h = 3);
         }
+        // Pour que le codeur puisse aller plus bas
+        translate([0,0,10.6])
+            rotate([0,90,0]) cylinder(d=codeur_diametre, h=support_rails_larg-4, center=true);
 
+        // Supports de barres
         translate([0, rails_distance/2,1])      cylinder(d = rails_diametre,    h = 50);
         translate([0, rails_distance/2,-0.1])   cylinder(d = rails_diametre-2,  h = 50);
         translate([0, rails_distance/2,8])      rotate([0,90,0]) cylinder(d=2,h=10);
-        
+
         translate([0,-rails_distance/2,1])      cylinder(d = rails_diametre,    h = 50);
         translate([0,-rails_distance/2,-0.1])   cylinder(d = rails_diametre-2,  h = 50);
         translate([0,-rails_distance/2,8])      rotate([0,90,0]) cylinder(d=2,h=10);
 
-        
+        // Vis extérieures
         translate([0, rails_distance/2+12,0])
             cylinder(d = diametre_vis, h = support_rails_epp+5);
         translate([0,-rails_distance/2-12,0])
             cylinder(d = diametre_vis, h = support_rails_epp+5);
-        
+
+        // Vis centrales
         translate([ support_rails_larg/2-3, rails_distance/2-10,0])
             cylinder(d = diametre_vis, h = support_rails_epp+5);
         translate([ support_rails_larg/2-3,-rails_distance/2+10,0])
@@ -132,8 +137,7 @@ module supports_rails_haut() {
 }
 
 // Contre la plaque : 4.5
-//translate([0,0,4.5 + support_rails_epp]) chariot();
-
+translate([0,0,4]) chariot();
 
 %union() {
     translate([0, rails_distance/2,2])  cylinder(d = rails_diametre, h = 50);
@@ -161,5 +165,4 @@ module courbe(hauteur = 2, ecartement = 20, epaisseur = 5) {
     translate([-hauteur, ecartement/2,0])cube([hauteur,100,epaisseur]);
     translate([-hauteur,-ecartement/2-100,0])cube([hauteur,100,epaisseur]);
 }
-
 
