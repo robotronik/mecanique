@@ -1,4 +1,5 @@
 
+// Valeur réelle : 41.2
 codeuse_diametre    = 41.2;
 codeuse_epaisseur   = 10;
 codeur_diametre     = 21.36;
