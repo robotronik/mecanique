@@ -37,7 +37,6 @@ module fixation_rouleau_1() {
 
 /*module fixation_rouleau_2(L_axes, Pos_Y_axes) {
 	difference() {
-
 		cube([25,30,3]);
 		translate([5,22.5,-1]) rail(15);
 		translate([15,22.5,-1]) rail(15);
