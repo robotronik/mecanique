@@ -8,7 +8,7 @@ rails_diametre      =  8.23;
 roulements_diametre = 15;
 
 
-delta_hauteur_chariot = 7;
+delta_hauteur_chariot = 10.5;
 chariot_hauteur     = delta_hauteur_chariot + 26.7;
 chariot_epaisseur   =  4;
 dim_supports_roulements = roulements_diametre + 8;
@@ -37,12 +37,15 @@ module chariot() {
             mirror([0,1,0])cote();
 
         }
-        translate([-8.5,0,6.5]) {
+        translate([-8.5,0,7]) {
             //rotate([0,90,0]) cylinder(d = codeur_diam_pasdevis, h = 20, center=true);
-            #translate([-11.4,0,0])roue_codeuse();
+            translate([-11.4,0,0])roue_codeuse();
         }
-        translate([-11,0,-0.01])rotate([0,90,0])
-            courbe(hauteur = delta_hauteur_chariot, ecartement = rails_distance-10.7, epaisseur = 20);
+        translate([-11,2,-0.01])rotate([0,90,0])
+            courbe(hauteur = delta_hauteur_chariot, ecartement = rails_distance-13.7, epaisseur = 20);
+        mirror([0,1,0])
+        translate([-11,2,-0.01])rotate([0,90,0])
+            courbe(hauteur = delta_hauteur_chariot, ecartement = rails_distance-13.7, epaisseur = 20);
     }
 }
 module cote() {
@@ -153,16 +156,13 @@ module courbe(hauteur = 2, ecartement = 20, epaisseur = 5) {
     rayon = hauteur/4 + (ecartement*ecartement)/(16*hauteur);
     intersection() {
         union(){
-        translate([rayon-hauteur, ecartement/2,0])cylinder(r=rayon, h = epaisseur, $fn=100);
-        translate([rayon-hauteur,-ecartement/2,0])cylinder(r=rayon, h = epaisseur, $fn=100);
-        difference() {
-            translate([-hauteur/2,-ecartement/2,0])cube([rayon,ecartement, epaisseur]);
-            translate([-rayon,0,0])cylinder(r=rayon, h = epaisseur, $fn=100);
+            translate([rayon-hauteur, ecartement/2,0])cylinder(r=rayon, h = epaisseur, $fn=100);
+            difference() {
+                translate([-hauteur/2, 0,0])cube([hauteur/2,ecartement/2, epaisseur]);
+                translate([-rayon,0,0])cylinder(r=rayon, h = epaisseur, $fn=100);
+            }
         }
-        }
-        translate([-hauteur,-ecartement/2,0])cube([hauteur,ecartement, epaisseur]);
+        translate([-hauteur,0,0])cube([hauteur,ecartement/2, epaisseur]);
     }
     translate([-hauteur, ecartement/2,0])cube([hauteur,100,epaisseur]);
-    translate([-hauteur,-ecartement/2-100,0])cube([hauteur,100,epaisseur]);
 }
-
