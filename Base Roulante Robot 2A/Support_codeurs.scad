@@ -139,18 +139,6 @@ module supports_rails_haut() {
     }
 }
 
-// Contre la plaque : 4.5
-translate([0,0,4]) chariot();
-
-%union() {
-    translate([0, rails_distance/2,2])  cylinder(d = rails_diametre, h = 50);
-    translate([0,-rails_distance/2,2])  cylinder(d = rails_diametre, h = 50);
-}
-
-supports_rails();
-//translate([0,0,50]) supports_rails_haut();
-//%translate([0,0,-3/2])cube([1000,1000,3], center=true);
-
 
 module courbe(hauteur = 2, ecartement = 20, epaisseur = 5) {
     rayon = hauteur/4 + (ecartement*ecartement)/(16*hauteur);
@@ -166,3 +154,16 @@ module courbe(hauteur = 2, ecartement = 20, epaisseur = 5) {
     }
     translate([-hauteur, ecartement/2,0])cube([hauteur,100,epaisseur]);
 }
+
+// Contre la plaque : 4.5
+//translate([0,0,4]) chariot();
+
+%union() {
+    translate([0, rails_distance/2,2])  cylinder(d = rails_diametre, h = 50);
+    translate([0,-rails_distance/2,2])  cylinder(d = rails_diametre, h = 50);
+}
+
+supports_rails();
+//translate([0,0,50]) supports_rails_haut();
+//%translate([0,0,-3/2])cube([1000,1000,3], center=true);
+
