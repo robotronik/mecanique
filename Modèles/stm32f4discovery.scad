@@ -5,7 +5,6 @@ board_l = 66;
 board_e = 1.5;
 
 //barette(20,2);
-stm32f4();
 
 module barette(a, b) {
     translate([-1.25,-1.25,-8.5])

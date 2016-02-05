@@ -1,10 +1,10 @@
-include <roue_motrice.scad>;
-include <roue_dentee.scad>;
-include <mdp_ts10093.scad>;
-include <roue_codeuse.scad>
+include <../Modèles/moteur_mdp_ts10093.scad>;
+include <../Modèles/roue_codeuse.scad>
+include <../Modèles/roue_motrice.scad>;
+include <../Modèles/support_codeur.scad>
+include <../Modèles/stm32f4discovery.scad>
 include <courroie.scad>
-include <Support_codeurs.scad>
-use <../Modèles/stm32f4discovery.scad>
+include <roue_dentee.scad>;
 
 $fn=50;
 
