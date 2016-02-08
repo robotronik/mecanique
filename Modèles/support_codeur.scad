@@ -59,23 +59,34 @@ module chariot() {
 }
 module cote() {
     rayon_courbure = 2.3;
-    translate([0,-rails_distance/2,delta_hauteur_chariot])rotate([0,0,-90])
+    scale_cylindre = [3.2,1.8,1];
+    translate([0.1,-rails_distance/2,delta_hauteur_chariot])
         support_roulement_lineaire_simple();
     /*translate([-6.5,-rails_distance/2+8,0]) {
         cube([7, 2.5, chariot_hauteur]);
         translate([0,-5,0])
         #cube([7,2.5,100]);
     }*/
-    translate([-6.4,-rails_distance/2+10.5,0])
-        scale([3.2,1.8,1]) difference() {
+    translate([-6.4,-rails_distance/2+10.3,0])
+         difference() {
             union() {
-                cube([rayon_courbure, rayon_courbure, chariot_hauteur-2]);
-                translate([0, -2.22,0])
-                cube([4.185, 2.22,delta_hauteur_chariot]);
+                //scale(scale_cylindre)
+                    #cube([6.6, 4.14, chariot_hauteur-2]);
+
+                mirror([0,1,0])
+                    cube([7.36, 2.6, chariot_hauteur]);
+
+                mirror([0,1,0])difference() {
+                    cube([7.36, 10,delta_hauteur_chariot]);
+                    difference() {
+                        translate([6.4,10.3,0])#cylinder(r=7.7, h=delta_hauteur_chariot);
+                        translate([-4,3.5,0])cube([4,14,delta_hauteur_chariot]);
+                    }
+                }
             }
-            translate([rayon_courbure,rayon_courbure,0])
+            scale(scale_cylindre) translate([rayon_courbure,rayon_courbure,0])
                 cylinder(h=chariot_hauteur-1, d = 2*rayon_courbure);
-    }
+        }
 }
 
 module supports_rails() {
