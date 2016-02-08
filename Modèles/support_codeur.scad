@@ -46,7 +46,7 @@ module chariot() {
 
         }
         translate([-8.5,0,6.5])
-            translate([-11.4,0,0])roue_codeuse();
+            #translate([-11.4,0,0])roue_codeuse();
 
         translate([-11, 4,-0.01])rotate([0,90,0])
             courbe(hauteur = delta_hauteur_chariot, ecartement = rails_distance-20, epaisseur = 20);
@@ -60,7 +60,7 @@ module cote() {
         support_roulement_lineaire_simple();
     translate([0.1,-rails_distance/2,delta_hauteur_chariot])
         translate([0,10.34,0])mirror([0,1,0])mirror([1,0,0])
-        #cube([7.36, 2.5, chariot_hauteur-delta_hauteur_chariot]);
+        cube([7.36, 2.5, chariot_hauteur-delta_hauteur_chariot]);
 
 
     translate([0,-rails_distance/2,0])
@@ -136,6 +136,7 @@ module supports_rails() {
     }
 }
 module supports_rails_haut() {
+    diametre_vis = 3;
     difference() {
         union() {
             translate([0,0,support_rails_epp/2])
@@ -144,14 +145,26 @@ module supports_rails_haut() {
                 cylinder(d = support_rails_larg, h = support_rails_epp);
             translate([0,-rails_distance/2,0])
                 cylinder(d = support_rails_larg, h = support_rails_epp);
-            translate([0, rails_distance/2, 0]) difference()
-                mirror([0,0,1])attache_rail();
-            translate([0,-rails_distance/2, 0]) difference()
-                mirror([0,0,1])attache_rail();
+
+            translate([0, rails_distance/2,support_rails_epp]) difference()
+                cylinder(d = rails_diametre+7, h = 11);
+            translate([0,-rails_distance/2,support_rails_epp]) difference()
+                cylinder(d = rails_diametre+7, h = 11);
+
+            translate([0, rails_distance/2,support_rails_epp]) difference()
+                cylinder(d1 = support_rails_larg,d2 = rails_diametre+7, h = 3);
+            translate([0,-rails_distance/2,support_rails_epp]) difference()
+                cylinder(d1 = support_rails_larg,d2 = rails_diametre+7, h = 3);
         }
 
-        translate([0, rails_distance/2,-50-2])  cylinder(d = rails_diametre, h = 50);
-        translate([0,-rails_distance/2,-50-2])  cylinder(d = rails_diametre, h = 50);
+        // Supports de barres
+        translate([0, rails_distance/2,1])      cylinder(d = rails_diametre,    h = 50);
+        translate([0, rails_distance/2,-0.1])   cylinder(d = rails_diametre-2,  h = 50);
+        translate([0, rails_distance/2,8])      rotate([0,90,0]) cylinder(d=2,h=10);
+
+        translate([0,-rails_distance/2,1])      cylinder(d = rails_diametre,    h = 50);
+        translate([0,-rails_distance/2,-0.1])   cylinder(d = rails_diametre-2,  h = 50);
+        translate([0,-rails_distance/2,8])      rotate([0,90,0]) cylinder(d=2,h=10);
     }
 }
 
@@ -176,14 +189,14 @@ module support_codeur() {
     translate([0,0,3.2]) chariot();
 
     %union() {
-        translate([0, rails_distance/2,2])  cylinder(d = rails_diametre, h = 50);
-        translate([0,-rails_distance/2,2])  cylinder(d = rails_diametre, h = 50);
+        translate([0, rails_distance/2,1])  cylinder(d = rails_diametre, h = 75);
+        translate([0,-rails_distance/2,1])  cylinder(d = rails_diametre, h = 75);
     }
 
-    //supports_rails();
-    //translate([0,0,50]) supports_rails_haut();
+    supports_rails();
+    translate([0,0,1+75+1]) rotate([180,0,0])supports_rails_haut();
     //%translate([0,0,-3/2])cube([1000,1000,3], center=true);
 }
 
 
-support_codeur();
+//support_codeur();
