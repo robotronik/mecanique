@@ -33,10 +33,10 @@ module chariot() {
             translate([-10.34,9-rails_distance/2, chariot_hauteur-2])
                 cube([  10.34,-18+rails_distance, 2]);
 
-            translate([0,0, chariot_hauteur-18])difference() {
+            translate([0,0, chariot_hauteur-14.4])difference() {
                 translate([-8.5,9-rails_distance/2, 0])
                     cube([ 15.5,-18+rails_distance, 2]);
-                cube([2,1,10], center=true);
+                cube([2,3,10], center=true);
             }
 
             // Droite
@@ -199,4 +199,4 @@ module support_codeur() {
 }
 
 
-//support_codeur();
+support_codeur();

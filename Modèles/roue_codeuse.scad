@@ -16,7 +16,7 @@ module _roue_codeuse() {
                 h=codeuse_epaisseur*0.5);
     }
     // Axe
-    translate([0,0,codeuse_epaisseur/2])cylinder(d=9.5,h=8.5, $fn=50);
+    translate([0,0,codeuse_epaisseur/2])cylinder(d=9.7,h=8.5, $fn=50);
     // Codeur
     translate([0,0,codeuse_epaisseur/2 + 8.5]) {
             cylinder(d=17.7, h=1.2);
