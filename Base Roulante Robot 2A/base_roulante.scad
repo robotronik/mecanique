@@ -1,6 +1,7 @@
 include <roue_motrice.scad>;
 include <roue_dentee.scad>;
 include <mdp_ts10093.scad>;
+include <Support_codeurs.scad>;
 include <roue_codeuse.scad>
 include <courroie.scad>
 use <../Modèles/stm32f4discovery.scad>
@@ -33,7 +34,7 @@ module placement() {
 }
 
 module placement_moteur() {
-        translate([mot_ecart_x, -mot_ecart_y, mot_hauteur+rayon_roue]) {
+        translate([mot_ecart_x, -mot_ecart_y-3, mot_hauteur+rayon_roue]) {
         rotate([0, 90, 0]) mdp_ts10093();}
 }
 
@@ -75,15 +76,15 @@ module support_moteur(){
     /// plaque droite (opposee à la roue dentee)
     difference(){
         translate([ -50-_epp/2  -mot_ecart_x ,-(mot_diam+mot_ecart_y/2)*1.2, rayon_roue+mot_hauteur-18])
-            cube([_epp, (mot_diam*2+mot_ecart_y)*0.59, (mot_diam*1.3)]);
+            cube([_epp, mot_diam+mot_ecart_y/2, 42]);
         placement_moteur();
     }
     /// plaque gauche (cote roue dentee)
     translate([-5,0,0])
     difference(){
         translate([ 53+mot_ecart_x+_epp/2  ,-(mot_diam+mot_ecart_y/2)*1.2, rayon_roue+mot_hauteur-18])
-            cube([_epp, (mot_diam*2+mot_ecart_y)*0.59, (mot_diam*1.3)]);
-        moteurs_pour_diff();
+            cube([_epp, (mot_diam*2+mot_ecart_y)*0.5, 42]);
+        translate([0, -3, 0]) moteurs_pour_diff();
     }
     /// plaque tenant l'axe
     /*difference(){
@@ -95,11 +96,11 @@ module support_moteur(){
     translate([ -50-_epp/2-mot_ecart_x , -(mot_diam*2+mot_ecart_y)*0.6 , rayon_roue-_epp+mot_hauteur-18])
     /// percage de la plaque
     difference(){
-        cube([ 101+_epp/2+mot_ecart_x*2 , (mot_diam*2+mot_ecart_y)*0.59 , _epp]);
-        translate([ 29.5 , mot_ecart_y*0.5, 0])cylinder(h=10, r=d_perc/2, center=true);
-        translate([ 29.5 , mot_ecart_y*1.5, 0])cylinder(h=10, r=d_perc/2, center=true);
-        translate([ 62.5 , mot_ecart_y*0.5, 0])cylinder(h=10, r=d_perc/2, center=true);
-        translate([ 62.5 , mot_ecart_y*1.5, 0])cylinder(h=10, r=d_perc/2, center=true);
+        cube([ 101+_epp/2+mot_ecart_x*2 , (mot_diam*2+mot_ecart_y)*0.5 , _epp]);
+        translate([ 29.5 , (mot_diam*2+mot_ecart_y)*0.25 + mot_ecart_y*0.6, 0]) cylinder(h=10, r=d_perc/2, center=true);
+        translate([ 29.5 , (mot_diam*2+mot_ecart_y)*0.25 - mot_ecart_y*0.6, 0])cylinder(h=10, r=d_perc/2, center=true);
+        translate([ 62.5 , (mot_diam*2+mot_ecart_y)*0.25 + mot_ecart_y*0.6, 0])cylinder(h=10, r=d_perc/2, center=true);
+        translate([ 62.5 , (mot_diam*2+mot_ecart_y)*0.25 - mot_ecart_y*0.6, 0])cylinder(h=10, r=d_perc/2, center=true);
     }
 }
 
@@ -119,11 +120,26 @@ module trous_percage()  {
     translate([10, -2,0]) cylinder(h=20,d=3,center=true);
     translate([10,-62,0]) cylinder(h=20,d=3,center=true);
     
-    translate([45, -22, 0]) cylinder(h=20, d=3, center=true);
+    translate([45, -25, 0]) cylinder(h=20, d=3, center=true);
     translate([45, -39, 0]) cylinder(h=20, d=3, center=true);
     
-    translate([110, -12, 0]) cylinder(h=20, d=3, center=true);
-    translate([110, -52, 0]) cylinder(h=20, d=3, center=true);
+    translate([110, -32, -5]) union(){
+        // Vis extérieures
+        translate([0, rails_distance/2+12,0])
+            cylinder(d = diametre_vis, h = support_rails_epp+5);
+        translate([0,-rails_distance/2-12,0])
+            cylinder(d = diametre_vis, h = support_rails_epp+5);
+
+        // Vis centrales
+        translate([ support_rails_larg/2-3, rails_distance/2-10,0])
+            cylinder(d = diametre_vis, h = support_rails_epp+5);
+        translate([ support_rails_larg/2-3,-rails_distance/2+10,0])
+            cylinder(d = diametre_vis, h = support_rails_epp+5);
+        translate([-support_rails_larg/2+3, rails_distance/2-10,0])
+            cylinder(d = diametre_vis, h = support_rails_epp+5);
+        translate([-support_rails_larg/2+3,-rails_distance/2+10,0])
+            cylinder(d = diametre_vis, h = support_rails_epp+5);
+    }
 }
 
 module trous_profiles() {
@@ -227,6 +243,63 @@ module support_rail() {
 
 /*** AFFICHAGE ****/
 
+module projection_support_moteur(){
+    projection(cut = false)
+    union(){
+        translate([0, 56, 0]) support_moteur();
+        
+        translate([0, 6, 0]) rotate([90, 0, 0]) support_moteur();
+        
+        difference(){
+            translate([-40, -10, 0]) rotate([0, 90, 180]) support_moteur();
+            translate([-200, -5, -200]) cube(200);
+        }
+        
+        difference(){
+            translate([40, -10, 0]) rotate([0, -90, 180]) support_moteur();
+            translate([0, -5, -200]) cube(200);
+        }
+    }
+}
+
+module projection_support_roue(){
+    projection(cut = false)
+    union() {
+        translate([-38.5 - 33/2, 0, 0]) support_roue();
+        
+        translate([0, -30, 0]) rotate([90, 0, 0]) translate([-38.5 - 33/2, 0, 0]) support_roue();
+        
+        difference(){
+            translate([30, 0, 0]) rotate([0, 90, 0]) translate([-38.5 - 33/2, 0, 0]) support_roue();
+            translate([0, -50, -100]) cube(100);
+        }
+        
+        difference(){
+            translate([-30, 0, 0]) rotate([0, -90, 0]) translate([-38.5 - 33/2, 0, 0]) support_roue();
+            translate([-100, -50, -100]) cube(100);
+        }
+    }
+}
+
+module projection_support_rail(){
+    projection(cut = false)
+    union(){
+        translate([-21, 32.5, 0]) rotate([0, 90, 0]) support_rail();
+        
+        translate([0, -120, 0]) rotate([90, 0, 0]) translate([-21, 32.5, 0]) rotate([0, 90, 0]) support_rail();
+        
+        difference(){
+            translate([-80, 0, 0]) rotate([0, 90, 180]) translate([-21, 32.5, 0]) rotate([0, 90, 0]) support_rail();
+            translate([-150, -75, -150]) cube(150);
+        }
+        
+        difference(){
+            translate([80, 0, 0]) rotate([0, -90, 180]) translate([-21, 32.5, 0]) rotate([0, 90, 0]) support_rail();
+            translate([0, -75, -150]) cube(150);
+        }
+    }
+}
+
 // Moteurs + roues
 
 placement();
@@ -249,27 +322,18 @@ mirror([1,0,0])
 translate([10,32,10])
     support_rail();
 
-// projection(cut = false)
-*union(){
-    translate([0, 56, 0]) support_moteur();
-    
-    translate([0, 6, 0]) rotate([90, 0, 0]) support_moteur();
-    
-    difference(){
-        translate([-40, -1, 0]) rotate([0, 90, 180]) support_moteur();
-        translate([-200, -5, -200]) cube(200);
-    }
-    
-    difference(){
-        translate([40, -1, 0]) rotate([0, -90, 180]) support_moteur();
-        translate([0, -5, -200]) cube(200);
-    }
-}
+
+support_moteur();
 rotate([0 , 0, 180 ])
     support_moteur();
 
-plaque_base();
+!projection(cut = false) plaque_base();
 
 plaque_sup();
+
+
+translate([120, 0, 10]) supports_rails();
+
+color("silver") translate([124, 44, 0]) translate([0, 0, 60]) cube([12, 12, 100], center = true);
 
 //translate([30,-48,20]) rotate([0,0,90])stm32f4();
