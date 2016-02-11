@@ -317,6 +317,13 @@ mirror([0,0,0])support90();
 translate([-20,0,-2])cube([2,6,capteurUS_longueur+6]);
 translate([-10,6,-2])rotate([0,0,90])cube([2,10,capteurUS_longueur+6]);
 }
+
+module axes_verification(){
+    translate([-25,0,0]) cylinder(d=8, h=150) ;
+    translate([-35,0,0]) cylinder(d=8, h=350) ;
+    
+}
+axes_verification()
 // attention dépasse un peu de la face avant
 translate([65,118,62])rotate([90,0,-90])supportUS();
 translate([159,118,62])rotate([90,0,-90])supportUS();

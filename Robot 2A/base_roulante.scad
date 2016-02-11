@@ -1,10 +1,11 @@
-include <roue_motrice.scad>;
-include <roue_dentee.scad>;
-include <mdp_ts10093.scad>;
-include <Support_codeurs.scad>;
-include <roue_codeuse.scad>
+include <../Modèles/moteur_mdp_ts10093.scad>;
+include <../Modèles/roue_codeuse.scad>
+include <../Modèles/roue_motrice.scad>;
+include <../Modèles/support_codeur.scad>
+include <../Modèles/stm32f4discovery.scad>
+
 include <courroie.scad>
-use <../Modèles/stm32f4discovery.scad>
+include <roue_dentee.scad>;
 
 $fn=50;
 
@@ -30,7 +31,8 @@ module placement() {
             translate([-3,0,0]) courroie();
     }
     translate([mot_ecart_x+90, 0, rayon_roue])  roue_motrice();
-    translate([101, 0, codeuse_diametre/2])     roue_codeuse();
+    translate([121.5, 0, 10]) support_codeur();
+    //translate([101, 0, codeuse_diametre/2])     roue_codeuse();
 }
 
 module placement_moteur() {
