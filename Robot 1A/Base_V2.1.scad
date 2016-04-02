@@ -1,5 +1,5 @@
 $fn=50;
-use </home/jordan/Bureau/Untitled_1.scad>;	
+use <roue_codeuse_2016.scad>;	
 Tx = 35;
 Ty = 20;
 Tz = 0;
