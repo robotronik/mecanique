@@ -11,9 +11,9 @@ module support() {
 module supportfin() {
     difference(){
         support();
-        translate([7,4,5]) cylinder(d=3, h=8);
-        translate([-5,4,-3]) cylinder(d=2, h=8);
-        translate([19,4,-3]) cylinder(d=2, h=8);
+        translate([7,4,5]) cylinder(d=3.5, h=8);
+        translate([-5,4,-3]) cylinder(d=3, h=8);
+        translate([19,4,-3]) cylinder(d=3, h=8);
     }
 }
 supportfin();
