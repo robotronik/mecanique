@@ -1,5 +1,5 @@
 $fn=50;
-
+use </home/jordan/Bureau/Untitled_1.scad>;	
 Tx = 35;
 Ty = 20;
 Tz = 0;
@@ -20,9 +20,18 @@ module base()
 }*/
 
 module moteur_Brushless() {
-	translate([0,0,0]) rotate([0,90,0]) cylinder(d=45,h=40);
+	difference(){
+		
+		translate([0,0,0]) rotate([0,90,0]) cylinder(d=45,h=40);
+		translate([-1,-10,-16.3]) rotate([0,90,0]) cylinder(d=3,h=7);
+		translate([-1,10,3.7]) rotate([0,90,0]) cylinder(d=3,h=7);
+		translate([-1,-10,3.7]) rotate([0,90,0]) cylinder(d=3,h=7);
+		translate([-1,10,-16.3]) rotate([0,90,0]) cylinder(d=3,h=7);
+	}
 	translate([-1.7,0,-6.3]) rotate([0,90,0]) cylinder(d=19,h=1.7); 
 	translate([-25.5,0,-6.3]) rotate([0,90,0]) cylinder(d=8,h=25.5);
+	translate([28,-5,-25.5])cube([1,10,5]);
+	
 }
 
 /*module moteurs_DC() {
@@ -36,7 +45,7 @@ largeur_base = 200;
 longueur_base = 140;
 longueur_moteur = 40;
 milieu_l = largeur_base/2;
-ecart_moteur = 0;
+ecart_moteur = 2;
 module moteurs_Brushless(){
 	translate([milieu_l-(longueur_moteur+ecart_moteur/2),43,31.3])moteur_Brushless();
 	translate([milieu_l+ecart_moteur/2+longueur_moteur,43,31.3])mirror ([1,0,0])moteur_Brushless();
@@ -63,16 +72,16 @@ codeuse_epaisseur   = 10;
 codeur_diametre     = 21.6;
 codeur_epaisseur    = 12.5;
 module roue_codeuse() {
-    hull() {
+    /*hull() {
         cylinder(center=true,
                 d=codeuse_diametre*0.8,
                 h=codeuse_epaisseur);
         cylinder(center=true,
                 d=codeuse_diametre,
                 h=codeuse_epaisseur*0.5);
-    }
+    }*/
     // Axe
-    translate([0,0,codeuse_epaisseur/2])cylinder(d=3,h=8.5);
+    translate([0,0,codeuse_epaisseur/2])cylinder(d=6,h=8.5);
     // Codeur
     translate([0,0,codeuse_epaisseur/2 + 8.5]) {
         cylinder(d=codeur_diametre, h=codeur_epaisseur);
@@ -141,10 +150,11 @@ module fixations_coque() {
 	translate([140,13,5]) rotate([0,0,90]) fixation_coque_Equerre();
 }
 
-module fixation_etage(L) {
-	cube([25,L,5]); 
+module fixation_etage(L,e) {
+	 // e = epaisseur
+	cube([25,L,e]); 
 	difference() {
-		rotate([0,90,0])cube([20,L,5]);
+		rotate([0,90,0])cube([20,L,e]);
 		translate([-1,5,-10])rotate([0,90,0])cylinder(d=4,h=7);
 		translate([-1,L-5,-10])rotate([0,90,0])cylinder(d=4,h=7);
 	}
@@ -154,10 +164,10 @@ module fixation_etage(L) {
 	);	
 }
 
-module fixations_etage1(L,H_etage) {
-	translate([13,80,H_etage])fixation_etage(L);
-	translate([L+83,13,H_etage])rotate([0,0,90])fixation_etage(80);
-	translate([130+L,80+L,H_etage])rotate([0,0,-180])fixation_etage(L);
+module fixations_etage1(L,H_etage,e) {
+	translate([13,80,H_etage])fixation_etage(L,e);
+	translate([L+83,13,H_etage])rotate([0,0,90])fixation_etage(80,3);
+	translate([130+L,80+L,H_etage])rotate([0,0,-180])fixation_etage(L,e);
 }
 
 module fixations_etage2(H_etage) {	
@@ -240,19 +250,19 @@ module fixations_roues_codeuses () {
 base();
 //#moteurs_DC();
 // -->
-color ("red") moteurs_Brushless();
+//color ("red") moteurs_Brushless();
 color ("green") roues_codeuses();
 //color("grey")coque_exterieure();
 color ("orange") fixations_coque();
 //translate([milieu_l,111.9,-1.5])bille_jockey(); 
-billes_jockey();
+//billes_jockey();
 color("purple") etages();
-color("black") batterie();
-color("blue") fixations_etage1(57,60);
+//color("black") batterie();
+color("blue") fixations_etage1(57,60,3);
 color("blue") fixations_etage2(143);
 //color("pink") translate([0,120,70])rotate([0,90,90])capteur_US();
-color("brown")fixations_roues_codeuses();
-
+//color("brown")fixations_roues_codeuses();
+translate([-4,43,22])rotate([90,0,90])roue_codeuse_new();
 // -->
 roues();
 
@@ -290,12 +300,12 @@ module support90() {
             translate([0,0,-2])
                 cube([capteurUS_largeur,2,capteurUS_longueur+6]);
             
-            translate([0,0,-2])linear_extrude(height=2) {
+           /* translate([0,0,-2])linear_extrude(height=2) {
                 polygon([
                     [0,0],
                     [capteurUS_largeur,2],
                     [0, capteurUS_largeur]]);
-            }
+            }*/
            translate([0,0,capteurUS_longueur+2])linear_extrude(height=2) {
                 polygon([
                     [0,0],
@@ -323,7 +333,46 @@ module axes_verification(){
     translate([-35,0,0]) cylinder(d=8, h=350) ;
     
 }
-axes_verification()
+axes_verification();
 // attention dépasse un peu de la face avant
-translate([65,118,62])rotate([90,0,-90])supportUS();
-translate([159,118,62])rotate([90,0,-90])supportUS();
+//translate([65,118,62])rotate([90,0,-90])supportUS();
+//translate([159,118,62])rotate([90,0,-90])supportUS();
+
+module fixation_moteurs(){
+largeur_base = 84;
+longueur_base = 90;
+longueur_moteur = 40;
+milieu_l = largeur_base/2;
+ecart_moteur = 2;
+
+module moteur_Brushless() {
+	difference(){
+		union(){
+		translate([0,0,0]) rotate([0,90,0]) cylinder(d=47,h=40);
+		translate([-4,-10,-16.3]) rotate([0,90,0]) cylinder(d=3,h=10);
+		translate([-4,10,3.7]) rotate([0,90,0]) cylinder(d=3,h=10);
+		translate([-4,-10,3.7]) rotate([0,90,0]) cylinder(d=3,h=10);
+		translate([-4,10,-16.3]) rotate([0,90,0]) cylinder(d=3,h=10);
+	}
+	}
+	translate([-1.7,0,-6.3]) rotate([0,90,0]) cylinder(d=21,h=1.7); 
+	translate([-25.5,0,-6.3]) rotate([0,90,0]) cylinder(d=8,h=25.5);
+	
+}
+
+module moteurs_Brushless(){
+	translate([milieu_l-(longueur_moteur+ecart_moteur/2),0,0])moteur_Brushless();
+	translate([milieu_l+ecart_moteur/2+longueur_moteur,0,0])mirror([1,0,0])moteur_Brushless();
+}
+	difference(){
+
+		translate([86,-23.5,10])rotate([0,180,0])cube([88,47,36]);
+		translate([-4,-5,-11])cube([5,10,22]);
+		translate([82,-5,-11])cube([5,10,22]);
+		translate([0,0,0])moteurs_Brushless();
+		translate([83,-23.5,11])rotate([0,180,0])cube([82,47,16]);
+		translate([41,0,0])rotate([0,90,0])cylinder(d=45,h=2);
+		translate([29,-5,-26.5])rotate([0,0,0])cube([26,30,10]);
+	}
+}
+translate([58,43,31])fixation_moteurs();
