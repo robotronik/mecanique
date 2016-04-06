@@ -243,6 +243,30 @@ module support_rail() {
 
 }
 
+module plaque_plexi_cote(){
+    linear_extrude(height=300) polygon([[138, -110], [138, 54], [80, 113], [80, 110], [135, 54], [135, -110]]);
+}
+
+module plaque_plexi_av(){
+    linear_extrude(height=300) polygon([[138, -110], [138, -113], [-138, -113], [-138, -110]]);
+}
+
+module plaque_plexi_arr(){
+    linear_extrude(height=300) polygon([[80, 110], [80, 113], [-80, 113], [-80, 110]]);
+}
+
+module demi_pince(){
+    rotate([0, 0, -60]) cube([3, 70, 300]);
+    translate([0, -60, 0]) cube([3, 60, 300]);
+}
+
+
+/*** ELEMENTS ***/
+
+module palet(){
+    translate([0, -155, 0]) cylinder(d = 76.2, h = 25);
+}
+
 /*** AFFICHAGE ****/
 
 module projection_support_moteur(){
@@ -302,6 +326,33 @@ module projection_support_rail(){
     }
 }
 
+module projection_plaque_cote(){
+    projection(cut = false)
+    union(){
+        plaque_plexi_cote();
+        
+        translate([-300, 0, 0]) rotate([0, 90, 0]) plaque_plexi_cote();
+    }
+}
+
+module projection_plaque_arr(){
+    projection(cut = false)
+    union(){
+        translate([200, 0, 0]) rotate([0, 0, 90]) plaque_plexi_arr();
+        
+        translate([-300, 0, 0]) rotate([90, 0, 90]) plaque_plexi_arr();
+    }
+}
+
+module projection_plaque_av(){
+    projection(cut = false)
+    union(){
+        translate([200, 0, 0]) rotate([0, 0, -90]) plaque_plexi_av();
+        
+        translate([-100, 0, 0]) rotate([90, 0, -90]) plaque_plexi_av();
+    }
+}
+
 // Moteurs + roues
 
 placement();
@@ -329,10 +380,20 @@ support_moteur();
 rotate([0 , 0, 180 ])
     support_moteur();
 
-!projection(cut = false) plaque_base();
+projection(cut = false) plaque_base();
 
 plaque_sup();
 
+#plaque_plexi_cote();
+#mirror([1, 0, 0]) plaque_plexi_cote();
+#plaque_plexi_av();
+#plaque_plexi_arr();
+
+translate([120, -170, 0]) rotate([0, 0, 200]) demi_pince();
+mirror([1, 0, 0]) translate([120, -170, 0]) rotate([0, 0, 200]) demi_pince();
+palet();
+
+!projection_plaque_cote();
 
 translate([120, 0, 10]) supports_rails();
 
