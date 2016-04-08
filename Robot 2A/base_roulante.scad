@@ -255,11 +255,26 @@ module plaque_plexi_arr(){
     linear_extrude(height=300) polygon([[80, 110], [80, 113], [-80, 113], [-80, 110]]);
 }
 
+module plaque_plexi_up(){
+    translate([0, 0, 300])
+    difference() {
+        translate([-135,-110,7])
+          cube([270,220,plaque_epp]);
+    //translate([0,0,7+plaque_epp/2])
+        // Plaque principale
+        translate([77,47,2])
+      linear_extrude(height=10) polygon(points=[[65,65],[0,65],[65,0]]);
+                translate([-77,47,2])
+      linear_extrude(height=10) rotate([0,0,90]) polygon(points=[[65,65],[0,65],[65,0]]);
+        trous_profiles();
+        mirror([1,0,0]) trous_profiles();
+    }
+}
+
 module demi_pince(){
     rotate([0, 0, -60]) cube([3, 70, 300]);
     translate([0, -60, 0]) cube([3, 60, 300]);
 }
-
 
 /*** ELEMENTS ***/
 
@@ -353,6 +368,18 @@ module projection_plaque_av(){
     }
 }
 
+module projection_pince(){
+    projection(cut = false)
+    union(){
+        demi_pince();
+        translate([-400, 0, 0]) rotate([0, 90, 0]) demi_pince();
+    }
+}
+
+module projection_plaque_up(){
+    projection(cut = false) plaque_plexi_up();
+}
+
 // Moteurs + roues
 
 placement();
@@ -388,12 +415,13 @@ plaque_sup();
 #mirror([1, 0, 0]) plaque_plexi_cote();
 #plaque_plexi_av();
 #plaque_plexi_arr();
+#plaque_plexi_up();
 
 translate([120, -170, 0]) rotate([0, 0, 200]) demi_pince();
 mirror([1, 0, 0]) translate([120, -170, 0]) rotate([0, 0, 200]) demi_pince();
 palet();
 
-!projection_plaque_cote();
+!projection_pince();
 
 translate([120, 0, 10]) supports_rails();
 
