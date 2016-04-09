@@ -24,10 +24,11 @@ module chariot() {
         union() {
             echo(rails_distance/2-12.65);
             // Plaque principale
-            translate([-8.4-chariot_epaisseur/2,4.5-rails_distance/2, 0])
+            #translate([-8.4-chariot_epaisseur/2,4.5-rails_distance/2, 0])
                 cube([  chariot_epaisseur, rails_distance-9  , chariot_hauteur]);
             translate([-8.4-chariot_epaisseur/2,   -rails_distance/2, 0])
                 cube([  2, rails_distance  , chariot_hauteur]);
+            translate([-7,-8.5,0]) cube([1.8,17,15]);
 
             // Haut
             translate([-10.34,9-rails_distance/2, chariot_hauteur-2])
@@ -46,7 +47,7 @@ module chariot() {
 
         }
         translate([-8.5,0,6.5])
-            #translate([-11.4,0,0])roue_codeuse();
+            translate([-11.4,0,0])roue_codeuse();
 
         translate([-11, 4,-0.01])rotate([0,90,0])
             courbe(hauteur = delta_hauteur_chariot, ecartement = rails_distance-20, epaisseur = 20);
@@ -193,10 +194,19 @@ module support_codeur() {
         translate([0,-rails_distance/2,1])  cylinder(d = rails_diametre, h = 75);
     }
 
-    supports_rails();
-    translate([0,0,1+75+1]) rotate([180,0,0])supports_rails_haut();
+    //supports_rails();
+    //translate([0,0,1+75+1]) rotate([180,0,0])supports_rails_haut();
     //%translate([0,0,-3/2])cube([1000,1000,3], center=true);
 }
 
+module chariot_moins_epais() {
+    difference () {
+        support_codeur();
+        translate([-8,0,10]) rotate([0,-90,0]) cylinder(d=17,h=100);
+        translate([-1,-5,25]) #cube([8,10,10]);
+    }
+    
+}
 
-support_codeur();
+chariot_moins_epais();
+// support_codeur();
