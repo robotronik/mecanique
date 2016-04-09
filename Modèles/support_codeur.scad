@@ -2,6 +2,7 @@ $fn = 40;
 codeur_diam_pasdevis = 9.5;
 include <../Modèles/support_roulement_lineaire.scad>;
 include <roue_codeuse.scad>
+include <roue_codeuse_2016.scad>
 
 rails_distance      = 46;
 rails_diametre      =  8.23;
@@ -24,11 +25,11 @@ module chariot() {
         union() {
             echo(rails_distance/2-12.65);
             // Plaque principale
-            #translate([-8.4-chariot_epaisseur/2,4.5-rails_distance/2, 0])
-                cube([  chariot_epaisseur, rails_distance-9  , chariot_hauteur]);
+            translate([-8.4-chariot_epaisseur/2,4.5-rails_distance/2, -2])
+                cube([  chariot_epaisseur, rails_distance-9  , chariot_hauteur+2]);
             translate([-8.4-chariot_epaisseur/2,   -rails_distance/2, 0])
                 cube([  2, rails_distance  , chariot_hauteur]);
-            translate([-7,-8.5,0]) cube([1.8,17,15]);
+            translate([-6.1,0,9]) cube([2.2,25,22], center=true);
 
             // Haut
             translate([-10.34,9-rails_distance/2, chariot_hauteur-2])
@@ -47,13 +48,13 @@ module chariot() {
 
         }
         translate([-8.5,0,6.5])
-            translate([-11.4,0,0])roue_codeuse();
+            translate([-11.4,0,0])roue_codeuse_new();
 
-        translate([-11, 4,-0.01])rotate([0,90,0])
-            courbe(hauteur = delta_hauteur_chariot, ecartement = rails_distance-20, epaisseur = 20);
+        translate([-11, 4,-2.01])rotate([0,90,0])
+            courbe(hauteur = delta_hauteur_chariot+2, ecartement = rails_distance-20, epaisseur = 20);
         mirror([0,1,0])
-        translate([-11, 4,-0.01])rotate([0,90,0])
-            courbe(hauteur = delta_hauteur_chariot, ecartement = rails_distance-20, epaisseur = 20);
+        translate([-11, 4,-2.01])rotate([0,90,0])
+            courbe(hauteur = delta_hauteur_chariot+2, ecartement = rails_distance-20, epaisseur = 20);
     }
 }
 module cote() {
@@ -202,8 +203,9 @@ module support_codeur() {
 module chariot_moins_epais() {
     difference () {
         support_codeur();
-        translate([-8,0,10]) rotate([0,-90,0]) cylinder(d=17,h=100);
-        translate([-1,-5,25]) #cube([8,10,10]);
+        translate([-8,0,10]) rotate([0,-90,0]) #cylinder(d=17,h=10);
+        translate([-13,0,5]) #cube([10,30,15], center=true);
+        translate([-1,-5,25]) #cube([6,10,10]);
     }
     
 }
