@@ -1,3 +1,4 @@
+$fn=50;
 include <../Modèles/support_roulement_lineaire.scad>;
 include <roue_codeuse_2016.scad>
 rails_distance      = 46;
@@ -47,8 +48,8 @@ module chariot_a() {
     difference() {
     translate([-10, -demi_largeur_milieu, chariot_hauteur-14.4])
         cube([17, 2*demi_largeur_milieu, 2]);
-    translate([0, 0, chariot_hauteur-14.4])
-        cube([6,10,5], center=true);
+    translate([2, 0, chariot_hauteur-14.4])
+        cube([6,9,5], center=true);
     }
     
     translate([-10, -demi_largeur_milieu, delta_hauteur_chariot])
@@ -68,7 +69,7 @@ module chariot() {
         union() {
             chariot_a();
             translate([-10,-largeur_support/2, 0])
-                cube([5, largeur_support,delta_hauteur_chariot+5]);
+                #cube([6, largeur_support,delta_hauteur_chariot+5]);
         translate([-10, largeur_support/2+courbure,
             delta_hauteur_chariot-courbure])
             mirror([0,1,0])mirror([0,0,1])antiquartdecercle(courbure,4);
@@ -76,10 +77,10 @@ module chariot() {
             delta_hauteur_chariot-courbure])
             mirror([0,0,1])antiquartdecercle(courbure,4);
 
-        translate([-8, -largeur_support/2+0.3, delta_hauteur_chariot-9])
-            rotate([0,40,0])cube([3, 2.2, 20]);
+        translate([-8, -largeur_support/2-0.1, delta_hauteur_chariot-9])
+            rotate([0,40,0])cube([3, 2.6, 20]);
         translate([-8,  largeur_support/2-2.5, delta_hauteur_chariot-9])
-            rotate([0,40,0])cube([3, 2.2, 20]);
+            rotate([0,40,0])cube([3, 2.6, 20]);
 
         }
         
@@ -88,7 +89,7 @@ module chariot() {
         translate([-10,-largeur_support/2+courbure,courbure])
             mirror([0,1,0])antiquartdecercle(courbure,10);
         
-        translate([-19.9,0,8.5])roue_codeuse_new();
+        #translate([-18.8,0,8.5])roue_codeuse_new();
         translate([-8,0,8.5]) rotate([0,-90,0]) cylinder(d=17,h=10);
         translate([-13,0,5]) cube([10,largeur_support+2,10], center=true);
 
