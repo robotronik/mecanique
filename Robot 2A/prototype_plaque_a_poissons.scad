@@ -125,13 +125,13 @@ translate([-13+55, -39-e-1.25, 33]) rotate([0, 180, 0]) xl320();
 color("blue") translate([15, -70, 9]) support_servo_haut();
 color("green") translate([21, -70, 3]) support_servo_bas();
 
-translate([w-51, 0, 0]) mirror([1, 0, 0]) attache_plexi();
-translate([w-51, -e-1.25, e+e_pl/2+1.25]) mirror([1, 0, 0]) attache_acier();
-translate([-19+w-25, -39, 10.5]) mirror([1, 0, 0]) rotate([0, 180, 0]) xl320();
-translate([-13+w-25, -39-e-1.25, 33]) mirror([1, 0, 0]) rotate([0, 180, 0]) xl320();
+translate([w-58, 0, 0]) mirror([1, 0, 0]) attache_plexi();
+translate([w-58, -e-1.25, e+e_pl/2+1.25]) mirror([1, 0, 0]) attache_acier();
+translate([-19+w-32, -39, 10.5]) mirror([1, 0, 0]) rotate([0, 180, 0]) xl320();
+translate([-13+w-32, -39-e-1.25, 33]) mirror([1, 0, 0]) rotate([0, 180, 0]) xl320();
 
-color("blue") translate([w-11, -70, 9]) mirror([1, 0, 0]) support_servo_haut();
-color("green") translate([w-17, -70, 3]) mirror([1, 0, 0]) support_servo_bas();
+color("blue") translate([w-18, -70, 9]) mirror([1, 0, 0]) support_servo_haut();
+color("green") translate([w-25, -70, 3]) mirror([1, 0, 0]) support_servo_bas();
 }
 
 

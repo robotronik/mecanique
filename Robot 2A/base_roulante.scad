@@ -3,6 +3,7 @@ include <../Modèles/roue_codeuse.scad>
 include <../Modèles/roue_motrice.scad>;
 include <../Modèles/support_codeur.scad>
 include <../Modèles/stm32f4discovery.scad>
+include <prototype_plaque_a_poissons.scad>
 
 include <courroie.scad>
 include <roue_dentee.scad>;
@@ -256,7 +257,7 @@ module plaque_plexi_arr(){
 }
 
 module plaque_plexi_up(){
-    translate([0, 0, 300])
+    translate([0, 0, 290])
     difference() {
         translate([-135,-110,7])
           cube([270,220,plaque_epp]);
@@ -411,20 +412,27 @@ projection(cut = false) plaque_base();
 
 plaque_sup();
 
-#plaque_plexi_cote();
-#mirror([1, 0, 0]) plaque_plexi_cote();
-#plaque_plexi_av();
-#plaque_plexi_arr();
-#plaque_plexi_up();
+//plaque_plexi_cote();
+//mirror([1, 0, 0]) plaque_plexi_cote();
+//plaque_plexi_av();
+//plaque_plexi_arr();
+plaque_plexi_up();
 
 translate([120, -170, 0]) rotate([0, 0, 200]) demi_pince();
 mirror([1, 0, 0]) translate([120, -170, 0]) rotate([0, 0, 200]) demi_pince();
-palet();
+color("red") palet();
 
-!projection_pince();
+//projection_pince();
 
 translate([120, 0, 10]) supports_rails();
 
-color("silver") translate([124, 44, 0]) translate([0, 0, 60]) cube([12, 12, 100], center = true);
+color("silver") translate([124, 44, 0]) translate([0, 0, 150]) cube([12, 12, 300], center = true);
+color("silver") translate([-124, 44, 0]) translate([0, 0, 150]) cube([12, 12, 300], center = true);
+color("silver") translate([124, -100, 0]) translate([0, 0, 150]) cube([12, 12, 300], center = true);
+color("silver") translate([-124, -100, 0]) translate([0, 0, 150]) cube([12, 12, 300], center = true);
+color("silver") translate([45, 100, 0]) translate([0, 0, 150]) cube([12, 12, 300], center = true);
+color("silver") translate([-45, 100, 0]) translate([0, 0, 150]) cube([12, 12, 300], center = true);
+
+translate([177, 53, 101]) rotate([0, 0, -90]) ensemble();
 
 //translate([30,-48,20]) rotate([0,0,90])stm32f4();
