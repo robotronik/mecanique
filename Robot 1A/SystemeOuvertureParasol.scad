@@ -11,10 +11,11 @@ module rouleaux_1(L,D) {
 			translate([0,1.5,0])rotate([90,0,0])cube([L,D/2-1,3]);
 			translate([0,0,1.5])rotate([180,0,0])cube([L,D/2-1,3]);
 			translate([0,-1.5,0])rotate([-90,0,0])cube([L,D/2-1,3]);
+			translate([L,0,0])rotate([-90,0,90])cylinder(d=8, h=L+6);
 		}
-		translate([L+17,0,0])rotate([-90,0,90])cylinder(d=2.9, h=81);
+		translate([L+17,0,0])rotate([-90,0,90])cylinder(d=6.2, h=81);
 	}
-	translate([L+17,0,0])rotate([-90,0,90])#cylinder(d=2.8, h=81);
+	//translate([L+17,0,0])rotate([-90,0,90])#cylinder(d=2.8, h=81);
 
 }
 
@@ -25,13 +26,13 @@ module rouleaux_1(L,D) {
 module fixation_rouleau_1() {
 	difference() {
 
-		cube([25,30,3]);
+		cube([25,20,3]);
 		translate([5,10,-1])rotate([0,0,90]) rail(15);
-		translate([5,22.5,-1])rotate([0,0,90]) rail(15);
+		//translate([5,22.5,-1])rotate([0,0,90]) rail(15);
 	}
 	difference() {
 		translate([0,0,0])cube([25,3,33]);
-		translate([12.5,-1,25])rotate([-90,0,0])cylinder(d=10.2, h=5); // roulement a bille
+		translate([12.5,-1,25])rotate([-90,0,0])cylinder(d=17, h=5); // roulement a bille
 	}	
 }
 
@@ -57,9 +58,9 @@ module rail(L) {
 }
 
 module rouleau_1(L,D) {
-	translate([12.5,7,25])rotate([0,0,90])rouleaux_1(L,D);
+	translate([12.5,10,25])rotate([0,0,90])rouleaux_1(L,D);
 	fixation_rouleau_1();
-	translate([0,61,0])mirror([0,1,0])fixation_rouleau_1();
+	translate([0,41,0])mirror([0,1,0])fixation_rouleau_1();
 }
 
 /*module rouleau_2(L,D) {
@@ -68,5 +69,7 @@ module rouleau_1(L,D) {
 	translate([0,61,0])mirror([0,1,0])fixation_rouleau_2(15,-5);
 }*/
 
-rouleau_1(47,35);
-translate([37,0,0])rouleau_1(47,35);
+rouleau_1(27,35);
+fixation_rouleau_1();
+//rouleaux_1(27,35);
+//translate([37,0,0])rouleau_1(47,35);
