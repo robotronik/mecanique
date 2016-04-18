@@ -1,5 +1,6 @@
 $fn=50;
-use <roue_codeuse_2016.scad>;	
+use </home/jordan/robotronik/mecanique/Robot 1A/support_codeur_Robot1A.scad>;	
+use </home/jordan/Bureau/Untitled_5.scad>;
 Tx = 35;
 Ty = 20;
 Tz = 0;
@@ -51,7 +52,7 @@ module moteurs_Brushless(){
 	translate([milieu_l+ecart_moteur/2+longueur_moteur,43,31.3])mirror ([1,0,0])moteur_Brushless();
 }
 
-largeur_roue = 22;
+largeur_roue = 15;
 module roue() {
    difference() {
 	 rotate([0,90,0]) cylinder(d=72,h=largeur_roue);
@@ -66,37 +67,9 @@ module roues()
     translate([milieu_l+(ecart_moteur/2+longueur_moteur+ecart_RoueMot),23+Ty,25]) roue();
 }
 
-// copie d'un fichier mais modifie par la suite
-codeuse_diametre    = 41.2;
-codeuse_epaisseur   = 10;
-codeur_diametre     = 21.6;
-codeur_epaisseur    = 12.5;
-module roue_codeuse() {
-    /*hull() {
-        cylinder(center=true,
-                d=codeuse_diametre*0.8,
-                h=codeuse_epaisseur);
-        cylinder(center=true,
-                d=codeuse_diametre,
-                h=codeuse_epaisseur*0.5);
-    }*/
-    // Axe
-    translate([0,0,codeuse_epaisseur/2])cylinder(d=6,h=8.5);
-    // Codeur
-    translate([0,0,codeuse_epaisseur/2 + 8.5]) {
-        cylinder(d=codeur_diametre, h=codeur_epaisseur);
-        translate([codeur_diametre/2,0,codeur_epaisseur/2])
-            cube(center=true, [3,12,6]);
-    }
-	difference() {
-	translate([-10,-10,10])cube([50,20,3]);
-	translate([32.5,0,9])cylinder(h=5, d=6);
-	}
-}
-
 module roues_codeuses(){
-	translate([5,43,10])rotate ([0,-90,180])roue_codeuse();
-	mirror([1,0,0]) translate([-195,43,10])rotate ([0,-90,180])roue_codeuse();
+	translate([13,43,22])rotate ([0,-90,180])codeur_optique();
+	mirror([1,0,0]) translate([-195,43,10])rotate ([0,-90,180])codeur_optique();
 }
 
 module coque_exterieure() {
@@ -136,7 +109,7 @@ module fixations_coque() {
 	translate([3,80,5])fixation_coque_Barre();
 	translate([187,80,5]) fixation_coque_Barre();
 	
-	translate([13,80,5]) fixation_coque_Equerre();
+	/*translate([13,80,5]) fixation_coque_Equerre();
 	translate([13,90,5]) rotate([0,0,90]) fixation_coque_Equerre();
 	translate([13,127,5]) mirror([0,1,0]) rotate([0,0,90]) fixation_coque_Equerre();
 	translate([13,127,5]) fixation_coque_Equerre();
@@ -147,7 +120,7 @@ module fixations_coque() {
 	translate([70,3,5]) fixation_coque_Equerre();
 	translate([70,13,5]) rotate([0,0,90]) fixation_coque_Equerre();
 	translate([130,3,5])mirror([1,0,0]) fixation_coque_Equerre();
-	translate([140,13,5]) rotate([0,0,90]) fixation_coque_Equerre();
+	translate([140,13,5]) rotate([0,0,90]) fixation_coque_Equerre();*/
 }
 
 module fixation_etage(L,e) {
@@ -250,8 +223,8 @@ module fixations_roues_codeuses () {
 base();
 //#moteurs_DC();
 // -->
-//color ("red") moteurs_Brushless();
-color ("green") roues_codeuses();
+color ("red") moteurs_Brushless();
+//color ("green") roues_codeuses();
 //color("grey")coque_exterieure();
 color ("orange") fixations_coque();
 //translate([milieu_l,111.9,-1.5])bille_jockey(); 
@@ -262,9 +235,12 @@ color("blue") fixations_etage1(57,60,3);
 color("blue") fixations_etage2(143);
 //color("pink") translate([0,120,70])rotate([0,90,90])capteur_US();
 //color("brown")fixations_roues_codeuses();
-translate([-4,43,22])rotate([90,0,90])roue_codeuse_new();
+translate([27,42,5])rotate([0,0,0])support_codeur();
+translate([2,79,80])rotate([0,0,-90])fixation_roue_codeuse_gauche_Robot1A();
+mirror([1,0,0])translate([-173,43.5,5])rotate([0,0,0])support_codeur();
+translate([198,79,80])fixation_roue_codeuse_droite_Robot1A();
 // -->
-roues();
+//roues();
 
 
 // copie d'un fichier mais modifie
@@ -375,4 +351,4 @@ module moteurs_Brushless(){
 		translate([29,-5,-26.5])rotate([0,0,0])cube([26,30,10]);
 	}
 }
-translate([58,43,31])fixation_moteurs();
+//translate([58,43,31])fixation_moteurs();
