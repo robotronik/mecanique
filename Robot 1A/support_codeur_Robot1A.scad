@@ -18,6 +18,8 @@ dim_supports_roulements_carres = roulements_diametre ;
 support_rails_larg  = rails_diametre+10;
 support_rails_epp   = 3;
 
+offset=0.25;
+
 
 module chariot() {
     difference() {
@@ -91,6 +93,8 @@ module supports_rails() {
     difference() {
         union() {
 		translate([-9.115,20,0])cube([18.23,30,3]);
+		// pour renforcer la piece
+		translate([-11.2,-codeur_diametre-3.4,0])cube([3, codeur_diametre*3.5, support_rails_epp]);
             hull() {
                 translate([0,0,support_rails_epp/2])
                 cube([support_rails_larg,rails_distance, support_rails_epp], center=true);
@@ -105,9 +109,9 @@ module supports_rails() {
                     cylinder(d = diametre_vis + 4, h = support_rails_epp);
             }
             translate([0, rails_distance/2,support_rails_epp]) difference()
-                cylinder(d = rails_diametre+7, h = 11);
+              #  cylinder(d = rails_diametre+7, h = 7);
             translate([0,-rails_distance/2,support_rails_epp]) difference()
-                cylinder(d = rails_diametre+7, h = 11);
+                cylinder(d = rails_diametre+7, h = 7);
 
             translate([0, rails_distance/2,support_rails_epp]) difference()
                 cylinder(d1 = support_rails_larg,d2 = rails_diametre+7, h = 3);
@@ -117,14 +121,14 @@ module supports_rails() {
         // Pour que le codeur puisse aller plus bas
            //cube([support_rails_larg-4, codeur_diametre, 2.1*support_rails_epp], center=true);
             //rotate([0,90,0]) cylinder(d=codeur_diametre, h=support_rails_larg-4, center=true);
-			translate([-6.5,-codeur_diametre/2,0])#cube([support_rails_larg-5.5, codeur_diametre, 2.1*support_rails_epp]);
+			translate([-6.5,-codeur_diametre/2,0])cube([support_rails_larg-2, codeur_diametre, 2.1*support_rails_epp]);
 
         // Supports de barres
-        translate([0, rails_distance/2,1])     # cylinder(d = rails_diametre-1,    h = 50);
-        translate([0, rails_distance/2,-0.1])   cylinder(d = rails_diametre-2,  h = 50);
+        translate([0, rails_distance/2,1])      cylinder(d = rails_diametre+offset,    h = 50);
+        translate([0, rails_distance/2,-0.1])   #cylinder(d = rails_diametre-2,  h = 50);
         translate([0, rails_distance/2,8])      rotate([0,90,0]) cylinder(d=2,h=10);
 
-        translate([0,-rails_distance/2,1])      #cylinder(d = rails_diametre-1,    h = 50);
+        translate([0,-rails_distance/2,1])      cylinder(d = rails_diametre+offset,    h = 50);
         translate([0,-rails_distance/2,-0.1])   cylinder(d = rails_diametre-2,  h = 50);
         translate([0,-rails_distance/2,8])      rotate([0,90,0]) cylinder(d=2,h=10);
 
@@ -213,6 +217,7 @@ module support_codeur() {
     //%translate([0,0,-3/2])cube([1000,1000,3], center=true);
 }
 supports_rails();
+//mirror([1,0,0])supports_rails();
 //supports_rails_haut();
 //support_codeur();
 //chariot();
