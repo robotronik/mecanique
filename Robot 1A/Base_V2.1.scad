@@ -1,5 +1,6 @@
 $fn=50;
 use </home/jordan/robotronik/mecanique/Robot 1A/support_codeur_Robot1A.scad>;	
+use </home/jordan/robotronik/mecanique/Robot 1A/support_toit.scad>;
 use </home/jordan/Bureau/Untitled_5.scad>;
 Tx = 35;
 Ty = 20;
@@ -235,10 +236,11 @@ color("blue") fixations_etage1(57,60,3);
 color("blue") fixations_etage2(143);
 //color("pink") translate([0,120,70])rotate([0,90,90])capteur_US();
 //color("brown")fixations_roues_codeuses();
-translate([27,42,5])rotate([0,0,0])support_codeur();
-translate([2,79,80])rotate([0,0,-90])fixation_roue_codeuse_gauche_Robot1A();
-mirror([1,0,0])translate([-173,43.5,5])rotate([0,0,0])support_codeur();
-translate([198,79,80])fixation_roue_codeuse_droite_Robot1A();
+//translate([27,42,5])rotate([0,0,0])support_codeur();
+//translate([2,79,80])rotate([0,0,-90])fixation_roue_codeuse_gauche_Robot1A();
+//mirror([1,0,0])translate([-173,43.5,5])rotate([0,0,0])support_codeur();
+//translate([198,79,80])fixation_roue_codeuse_droite_Robot1A();
+translate([2.9,137,180])rotate([180,0,0])fixation_toit();
 // -->
 //roues();
 

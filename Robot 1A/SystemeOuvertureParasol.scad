@@ -3,7 +3,7 @@ $fn=190;
 module rouleaux_1(L,D) {
 	difference() {
 		rotate([0,90,0])cylinder(d=D, h=L);
-		translate([-1,0,0])rotate([0,90,0])cylinder(d=32, h=L+2);
+		translate([-1,0,0])rotate([0,90,0])cylinder(d=D-3, h=L+2);
 	}
 	difference() {
 		union () {	
@@ -32,7 +32,7 @@ module fixation_rouleau_1() {
 	}
 	difference() {
 		translate([0,0,0])cube([25,3,33]);
-		translate([12.5,-1,25])rotate([-90,0,0])cylinder(d=17, h=5); // roulement a bille
+		translate([12.5,-1,23])rotate([-90,0,0])cylinder(d=16.35, h=5); // roulement a bille 16.5 avant
 	}	
 }
 
@@ -51,9 +51,9 @@ module fixation_rouleau_1() {
 
 module rail(L) {
 	rotate([0,-90,-180]) {
-	cube([7,L,5]);
-	translate([0,0,2.5])rotate([0,90,0])cylinder(d=5, h=7);
-	translate([0,L,2.5])rotate([0,90,0])cylinder(d=5, h=7);
+	#translate([0,0,0.4])cube([7,L,4.2]);
+	translate([0,0,2.5])rotate([0,90,0])cylinder(d=4.2, h=7);
+	translate([0,L,2.5])rotate([0,90,0])cylinder(d=4.2, h=7);
 	}
 }
 
@@ -69,7 +69,15 @@ module rouleau_1(L,D) {
 	translate([0,61,0])mirror([0,1,0])fixation_rouleau_2(15,-5);
 }*/
 
-rouleau_1(27,35);
-fixation_rouleau_1();
-//rouleaux_1(27,35);
+module fixation_roulement_rouleau(){
+
+	cylinder(h=20,r1=5/2,r2=4.3/2);
+	//translate([0,0,20])cylinder(h=20,r1=6/2,r2=4.5/2);
+}
+
+color("grey")translate([12.5,0,25])rotate([90,0,180])fixation_roulement_rouleau();
+//rouleau_1(20,35);
+//fixation_rouleau_1();
+//rouleaux_1(20,35);
 //translate([37,0,0])rouleau_1(47,35);
+
