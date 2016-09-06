@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:lc="http://www.librecad.org" xmlns:xlink="http://www.w3.org/1999/xlink" width="270mm" height="300mm" viewBox="0 0 270 300">
+    <g lc:layername="0" lc:is_locked="false" lc:is_construction="false" fill="none" stroke="black" stroke-width="1">
+        <line x1="270" y1="0" x2="0" y2="0"/>
+        <line x1="0" y1="0" x2="0" y2="300"/>
+        <line x1="0" y1="300" x2="270" y2="300"/>
+        <line x1="270" y1="300" x2="270" y2="0"/>
+        <line x1="35" y1="200" x2="35" y2="150"/>
+        <line x1="35" y1="150" x2="235" y2="150"/>
+        <line x1="235" y1="150" x2="235" y2="200"/>
+        <line x1="235" y1="200" x2="35" y2="200"/>
+    </g>
+</svg>
