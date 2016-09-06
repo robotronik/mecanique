@@ -42,13 +42,24 @@ module roue()
         
         translate([0, 0, 7]) cylinder(h=2, d=15, center = true);
         
-        translate([0, 0, 10]) for(i=[0:4]){
-            rotate([0, 0, i*360/5]) linear_extrude(height=0.5) polygon([[10*cos(120), 10*sin(120)], [10*cos(60), 10*sin(60)], [0, 30]]);
+        translate([0, 0, 10]) difference(){
+            for(i=[0:4]){
+                rotate([0, 0, i*360/5]) linear_extrude(height=0.5) polygon([[10*cos(120), 10*sin(120)], [10*cos(60), 10*sin(60)], [0, 30]]);
+                rotate([0, 90, i*360/5]) linear_extrude(height=0.5) polygon([[0, 0], [10, 25], [0, 25]]);
+            }
             
+             linear_extrude(height=7, center = true, scale = 2) circle(d=11, center = true);
         }
     }
 }
 
-roue();
+module moteur()
+{
+    
+    
+    
+}
 
-#translate([0, 0, 30]) linear_extrude(height=0.5) polygon([0, 10], [5, 30], [0, 30]);
+rotate([0, 90, 0]) roue();
+
+
