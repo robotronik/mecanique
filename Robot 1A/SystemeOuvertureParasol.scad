@@ -75,9 +75,26 @@ module fixation_roulement_rouleau(){
 	//translate([0,0,20])cylinder(h=20,r1=6/2,r2=4.5/2);
 }
 
-color("grey")translate([12.5,0,25])rotate([90,0,180])fixation_roulement_rouleau();
+module arret_cable(L,D){
+difference() {
+		rotate([0,90,0])cylinder(d=D, h=L);
+		translate([-1,0,0])rotate([0,90,0])cylinder(d=D-10, h=L+2);
+	}
+	difference() {
+		union () {	
+			translate([0,0,-1.5])cube([L,D/2-1,3]);
+			translate([0,1.5,0])rotate([90,0,0])cube([L,D/2-1,3]);
+			translate([0,0,1.5])rotate([180,0,0])cube([L,D/2-1,3]);
+			translate([0,-1.5,0])rotate([-90,0,0])cube([L,D/2-1,3]);
+			//translate([L,0,0])rotate([-90,0,90])cylinder(d=8, h=L);
+		}
+		translate([L+17,0,0])rotate([-90,0,90])cylinder(d=16.2, h=81);
+	}
+}
+
+//color("grey")translate([12.5,0,25])rotate([90,0,180])fixation_roulement_rouleau();
 //rouleau_1(20,35);
 //fixation_rouleau_1();
 //rouleaux_1(20,35);
 //translate([37,0,0])rouleau_1(47,35);
-
+arret_cable(2,40);

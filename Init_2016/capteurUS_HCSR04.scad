@@ -1,4 +1,4 @@
-$fn=100;
+$fn=200;
 
 module capteurUS_HCSR04(){
 	difference(){
