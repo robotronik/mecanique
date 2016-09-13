@@ -1,6 +1,5 @@
-$fn=200;
-
-module capteurUS_HCSR04(){
+module capteurUS_HCSR04(fn){
+	$fn=fn;
 	difference(){
 		color("Royalblue")cube([45,20,1.5]);
 		color("Royalblue")translate([0.85,0.85,-0.1])cylinder(d=1.5,h=1.7);
@@ -10,14 +9,14 @@ module capteurUS_HCSR04(){
 	}
 	difference(){
 		color("lightgray")translate([9.5,10,1.5])cylinder(d=16,h=12);
-		color("lightgray")translate([9.5,10,1.5])cylinder(d=15,h=12.1);
+		color("lightgray")translate([9.5,10,1.5])cylinder(d=14,h=12.1);
 	}
 	difference(){
 		color("lightgray")translate([45-9.5,10,1.5])cylinder(d=16,h=12);
-		color("lightgray")translate([45-9.5,10,1.5])cylinder(d=15,h=112.1);
+		color("lightgray")translate([45-9.5,10,1.5])cylinder(d=14,h=112.1);
 	}
-	color("black")translate([9.5,10,1.5])cylinder(d=15,h=11);
-	color("black")translate([45-9.5,10,1.5])cylinder(d=15,h=11);
+	color("black")translate([9.5,10,1.5])cylinder(d=14,h=11);
+	color("black")translate([45-9.5,10,1.5])cylinder(d=14,h=11);
 	color("silver")translate([45/2-10.8/2,0.8,1.5])quartz();
 	for(i=[0:3])mirror([0,0,1])translate([2.56+17.35+2.56*i,20-2.56,0])rotate([0,0,90])connecteur_coude_V2();
 	//rotate([0,-180,0])translate([-10.3-17.35,20-2.56,0])connecteur_coude_V1();
@@ -51,4 +50,4 @@ module connecteur_coude_V2(Length,num){
 	translate([2.56/2,(pin_diam+2.56)/2,pin_diam/2+3.16])rotate([90,0,0])cylinder(d=pin_diam,h=pin_diam);}
 }
 
-capteurUS_HCSR04();
+capteurUS_HCSR04(50);

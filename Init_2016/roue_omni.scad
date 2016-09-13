@@ -1,6 +1,5 @@
-$fn=100;
-
-module bille_jockey() {
+module bille_jockey(fn) {
+	$fn=fn;
 	color("gold") difference() {
         union(){
             cylinder(d=31, h=2, center = true);
@@ -37,5 +36,5 @@ module bille_jockey() {
     color("lightgrey") translate([0, 0, -8+4]) sphere(d=14.3);
 }
 
-bille_jockey();
+bille_jockey(50);
 

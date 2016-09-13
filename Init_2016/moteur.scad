@@ -1,8 +1,7 @@
-$fn = 100;
-
-module roue()
+module roue(fn)
 {
-    color("grey") rotate_extrude(angle=360) 
+    $fn = fn;
+	color("grey") rotate_extrude(angle=360) 
     difference(){
         intersection(){
             translate([17, 0, 0]) square([34, 26], center = true);
@@ -53,9 +52,10 @@ module roue()
     }
 }
 
-module moteur()
+module moteur(fn)
 {
-        translate([0, -37/2+11.2, 0]) union(){
+       $fn = fn;
+	   translate([0, -37/2+11.2, 0]) union(){
         color("yellow") difference(){
             cube([18.6, 37, 22.4], center = true);  
         
@@ -133,8 +133,8 @@ module moteur()
     }
 }
 
-translate([-27.5, 0, 0]) rotate([0, -90, 0]) roue();
+translate([-27.5, 0, 0]) rotate([0, -90, 0]) roue(50);
 
-moteur();
+moteur(50);
 
 
