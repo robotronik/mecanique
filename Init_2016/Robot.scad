@@ -1,18 +1,6 @@
-$fn = 50;
+use <capteurUS_HCSR04.scad>;
 
 path = "/home/jordan/"; // chemin vers le dossier robotronik
-
-// utilisation de modules définis dans d'autres fichiers
-
-//use <moteur.scad>;
-use <nano.scad>;
-//use <roue_omni.scad>;
-use <capteurUS_HCSR04.scad>;
-use <capteur_CNY70.scad>;
-use <driver_L293D.scad>;
-//use <breadboard.scad>;
-
-// utilisation de fichier STL pour optimiser les performances
 
 module moteur(){
 color("lightgrey")import(str(path,"robotronik/mecanique/Init_2016/STL/Moteur.stl"));
@@ -37,8 +25,17 @@ color("green")import(str(path,"robotronik/mecanique/Init_2016/STL/Breadboard_1.s
 color("khaki")import(str(path,"robotronik/mecanique/Init_2016/STL/Breadboard_contacts.stl"));
 }
 
-// Déclaration des modules utilisés pour modéliser le robot
+module fixations_capteurUS(){
+import(str(path,"robotronik/mecanique/Init_2016/STL/Fixations_capteurUS.stl"));
+}
+/*moteur();
+roue();
+bille_jockey();
+breadbord();*/
 
+module base(){
+color("chartreuse")import(str(path,"robotronik/mecanique/Init_2016/STL/Base.stl"));
+}
 module power_train(fn){
 
 translate([39, 0, 0]) union(){
@@ -55,7 +52,7 @@ translate([70, 0, 0]) mirror([1, 0, 0]) union(){
 }
 
 module equerre_fixation(lc1,lc2,L,e,diam_vis){
-	 // e = epaisseur / lc1 = hauteur équerre / lc2 = longueur base équerre / L = largeur équerre
+	 // e = epaisseur
 	difference(){
 		cube([lc1,L,e]);
 		translate([5+1.7/2,L/2,-2])rotate([0,0,0])cylinder(d=diam_vis,h=7);	
@@ -72,18 +69,6 @@ module equerre_fixation(lc1,lc2,L,e,diam_vis){
 	);	
 }
 
-module fixations_capteurUS(){
-	difference(){
-		union(){
-			translate([-2.85,1.5,-5])rotate([0,-90,-90])equerre_fixation(26,8,4,2,1.5);
-			translate([-46.15,1.5,-5])rotate([0,-90,-90])equerre_fixation(26,8,4,2,1.5);
-		}
-		union(){
-			translate([-9.5,4,10])rotate([90,0,0])cylinder(d=17,h=3,$fn=100);
-			translate([-35.5,4,10])rotate([90,0,0])cylinder(d=17,h=3,$fn=100);
-		}
-	}
-}
 
 module fixation_moteur_1(){
 	difference(){
@@ -192,13 +177,13 @@ module fixation_moteur_2_V2(){
 }
 
 module fixation_breadboard_1(){
-	translate([0,0,5])cube([2,5,35]);
+	cube([2,5,40]);
 	difference(){
 		translate([0,0,38])cube([60,5,2]);
 		translate([12.2,2.5,37.5])rotate([0,0,0])cylinder(d=2,h=3);
 		translate([47.8,2.5,37.5])rotate([0,0,0])cylinder(d=2,h=3);
 	}
-	translate([58,0,5])cube([2,5,35]);
+	translate([58,0,0])cube([2,5,40]);
 	translate([2,0,5+1.5])rotate([180,0,180])equerre_fixation(9,10,5,2,3);
 	translate([58,5,5+1.5])rotate([180,0,0])equerre_fixation(9,10,5,2,3);
 }
@@ -209,7 +194,7 @@ module fixation_breadboard_2(){
 }
 
 module robot_sumo(){	
-	translate([-4.5,25,16.2])power_train();
+	translate([-4.5,25,16.2])power_train(7);
 	translate([0.5,5,0]){
 		color("red")fixation_moteur_V2();
 		translate([26,6.3,-1])cylinder(d=3,h=10);
@@ -232,12 +217,12 @@ module robot_sumo(){
 		}
 	}
 	translate([50,87,-1])rotate([0,0,180]){
-		rotate([0,0,-30])bille_jockey(50);
+		rotate([0,0,-30])bille_jockey();
 		for(i=[0:2]){translate([12.6*cos(i*120-30),12.6*sin(i*120-30),-3])cylinder(d=3,h=10);}
 	}
 	translate([(100-45)/2,1,10]){
 		rotate([0,0,180])fixations_capteurUS();
-		rotate([90,0,0])capteurUS_HCSR04(30);
+		rotate([90,0,0])capteurUS_HCSR04(50);
 	}
 	translate([28.3,5.5,-1])cylinder(d=1.5,h=10);
 	translate([71.65,5.5,-3])cylinder(d=1.5,h=10);
@@ -245,7 +230,7 @@ module robot_sumo(){
 	//translate([47.5,2.5,5])fixation_breadboard_2();
 }
 
-module base(){
+/*module base(){
 	difference(){
 		union(){
 			translate([0,-10,0])cube([100,110,5]);
@@ -257,8 +242,8 @@ module base(){
 		translate([0,0,0.1])robot_sumo();
 	}
 	
-}
+}*/
 
 //-->
 translate([0,20,0])robot_sumo();
-//translate([0,20,0])base();
+translate([0,0,0])base();

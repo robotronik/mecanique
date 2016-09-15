@@ -24,4 +24,4 @@ for(i=[1:12]){
 }
 }
 
-breadboard(20);
+breadboard(100);
