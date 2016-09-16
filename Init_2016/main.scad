@@ -4,17 +4,17 @@ path = "/home/jordan/"; // chemin vers le dossier robotronik
 
 // utilisation de modules définis dans d'autres fichiers
 
-//use <moteur.scad>;
+use <moteur.scad>;
 use <nano.scad>;
-//use <roue_omni.scad>;
+use <roue_omni.scad>;
 use <capteurUS_HCSR04.scad>;
 use <capteur_CNY70.scad>;
 use <driver_L293D.scad>;
-//use <breadboard.scad>;
+use <breadboard.scad>;
 
 // utilisation de fichier STL pour optimiser les performances
 
-module moteur(){
+/*module moteur(){
 color("lightgrey")import(str(path,"robotronik/mecanique/Init_2016/STL/Moteur.stl"));
 color("grey")import(str(path,"robotronik/mecanique/Init_2016/STL/Axe_moteur.stl"));
 color("white")import(str(path,"robotronik/mecanique/Init_2016/STL/Coque_moteur_et_axe_reducteur.stl"));
@@ -35,7 +35,7 @@ color("lightgrey")import(str(path,"/robotronik/mecanique/Init_2016/STL/Roue_omni
 module breadboard(){
 color("green")import(str(path,"robotronik/mecanique/Init_2016/STL/Breadboard_1.stl"));
 color("khaki")import(str(path,"robotronik/mecanique/Init_2016/STL/Breadboard_contacts.stl"));
-}
+}*/
 
 // Déclaration des modules utilisés pour modéliser le robot
 
@@ -160,10 +160,13 @@ module fixation_moteur_1_V2(){
 		union(){
 			//translate([0,0,13])rotate([90,0,90])cube([10,12.5,2]);
 			//translate([-19.5,-15,25.5-3])cube([19.5,25,3]);
-			translate([-22.5,-25,0])cube([2,35,23]);
+			translate([-22.5,-25,0])cube([2,35,25]);
 			translate([-29.5,-25,0])cube([9,15,3]);
 		}
-	//translate([-22.7,4.5,2])rotate([0,90,0])cylinder(d=3,h=25);
+			translate([-22.6,-25.1,12.1])minkowski(){
+				cube([1.1,20,17]);
+				rotate([0,90,0])cylinder(d=4,h=1.1);
+			}
 	translate([-22.7,4.5,20.4])rotate([0,90,0])cylinder(d=3,h=25);
 
 	translate([-29.5+3.5,-26.5+3+2,-10])cylinder(d=3,h=25);
@@ -178,10 +181,13 @@ module fixation_moteur_2_V2(){
 			union(){
 				//rotate([90,0,90])cube([10,25.5,2]);
 				//translate([-19.5,-15,25.5-3])cube([19.5,25,3]);
-				translate([-22.5,-25,0])cube([2,35,23]);
-				translate([-29.5,-10,0])cube([10,20,3]);
+				translate([-22.5,-25,0])cube([2,35,25]);
+				translate([-29.5,-10,0])cube([9,20,3]);
 			}
-		//translate([-22.7,4.5,2])rotate([0,90,0])cylinder(d=3,h=25);
+			translate([-22.6,-25.1,12.1])minkowski(){
+				cube([1.1,20,17]);
+				rotate([0,90,0])cylinder(d=4,h=1.1);
+			}
 		translate([-22.7,4.5,20.4])rotate([0,90,0])cylinder(d=3,h=25);
 
 		translate([-29.5+3.5,-26.5+3+2+11.5,-10])cylinder(d=3,h=25);
@@ -248,12 +254,14 @@ module robot_sumo(){
 module base(){
 	difference(){
 		union(){
-			translate([0,-10,0])cube([100,110,5]);
-			translate([50,-10,0])resize(newsize=[0,20,0])cylinder(d=100,h=5, $fn=25);
-			translate([50,100,0])resize(newsize=[0,15,0])cylinder(d=100,h=5,$fn=25);
+			translate([0,-10,0])cube([100,110,2]);
+			translate([50,-10,0])resize(newsize=[0,20,0])cylinder(d=100,h=2, $fn=25);
+			translate([50,100,0])resize(newsize=[0,15,0])cylinder(d=100,h=2,$fn=25);
 		}
 		translate([-0.1,-10,-0.1])cube([22,70,6]);
 		translate([-0.1+78.2,-10,-0.1])cube([22,70,6]);
+		translate([30,-10,-0.1])cube([40,15,2.2]);
+		translate([30,50,-0.1])cube([40,15,2.2]);
 		translate([0,0,0.1])robot_sumo();
 	}
 	
