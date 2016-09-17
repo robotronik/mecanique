@@ -1,4 +1,4 @@
-$fn = 50;
+$fn = 30;
 
 path = "/home/jordan/"; // chemin vers le dossier robotronik
 
@@ -152,47 +152,27 @@ module fixation_moteur_V2(){
 		rotate([0,-90,180])equerre_fixation_moteur(15,7,5,2,3);
 	}
 	translate([75.4,35.8,5])fixation_moteur_1_V2();
-	translate([23.4,35.8,5])fixation_moteur_2_V2();
 }
 
 module fixation_moteur_1_V2(){
 	difference(){
 		union(){
-			//translate([0,0,13])rotate([90,0,90])cube([10,12.5,2]);
-			//translate([-19.5,-15,25.5-3])cube([19.5,25,3]);
 			translate([-22.5,-25,0])cube([2,35,25]);
-			translate([-29.5,-25,0])cube([9,15,3]);
+			translate([-29.5,-25,0])cube([9,35,3]);
+			translate([-31.5,-25,0])cube([2,35,25]);
 		}
-			translate([-22.6,-25.1,12.1])minkowski(){
-				cube([1.1,20,17]);
-				rotate([0,90,0])cylinder(d=4,h=1.1);
-			}
-	translate([-22.7,4.5,20.4])rotate([0,90,0])cylinder(d=3,h=25);
+		translate([-22.6,-25.1,12.1])minkowski(){
+			cube([1.1,20,17]);
+			rotate([0,90,0])cylinder(d=4,h=1.1);
+		}
+		translate([-31.6,-25.1,12.1])minkowski(){
+			cube([1.1,20,17]);
+			rotate([0,90,0])cylinder(d=4,h=1.1);
+		}
+	translate([-35.7,4.5,20.4])rotate([0,90,0])cylinder(d=3,h=25);
 
 	translate([-29.5+3.5,-26.5+3+2,-10])cylinder(d=3,h=25);
 	translate([-29.5+3.5,-26.5+3+13.5,-10])cylinder(d=3,h=25);
-	}
-
-}
-
-module fixation_moteur_2_V2(){
-	mirror([1,0,0]){
-		difference(){
-			union(){
-				//rotate([90,0,90])cube([10,25.5,2]);
-				//translate([-19.5,-15,25.5-3])cube([19.5,25,3]);
-				translate([-22.5,-25,0])cube([2,35,25]);
-				translate([-29.5,-10,0])cube([9,20,3]);
-			}
-			translate([-22.6,-25.1,12.1])minkowski(){
-				cube([1.1,20,17]);
-				rotate([0,90,0])cylinder(d=4,h=1.1);
-			}
-		translate([-22.7,4.5,20.4])rotate([0,90,0])cylinder(d=3,h=25);
-
-		translate([-29.5+3.5,-26.5+3+2+11.5,-10])cylinder(d=3,h=25);
-		translate([-29.5+3.5,-26.5+3+10+15,-10])cylinder(d=3,h=25);
-		}
 	}
 
 }
@@ -226,9 +206,9 @@ module robot_sumo(){
 		translate([49.4,25.8,-1])cylinder(d=3,h=10);
 		translate([49.4,37.3,-1])cylinder(d=3,h=10);
 	}
-	//translate([40,60,45])rotate([0,0,-90])nano(5);
-	//translate([0,0,0])rotate([180,0,0])CNY70();
-	//translate([0,0,0])L293D();
+	translate([40,60,45])rotate([0,0,-90])nano(5);
+	translate([0,0,0])rotate([180,0,0])CNY70();
+	translate([0,0,0])L293D();
 	translate([0,10,0]){
 		translate([30,10,40])breadboard();
 		translate([20,65.3,0.5]){
@@ -254,14 +234,17 @@ module robot_sumo(){
 module base(){
 	difference(){
 		union(){
-			translate([0,-10,0])cube([100,110,2]);
-			translate([50,-10,0])resize(newsize=[0,20,0])cylinder(d=100,h=2, $fn=25);
-			translate([50,100,0])resize(newsize=[0,15,0])cylinder(d=100,h=2,$fn=25);
+			translate([0,-10,0])cube([100,110,5]);
+			translate([50,-10,0])resize(newsize=[0,20,0])cylinder(d=100,h=5, $fn=25);
+			translate([50,100,0])resize(newsize=[0,15,0])cylinder(d=100,h=5,$fn=25);
 		}
 		translate([-0.1,-10,-0.1])cube([22,70,6]);
 		translate([-0.1+78.2,-10,-0.1])cube([22,70,6]);
-		translate([30,-10,-0.1])cube([40,15,2.2]);
-		translate([30,50,-0.1])cube([40,15,2.2]);
+
+		// pour le prototype
+		/*translate([30,-10,-0.1])cube([40,15,2.2]);
+		translate([30,50,-0.1])cube([40,15,2.2]);*/
+
 		translate([0,0,0.1])robot_sumo();
 	}
 	
@@ -269,4 +252,4 @@ module base(){
 
 //-->
 translate([0,20,0])robot_sumo();
-//translate([0,20,0])base();
+translate([0,20,0])base();
